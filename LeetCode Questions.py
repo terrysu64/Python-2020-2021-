@@ -111,7 +111,106 @@ def solution3(integer):
         Value += Numeral_count[x] * Roman_values[x]
 
     print(Value)
+    
+#Date: January 1, 2021
+#Q4 Determine if a 9 x 9 Sudoku board is valid. Only the filled cells need to be validated according to the following rules:
+
+#1. Each row must contain the digits 1-9 without repetition.
+#2. Each column must contain the digits 1-9 without repetition.
+#3. Each of the nine 3 x 3 sub-boxes of the grid must contain the digits 1-9 without repetition.
+#Note:
+
+#A Sudoku board (partially filled) could be valid but is not necessarily solvable.
+#Only the filled cells need to be validated according to the mentioned rules.
+
+def solution4(board):
+
+    false_count = 0
+
+    #check rows
+    for row in board:
         
+        for index1, element in enumerate(row):
+            
+            for index2, other in enumerate(row):
+                if element == other and index1 != index2 and element != '.':
+                    false_count += 1
+
+    #check columns
+    column_list = []
+    
+    for x in range(0,9):
+        
+        for column in range(0,9):
+            column_list.append(board[column][x])
+            
+        for index1, element in enumerate(column_list):
+            
+            for index2, other in enumerate(column_list):
+                if element == other and index1 != index2 and element != '.':
+                    false_count += 1
+            column_list = [] 
+
+    #check each box
+
+    box_list = []
+        
+    #first column of boxes
+    for box_num in [0,3,6]:
+        
+        for x in range(box_num, box_num + 3):
+        
+            for y in range(0,3):
+                box_list.append(board[x][y])
+
+        for index1, element in enumerate(box_list):
+            
+            for index2, other in enumerate(box_list):
+                if element == other and index1 != index2 and element != '.':
+                    false_count += 1
+
+        box_list = []
+
+    #second column of boxes
+    for box_num in [0,3,6]:
+        
+        for x in range(box_num, box_num + 3):
+        
+            for y in range(3,6):
+                box_list.append(board[x][y])
+        
+
+        for index1, element in enumerate(box_list):
+            
+            for index2, other in enumerate(box_list):
+                if element == other and index1 != index2 and element != '.':
+                    false_count += 1
+
+        box_list = []
+
+    #third column of boxes
+    for box_num in [0,3,6]:
+        
+        for x in range(box_num, box_num + 3):
+        
+            for y in range(6,9):
+                box_list.append(board[x][y])
+        
+
+        for index1, element in enumerate(box_list):
+            
+            for index2, other in enumerate(box_list):
+                if element == other and index1 != index2 and element != '.':
+                    false_count += 1
+
+        box_list = []
+    
+
+    if false_count > 0:
+        print('False')
+
+    else:
+        print('True')
         
     
     
