@@ -51,20 +51,25 @@ def solution1(L1i,L2i):
     for x in range(len(Lsum)):
         Lsum2.append(Lsum[len(Lsum) - 1 - x])
 
+
     #bringing over 1s 
     for x in range(len(Lsum2) - 1):
         if Lsum2[len(Lsum2) - 1 - x] > 9:
                 Lsum2[len(Lsum2) - 1 - x] -= 10
                 Lsum2[len(Lsum2) - 2 - x] += 1
 
+    print(Lsum2)
+
     #finalizing
     if len(str(Lsum2[0])) > 1:
         Lfinal.append(1)
         Lfinal.append(Lsum2[0] - 10)
-        for x in range(1,len(Lsum2)):
-            Lfinal.append(Lsum2[x])
+        for y in range(1,len(Lsum2)):
+            Lfinal.append(Lsum2[y])
+        print(Lfinal)
 
-    print(Lfinal)
+    else:
+        print(Lsum2)
 
 #Date: December 29,2020
 #Q2. find the average(float) from 2 given arrays
