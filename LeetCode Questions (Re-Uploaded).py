@@ -142,6 +142,57 @@ def removeDuplicates(nums):
 
     return len(ans), ans
 
+#Date January 11, 2020
+
+#Given a 32-bit signed integer, reverse digits of an integer.
+
+#Note: Assume we are dealing with an environment that could only store integers within the 32-bit signed integer range: [−2**31,  2**31 − 1].
+#For this problem, assume that your function returns 0 when the reversed integer overflows.
+
+def reverse(x):
+
+    #condition
+    if x < -2 ** 31 or x > (2**31) - 1:
+        return 0
+
+    elif x == 0:
+        return 0
+
+    elif len(str(x)) == 1:
+        return x
+
+    #initialize
+
+    store_p = []
+    store_n = ['-']
+    ans = ''
+
+    #appending backwards into list as string and summing up
+    #conversion to string then back to integer
+    
+    x = str(x)
+
+    if int(x) > 0:
+        for a in range(len(x)):
+            store_p.append(x[len(x) - a - 1: len(x) - a])
+
+        for y in store_p:
+            ans += y
+        ans = int(ans)
+
+        return ans
+
+
+    else:
+        for a in range(len(x) - 1):
+            store_n.append(x[len(x) - a - 1: len(x) - a])
+
+        for y in store_n:
+            ans += y
+        ans = int(ans)
+
+        return ans
+
                 
 
         
