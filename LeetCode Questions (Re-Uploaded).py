@@ -142,7 +142,7 @@ def removeDuplicates(nums):
 
     return len(ans), ans
 
-#Date January 11, 2020
+#Date January 11, 2021
 
 #Given a 32-bit signed integer, reverse digits of an integer.
 
@@ -195,7 +195,17 @@ def reverse(x):
     #a cool alternate function 'list[<start>:<stop>:<step>]'
     #(ex: a = '1234',
     #a[::-1]
-    #'4321')
+    #('4321')
+
+#Date: January 12, 2021
+
+#Given n pairs of parentheses, write a function to
+#generate all combinations of well-formed parentheses.
+
+def generateParenthesis(n):
+    options = ['()','(',')']
+    ans = []
+
                 
 
         
