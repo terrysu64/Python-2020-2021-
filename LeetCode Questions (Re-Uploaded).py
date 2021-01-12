@@ -192,7 +192,10 @@ def reverse(x):
         ans = int(ans)
 
         return ans
-
+    #a cool alternate function 'list[<start>:<stop>:<step>]'
+    #(ex: a = '1234',
+    #a[::-1]
+    #'4321')
                 
 
         
