@@ -203,8 +203,20 @@ def reverse(x):
 #generate all combinations of well-formed parentheses.
 
 def generateParenthesis(n):
-    options = ['()','(',')']
-    ans = []
+    #choices: ( or )
+    #constraints: must start with ( and end with )
+    #pairs: n pairs or ( and )
+
+    #generate all possibilities of arraging n ( and n ) and filter out the invalid ones using constrations
+    giv = []
+    pos = []
+    test_pos = []
+
+    for x in range(0,n):
+        giv.append('(')
+        giv.append(')')
+
+#https://leetcode.com/problems/generate-parentheses/discuss/1011309/Python-or-Very-Simple-or-w-Video-Reference
 
                 
 
