@@ -221,6 +221,108 @@ else:
                 string = ''
 
 
+#Date: January 25, 2021
+#Q5
+N = int(input())
+book = [[]] #page number = index
+pagei = []
+
+for x in range(0,N): #setting up the book
+    M = input()
+
+    while len(M) > 0:
+
+        num = M.find(' ')
+        
+        if num == -1 and len(M) > 0: #for the last option and for zeros/solutions
+            pagei.append(int(M))
+            break
+            
+        pagei.append(int(M[0:num]))
+        M = M.replace(M[0:num+1], '', 1)
+
+    book.append(pagei)
+    pagei = []
+
+#removing option number which is unecessary
+for index,pagei in enumerate(book):
+    if len(pagei) > 1:
+        book[index].pop(0)
+
+
+#solving the shortest route
+
+explored_pages = []
+current_level = [[1]] #like tree, 'zeroth' layer, first layer, second layer... except it only includes the current layey.
+                      # precendent layers r chopped(includes all routes in each layer)
+layer_pages = []
+route = 1
+
+solve = 0
+
+while len(explored_pages) < N: #the loop of testing all posibility, if length of those two lists r the same that means u out of possibilities
+
+    if book[1] == [0]: #(if its the first page somehow)
+        print('Y')
+        print(1)
+        break
+    
+    route += 1
+    
+    for page in current_level[0]: #scanning every page in the current level
+
+        for opt_page in book[page]:
+
+            if opt_page not in explored_pages: #if a new page
+
+                explored_pages.append(opt_page)
+                layer_pages.append(opt_page)
+
+                if book[opt_page] == [0]: #if the current explored page is the end of the book
+                    solve += 1
+           
+
+    current_level.append(layer_pages) #prepare to check next layer
+    current_level.pop(0)
+    layer_pages = [] #clear the layer
+
+    if solve > 0:
+        break #stop looping if answer is found
+
+#solving if all pages are reachable
+explored_pages = [1]
+current_level = [[1]] 
+
+added_pages = 2
+
+while added_pages > 0:
+
+    added_pages = 0
+    
+    for page in current_level[0]: #scanning every page in the current level
+
+        for opt_page in book[page]:
+
+            if opt_page not in explored_pages and opt_page != 0: #if a new page
+
+                explored_pages.append(opt_page)
+                layer_pages.append(opt_page)
+                added_pages += 1
+
+                
+    current_level.append(layer_pages) #prepare to check next layer
+    current_level.pop(0)
+    layer_pages = []
+
+if len(explored_pages) == N:
+    print('Y')
+    print(route)
+
+else:
+    print('N')
+    print(route)
+
+
 
         
     
