@@ -205,18 +205,29 @@ def reverse(x):
 def generateParenthesis(n):
     #choices: ( or )
     #constraints: must start with ( and end with )
-    #pairs: n pairs or ( and )
+    #goal: to end up generateing with ocount and ccount == 0 (no more characters to use)
 
-    #generate all possibilities of arraging n ( and n ) and filter out the invalid ones using constrations
-    giv = []
-    pos = []
-    test_pos = []
-
-    for x in range(0,n):
-        giv.append('(')
-        giv.append(')')
-
-#https://leetcode.com/problems/generate-parentheses/discuss/1011309/Python-or-Very-Simple-or-w-Video-Reference
+    res = []
+        
+    def inner(curr,l,r):
+            
+        # if current string hit n*2 then stop
+        if len(curr) == n*2:
+            res.append(curr)
+            return
+            
+        # keep adding left parens until no more remaining
+        if l>0:
+            inner(curr+"(", l-1, r)
+                
+        # keep adding right parens if a left matches it
+        # and there are remaining
+        if r>0 and r>l:
+            inner(curr+")", l, r-1)
+                    
+    inner("",n,n)
+    return res
+        
 
                 
 
