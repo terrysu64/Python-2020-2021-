@@ -210,19 +210,24 @@ def generateParenthesis(n):
     res = []
         
     def inner(curr,l,r):
+    #curr is the current state of the 'possibility' we are working on
+    #l is number of '(' we have left
+    #r is number of ')' we have left
             
-        # if current string hit n*2 then stop
+        # if current string hit n*2 then stop (the 'possibility' has been completed)
+        
         if len(curr) == n*2:
             res.append(curr)
             return
             
-        # keep adding left parens until no more remaining
+        #branching out curr with left parens added until no more remaining
+        
         if l>0:
             inner(curr+"(", l-1, r)
                 
-        # keep adding right parens if a left matches it
-        # and there are remaining
-        if r>0 and r>l:
+        #branching curr with right parens added if a left matches it and there are remaining
+            
+        if r>0 and r>l: #second condition is if the number of ( placed > number of ) placed
             inner(curr+")", l, r-1)
                     
     inner("",n,n)
