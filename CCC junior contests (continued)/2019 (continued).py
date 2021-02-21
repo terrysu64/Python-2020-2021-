@@ -102,7 +102,7 @@ print(grid[2], grid[3])
 print()
 
 #Date: Feburary 14, 2021
-#Q5 (exceeded time limit for last 5 tests but correct algorithm)
+#Q5 (exceeded time limit for last subtask but correct algorithm)
 import re
 
 Rules = ['']
