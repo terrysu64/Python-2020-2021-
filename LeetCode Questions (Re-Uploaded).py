@@ -232,7 +232,70 @@ def generateParenthesis(n):
                     
     inner("",n,n)
     return res
+
+#Date: March 4, 2021
+
+#Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+#An input string is valid if:
+
+#1.Open brackets must be closed by the same type of brackets.
+#2.Open brackets must be closed in the correct order.
+
+def isValid(s):
+    #strategy: remove all the  () [] and {}, if theres still something left after, then its false
+
+    while True:
         
+        first = s.find('()')
+
+        if first != -1:
+            s = s.replace(s[first:first+2], '', 1)
+
+        second = s.find('[]')
+
+        if second != -1:
+            s = s.replace(s[second:second+2], '', 1)
+
+        third = s.find('{}')
+
+        if third != -1:
+            s = s.replace(s[third:third+2], '', 1)
+
+        if first == -1 and second == -1 and third == -1:
+            break
+
+        print(s)
+
+    if len(s) == 0:
+        return True
+
+    else: 
+        return False
+    
+#Alternative through stacking: check for 'first in first out'
+
+def isValid2(s):
+    dic = {'(':')', '[':']', '{':'}'}
+    current = []
+
+    for y in range(0,len(s)): #scan each character of the string at a time
+        
+        if s[y:y+1] in dic: #if its an open bracket add it to array
+            current.append(s[y:y+1])
+
+        else: #if its a closed bracket
+
+            if len(current) == 0: #if it matches nothing at all, string is invalid
+                return False
+
+            elif s[y:y+1] == dic[current[-1]]: #if it matches most recent open bracket
+                current.pop()
+
+            else: #if it doesnt match most recent open bracket, string is invalid
+                return False
+
+    if len(current) == 0:
+        return True
 
                 
 
