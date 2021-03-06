@@ -297,6 +297,43 @@ def isValid2(s):
     if len(current) == 0:
         return True
 
+#Date: March 6, 2021
+
+#Given an array 'nums' and a value 'val',
+#remove all instances of that value in-place and return the new length.
+        
+def removeElement(nums,val):
+    
+    while nums.count(val) != 0: #track how many elements in nums still = val
+        nums.remove(val) #remove the elements that = val
+
+    return len(nums)
+
+#Date: March 6, 2020
+
+#You are given an n x n 2D matrix representing an image, rotate the image by 90 degrees (clockwise).
+#You have to rotate the image in-place, which means you have to modify the input 2D matrix directly. DO NOT allocate another 2D matrix and do the rotation.
+
+def rotate(matrix):
+    #append the new version entirely to the tail of the original. Then remove the original
+    leng = len(matrix) 
+    current = []
+    count = 0
+    
+    for x in range(0,leng):
+        
+        for y in range(1,leng + 1):
+            current.append(matrix[(y+count) * -1][x]) #its y + count because there will be new parts of the new matrix(final objective) tailgating the original one
+
+        count += 1
+
+        matrix.append(current)
+        current = []
+
+    for x in range(0,leng):
+        matrix.pop(0)
+
+    return
                 
 
         
