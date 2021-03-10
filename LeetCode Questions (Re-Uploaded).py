@@ -335,7 +335,36 @@ def rotate(matrix):
 
     return
                 
+#Date: March 8, 2021
 
+#Given a string s, find the length of the longest substring without repeating characters.
+longest = ''
+
+def lengthOfLongestSubstring(s): #(still troubleshooting)
+
+    #use double pointer method and recursion: at every character scan the rest of the string
+    #keep track of longest substring and return it at the end
+
+    global longest
+    
+    def next_check(current_substring, start_index):
+
+        global longest
+
+        if (len(current_substring) == 1) or (current_substring[-1] not in current_substring[0:-1]):
+
+            print(current_substring)
+            if len(current_substring) > len(longest):
+                longest = current_substring
+                print(longest + '***')
+        
+            if start_index + 1 + len(current_substring) <= len(s):
+                next_check(s[start_index: start_index + 1 + len(current_substring)], start_index)
+
+    for x in range(0,len(s)):
+        next_check(s[x:x+1], x)
+    
+    return len(longest)
         
 
     
