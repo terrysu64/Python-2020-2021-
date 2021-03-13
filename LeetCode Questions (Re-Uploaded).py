@@ -365,6 +365,27 @@ def lengthOfLongestSubstring(s): #(still troubleshooting)
         next_check(s[x:x+1], x)
     
     return len(longest)
+
+#Date: March 11, 2021
+#Alternative solution
+
+def lengthOfLongestSubstring2(s):
+
+    #use sliding window/2 pointer method
+    
+    longest = 0
+    start = 0
+    seen = {}
+
+    for end, char in enumerate(s): #END pointer consistently moves forward by 1 index at a time
+
+        if char in seen and seen[char] >= start: #if character has been seen AND has its last occurence in front of the START pointer, 
+            start = seen[char] + 1               #then move START pointer to one index in front of it
+
+        seen[char] = end #continue updating characters and most recent index
+        longest = max(longest, end - start + 1) #continue compare current longest substring length with pointer distance
+
+    return longest
         
 
     
