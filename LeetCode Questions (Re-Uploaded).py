@@ -1,6 +1,6 @@
 #Name: Terry Su
 #Date: Dec 28, 2020
-#Purpose: Python questions taken from LeetCode to try during the winter 2020-2021
+#Purpose: Python solutions to questions taken from LeetCode 
 
 #Date: Jan 7, 2021
 #Valid Sudoku
