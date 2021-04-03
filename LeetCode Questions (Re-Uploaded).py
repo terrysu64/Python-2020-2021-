@@ -1,6 +1,6 @@
 #Name: Terry Su
 #Date: Dec 28, 2020
-#Purpose: Python solutions to questions taken from LeetCode 
+#Purpose: Python questions taken from LeetCode to try during the winter 2020-2021
 
 #Date: Jan 7, 2021
 #Valid Sudoku
@@ -195,7 +195,7 @@ def reverse(x):
     #a cool alternate function 'list[<start>:<stop>:<step>]'
     #(ex: a = '1234',
     #a[::-1]
-    #('4321')
+    #'4321')
 
 #Date: January 12, 2021
 
@@ -233,6 +233,21 @@ def generateParenthesis(n):
     inner("",n,n)
     return res
 
+#Date: Feburary 28, 2021
+
+#Given an integer x, return true if x is palindrome integer.
+#An integer is a palindrome when it reads the same backward as forward. For example, 121 is palindrome while 123 is not.
+
+def isPalindrome(x):
+    x = str(x)
+    reverse = x[-1::-1] #use slice notation to reverse input; start from index -1 and step backwards by one at a time till the start
+
+    if x == reverse:
+        return True
+
+    else:
+        return False
+    
 #Date: March 4, 2021
 
 #Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
@@ -272,7 +287,7 @@ def isValid(s):
     else: 
         return False
     
-#Alternative through stacking: check for 'first in first out'
+#Alternative through stacking: check for 'first in first out' (better time complexity)
 
 def isValid2(s):
     dic = {'(':')', '[':']', '{':'}'}
@@ -334,42 +349,12 @@ def rotate(matrix):
         matrix.pop(0)
 
     return
-                
+
 #Date: March 8, 2021
 
 #Given a string s, find the length of the longest substring without repeating characters.
-longest = ''
 
-def lengthOfLongestSubstring(s): #(still troubleshooting)
-
-    #use double pointer method and recursion: at every character scan the rest of the string
-    #keep track of longest substring and return it at the end
-
-    global longest
-    
-    def next_check(current_substring, start_index):
-
-        global longest
-
-        if (len(current_substring) == 1) or (current_substring[-1] not in current_substring[0:-1]):
-
-            print(current_substring)
-            if len(current_substring) > len(longest):
-                longest = current_substring
-                print(longest + '***')
-        
-            if start_index + 1 + len(current_substring) <= len(s):
-                next_check(s[start_index: start_index + 1 + len(current_substring)], start_index)
-
-    for x in range(0,len(s)):
-        next_check(s[x:x+1], x)
-    
-    return len(longest)
-
-#Date: March 11, 2021
-#Alternative solution
-
-def lengthOfLongestSubstring2(s):
+def lengthOfLongestSubstring(s):
 
     #use sliding window/2 pointer method
     
@@ -386,6 +371,38 @@ def lengthOfLongestSubstring2(s):
         longest = max(longest, end - start + 1) #continue compare current longest substring length with pointer distance
 
     return longest
+
+#Date: March 14, 2021
+
+#Given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of the two sorted arrays.
+
+def findMedianSortedArrays(nums1,nums2):
+    #join the two arrays together then keep removing min and max values till we acheive the median
+
+    nums1 += nums2
+
+    while len(nums1) > 2:
+        nums1.remove(max(nums1))
+        nums1.remove(min(nums1))
+
+    if len(nums1) == 1:
+        return nums1[0]
+
+    else:
+        return (nums1[0] + nums1[1]) / 2
+
+#Date: April 3, 2021
+#Alternative solution: join and sort two lists, then use length of list to determine median (better time complexity)
+
+def findMedianSortedArrays2(nums1,nums2):
+
+    nums1 = sorted(nums1 + nums2)
+
+    if len(nums1) % 2 == 0:
+        return (nums1[(len(nums1) // 2) - 1] + nums1[(len(nums1) // 2)]) / 2
+
+    else:
+        return nums1[(len(nums1) // 2)]
         
 
     
