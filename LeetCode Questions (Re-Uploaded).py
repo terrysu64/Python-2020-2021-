@@ -403,6 +403,106 @@ def findMedianSortedArrays2(nums1,nums2):
 
     else:
         return nums1[(len(nums1) // 2)]
+
+#Date: April 11, 2021
+
+#Given a string s, return the longest palindromic substring in s.
+
+def longestPalindrome(s):
+    #loop through the center of the possible palidrome (an index in s or two adjacent indices) and expand out.
+    
+    ans = ''
+
+    for index in range(0,len(s)): #for each index, expand from the index AND from the index+next index (i.e something like expanding from "bb" for a palindrome "abba")
+        
+        curr = expand(s,index,index)
+        if len(curr) > len(ans):
+            ans = curr
+
+        if index < len(s) - 1:
+            curr = expand(s,index,index+1)
+            
+            if len(curr) > len(ans):
+                ans = curr
+                
+    return ans
+
+def expand(s,left,right): #function to call on, expands outwards from given index(s) while the substring is a valid palindrome
+
+    curr = ''
+
+    while left >= 0 and right < len(s) and s[left:right+1] == s[left:right+1][::-1]:
+
+        if len(s[left:right+1]) > len(curr):
+            curr = s[left:right+1]
+
+        left -=1
+        right += 1
+
+    return curr
+
+#Date: April 12, 2021
+#Implement the myAtoi(string s) function, which converts a string to a 32-bit signed integer (similar to C/C++'s atoi function).
+
+#The algorithm for myAtoi(string s) is as follows:
+
+#1. Read in and ignore any leading whitespace.
+
+#2. Check if the next character (if not already at the end of the string) is '-' or '+'. Read this character in if it is either.
+#   This determines if the final result is negative or positive respectively. Assume the result is positive if neither is present.
+
+#3. Read in next the characters until the next non-digit charcter or the end of the input is reached. The rest of the string is ignored.
+
+#4. Convert these digits into an integer (i.e. "123" -> 123, "0032" -> 32).
+#   If no digits were read, then the integer is 0. Change the sign as necessary (from step 2).
+
+#5. If the integer is out of the 32-bit signed integer range [-231, 231 - 1], then clamp the integer so that it remains in the range.
+#   Specifically, integers less than -231 should be clamped to -231, and integers greater than 231 - 1 should be clamped to 231 - 1.
+
+#6. Return the integer as the final result.
+
+def myAtoi(s):
+    sign = True #sign value of integer (True = +ve, False = -ve)
+    ints = ['0','1','2','3','4','5','6','7','8','9']
+    start = 0
+    end = 0
+    count = 0
+    
+    s = s.strip() #1
+
+    if s[0:1] == '-': #2
+        sign = False
+        s = s[1:]
+        
+    elif s[0:1] == '+':
+            s = s[1:]
+
+
+    while s[end:end+1] in ints: #3
+        end += 1
+    s = s[start:end]
+
+
+    while s[count:count+1] == '0': #4,5
+        count += 1
+    s = s[count:]
+
+    if s != '':
+        s = int(s)
+
+        if sign == False:
+            s = s * -1
+
+    else:
+        s = 0
+
+    if s > (2**31) - 1: #clamping s within range if out of range
+        s = (2**31) - 1
+
+    elif s < -1 * (2**31):
+        s = -1 * (2**31)
+
+    return s #6
         
 
     
