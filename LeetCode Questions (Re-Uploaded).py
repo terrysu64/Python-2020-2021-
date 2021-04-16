@@ -503,7 +503,25 @@ def myAtoi(s):
         s = -1 * (2**31)
 
     return s #6
+
+#Date: April 16, 2021
+#Write a function to find the longest common prefix string amongst an array of strings.
+#If there is no common prefix, return an empty string "".
+
+def longestCommonPrefix(strs):
+    #compare prefixes through checking one character at a time
+    
+    longest = ''
+    count = 1
         
+    if strs == [] or '' in strs:
+        return ''            
+        
+    else:
+        while all(sub[:count] == strs[0][:count] for sub in strs) == True and count <= min([len(s) for s in strs]): #stop checking when prefix stops matching
+            count += 1                                                                                              #or when length of shortest string is exceeded
+
+        return strs[0][:count-1]
 
     
     
