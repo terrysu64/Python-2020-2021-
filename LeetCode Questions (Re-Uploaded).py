@@ -524,4 +524,40 @@ def longestCommonPrefix(strs):
         return strs[0][:count-1]
 
     
+#Date: May 2, 2021
+#Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent.
+#Return the answer in any order.
+    
+def letterCombinations(digits):
+    if digits == '': return [] #if we receive empty string
+        
+    maps = {             #construct hash table to link digits to respective characters
+            '2': 'abc',
+            '3': 'def',
+            '4': 'ghi',
+            '5': 'jkl',
+            '6': 'mno',
+            '7': 'pqrs',
+            '8': 'tuv',
+            '9': 'wxyz'
+        }
+    
+    res = []
+    
+    def build(curr, count): #for each digit (in order) branch out all possibilities using an initial for loop
+                            #use recursion to add on sequential possibilities (characters associated with 'next' digit)
+                            #and stop/append answers once we've reached end of digit sequence.
+            
+        if count == len(digits):
+                res.append(curr)
+            
+        else:
+            for char in maps[digits[count]]:
+                build(curr+char,count+1)
+            
+                        
+    for char in maps[digits[0]]:
+            build(char,1)
+                  
+    return res
     
