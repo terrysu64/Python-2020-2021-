@@ -561,3 +561,28 @@ def letterCombinations(digits):
                   
     return res
 
+#Date: May 7, 2021
+#Given an array of integers nums sorted in ascending order, find the starting and ending position (inclusive) of a given target value.
+#If target is not found in the array, return [-1, -1].
+
+def searchRange(nums,target):
+    try:
+        start = nums.index(target) #aquire starting index of target
+            
+    except ValueError: #if the target doesnt exist (question solved)**
+        return [-1,-1]
+        
+    end = start #set default ending index to be equal to start
+    curr = target
+        
+    while curr == target: #Increment index by one and stop when the value in the array no longer = the target
+            
+        end += 1
+            
+        try:
+            curr = nums[end]
+            
+        except IndexError: #if the array ends, then break the loop as well
+            break
+        
+    return [start, end-1] #because we increment, THEN CHECK, the final end value will be one more than expected
