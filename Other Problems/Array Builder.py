@@ -1,4 +1,4 @@
-#Name: Terry Su
+Name: Terry Su
 #Date: May 2, 2021
 #Purpose: Building the some functions for an array from scratch using hash tables
 
@@ -9,7 +9,7 @@ class MyArray:
         self.data = {}
 
     def search(self,index):
-        return self.data[index]
+        return print(self.data.get(index, 'index does not exist'))
 
     def append(self,item):
         self.data[self.length] = item
@@ -31,7 +31,9 @@ class MyArray:
         self.length -= 1
 
 Test = MyArray()
+Test.search(0)
 Test.append(4)
 Test.append(5)
 Test.append(6)
 Test.delete(1)
+print(Test.data)
