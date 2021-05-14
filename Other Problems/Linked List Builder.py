@@ -1,6 +1,6 @@
 #Name: Terry Su
 #Date: May 9, 2021
-#Purpose: Building a linked list + some methods from scratch
+#Purpose: Building a SINGLY linked list + some methods from scratch
 
 #ideal linked list
 #head --> node --> node -->... --> tail
@@ -50,15 +50,10 @@ class LinkedList:
             self.head = None
             return
         
-        while(current):
+        while(current.next.next):
+            current = current.next
+        current.next = None
             
-            if current.next.next == None: #stops iteration on second last node
-                current.next = None
-                current = current.next
-                
-            else:
-                current = current.next
-
     def printLL(self):
         
         current = self.head
@@ -67,14 +62,53 @@ class LinkedList:
             print(current.data)
             current = current.next
 
+    def lookup(self,index):
+        
+        counter = 0
+        current = self.head
+        
+        while counter != index: #traverse through the list until index is reached
+            current = current.next
+            counter += 1
+
+        return current.data
+    
+    def lookup2(self,index):
+        
+        counter = 0
+        current = self.head
+            
+        while counter != index: #traverse through the list until index is reached
+            current = current.next
+            counter += 1
+
+        return current
+
+    def insert(self,index,value): #assuming valid index that <= max existing index
+
+        #diagram:
+        # * - *  =>  *    * (on hold)  => *    * => *-*-*
+        #   *         \                    \  /
+        #               *                    *
+
+        new_node = Node(value)
+        
+        leader = self.lookup2(index-1) #need to specify self in params bcuz its a nested function
+        hold = leader.next
+        leader.next = new_node
+        new_node.next = hold
+
+    def remove(self,index):
+        leader = self.lookup2(index-1)
+        leader.next = leader.next.next
+        
+
 # Singly Linked List with insertion and print methods
 Test = LinkedList()
 Test.append(3)
 Test.append(5)
 Test.append(6)
-Test.pop()
-Test.pop()
-Test.pop()
+
 
     
 
