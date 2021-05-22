@@ -586,3 +586,42 @@ def searchRange(nums,target):
             break
         
     return [start, end-1] #because we increment, THEN CHECK, the final end value will be one more than expected
+
+#Date: May 25, 2021: (not done)
+#Given a string containing just the characters '(' and ')', find the length of the longest valid (well-formed) parentheses substring.
+
+def longestValidParentheses(s):
+    #special case
+    if s == '':
+        return 0
+        
+    length = []
+        
+    def scan(paren_set):
+
+        stack = []
+        valid_count  = 0
+            
+        #parenthesis' are only valid for the stack if they are '(' or are ')' with
+        #an already exixsting '(' in the stack.
+            
+        for Next in range(0,len(paren_set)):
+            
+            next_paren = paren_set[Next:Next+1]
+            
+            if next_paren == '(':
+                stack.append(next_paren)
+
+            elif len(stack) != 0: 
+                if next_paren == ')' and stack[-1] == '(':
+                    stack.pop()
+                    valid_count += 2
+                
+            else:
+                count = 0
+            
+        length.append(valid_count)
+        
+    scan(s)
+        
+    return max(length)
