@@ -591,37 +591,39 @@ def searchRange(nums,target):
 #Given a string containing just the characters '(' and ')', find the length of the longest valid (well-formed) parentheses substring.
 
 def longestValidParentheses(s):
-    #special case
+        #special cases if s is empty
+   
     if s == '':
         return 0
-        
-    length = []
-        
-    def scan(paren_set):
 
-        stack = []
-        valid_count  = 0
+    lengths = []
+
+    #parenthesis' are only valid for the stack if they are '(' or are ')' with
+    #an already exixsting '(' in the stack.
+    def check(paren_set):
             
-        #parenthesis' are only valid for the stack if they are '(' or are ')' with
-        #an already exixsting '(' in the stack.
+        res = 0
+        stack = []
             
         for Next in range(0,len(paren_set)):
-            
+
             next_paren = paren_set[Next:Next+1]
-            
+
             if next_paren == '(':
                 stack.append(next_paren)
 
             elif len(stack) != 0: 
                 if next_paren == ')' and stack[-1] == '(':
                     stack.pop()
-                    valid_count += 2
-                
+                    res += 2
+
             else:
-                count = 0
+                break
             
-        length.append(valid_count)
+        lengths.append(res)
         
-    scan(s)
-        
-    return max(length)
+    for x in range(0,len(s)):
+        check(s[x:])
+
+
+    return max(lengths)
