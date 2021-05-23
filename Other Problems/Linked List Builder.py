@@ -101,6 +101,18 @@ class LinkedList:
     def remove(self,index):
         leader = self.lookup2(index-1)
         leader.next = leader.next.next
+    
+    def reverse(self):
+        
+        current = self.head
+        prev = None
+        
+        while current != None:
+            Hold = current.next #stores rest of linked list
+            current.next = prev #reverses current pointer
+            prev = current #stores current node so next node can point back
+            current = Hold
+        self.head = prev #second last 'current' (last node but nont None)
         
 
 # Singly Linked List with insertion and print methods
