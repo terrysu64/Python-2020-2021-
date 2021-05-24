@@ -591,39 +591,37 @@ def searchRange(nums,target):
 #Given a string containing just the characters '(' and ')', find the length of the longest valid (well-formed) parentheses substring.
 
 def longestValidParentheses(s):
-        #special cases if s is empty
-   
-    if s == '':
-        return 0
-
-    lengths = []
-
-    #parenthesis' are only valid for the stack if they are '(' or are ')' with
-    #an already exixsting '(' in the stack.
-    def check(paren_set):
-            
-        res = 0
-        stack = []
-            
-        for Next in range(0,len(paren_set)):
-
-            next_paren = paren_set[Next:Next+1]
-
-            if next_paren == '(':
-                stack.append(next_paren)
-
-            elif len(stack) != 0: 
-                if next_paren == ')' and stack[-1] == '(':
-                    stack.pop()
-                    res += 2
-
-            else:
-                break
-            
-        lengths.append(res)
+    #use stack where we always have a BASE INDEX (could be at [0] or higher) and acts as index of most recent '(' - 1 or index of ')' that rendered the current sub-parenthesis' invalid and acts as new start
+    #(except for initial state of -1)
         
-    for x in range(0,len(s)):
-        check(s[x:])
+    #when theres '(' we push the index onto the stack, 
+    #and when it gets matched we:
+        # 1. pop the '(' index it matches with
+        # 2. find max valid current sub-parenthesis' length by doing current index - base index
+        
+    #we can encouter 2 issues that render the sub-parenthesis' invalid:
+        # a. more ')' than '('
+            #solution: since after the pop() the stack will be empty, we simply ignore 2. and set the ')' index as new BASE INDEX
+        # b. extra '('s that arent getting matched
+            #solution: BASE INDEX is automatically shifted to match most recent '(' when we append the indexs of '('
 
-
-    return max(lengths)
+            
+    stack = [-1]    
+    res = 0
+        
+    for index,curr in enumerate(s):
+            
+        if curr == '(':
+            stack.append(index)
+            
+        elif curr == ')':
+                
+            stack.pop()
+                
+            try:
+                res = max(res, index - stack[-1]) #by doing index - stack[-1] we match ')' with most recent '(' and protect against cases like ()(()
+                
+            except IndexError: #when stack is empty, AKA: theres more ')' than '('
+                stack.append(index)
+        
+    return res
