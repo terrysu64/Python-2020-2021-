@@ -626,7 +626,7 @@ def longestValidParentheses(s):
         
     return res
 
-#Date: May 27, 2021 (not done)
+#Date: May 27, 2021 
 #Given an array of distinct integers candidates and a target integer target,
 #return a list of all unique combinations of candidates where the chosen numbers sum to target. You may return the combinations in any order.
 
@@ -635,28 +635,29 @@ def longestValidParentheses(s):
 
 #It is guaranteed that the number of unique combinations that sum up to target is less than 150 combinations for the given input.
 
-def combinationSum(candidates,targets):
+def combinationSum(candidates,target):
+
+    #a recursive method to branch out all possibilities and only keeping those who add up to target
 
     res = []
+    res_final = []
         
-    def branch(used,left,curr):
+    def scan(ans,curr,target):
             
-        print(used,left,curr)
+        if target == 0:
+            res.append(ans)
+            return
             
-        if curr == target:
-            res.append(used)
+        elif target < 0:
+            return
             
-        if len(left) == 0:
-            return res
-            
-        else:
-            for remaining in left:
-                curr += remaining
-                used.append(remaining)
-                left.remove(remaining)  
-                branch(used,left,curr)
-                used.remove(remaining)
-                left.append(remaining)
-            
+        for index,num in enumerate(candidates): #looping over every candidate and adding to current value
+                                                #we keep track of used candidates, current value, and how far we are from current value
+            scan(ans+[candidates[index]] ,curr+num ,target-num)
         
-    branch([],candidates,0)
+    scan([],0,target)
+
+    res = list(map(lambda x: sorted(x), res)) #sorting each element in res
+    [res_final.append(x) for x in res if x not in res_final] #removing duplicates
+    
+    return res_final
