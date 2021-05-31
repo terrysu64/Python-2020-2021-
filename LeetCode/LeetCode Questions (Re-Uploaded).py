@@ -702,4 +702,26 @@ def solveSudoku(board):
 
         return True
 
-    #make the recursion part of scanning through every empty cell and branching possibilities
+    def solve(board):
+
+        empty = 0
+        for r in board:
+            for c in r:
+                if c == '.':
+                    empty += 1
+        if empty == 0:
+            return board
+        
+        for r_index, r_value in enumerate(board):
+            for c_index, c_value in enumerate(r_value):
+        
+                if c_value == '.':
+                    for num in range(1,10):
+                        pos = possible(num,r_index,c_index)
+
+                        if pos:
+                            board[r_index][c_index] = num
+                            solve(board)
+                            board[r_index][c_index] = '.'
+                            
+    return solve(board)
