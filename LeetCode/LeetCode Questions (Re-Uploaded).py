@@ -699,11 +699,10 @@ def solveSudoku(board):
             if (r,c) in box:
                 if value in [board[spot[0]][spot[1]] for spot in box]:
                     return False
-
+        
         return True
 
     def solve(board):
-
         empty = 0
         for r in board:
             for c in r:
@@ -711,17 +710,24 @@ def solveSudoku(board):
                     empty += 1
         if empty == 0:
             return board
+
+        r = None
+        c = None
         
         for r_index, r_value in enumerate(board):
-            for c_index, c_value in enumerate(r_value):
+            if '.' in r_value:
+                r = r_index
+                c = r_value.index('.')
+                break
         
-                if c_value == '.':
-                    for num in range(1,10):
-                        pos = possible(num,r_index,c_index)
+        if r != None:
+            for num in range(1,10):
+                        
+                pos = possible(str(num),r,c)
 
-                        if pos:
-                            board[r_index][c_index] = num
-                            solve(board)
-                            board[r_index][c_index] = '.'
-                            
+                if pos == True:
+                    board[r][c] = str(num)
+                    solve(board)
+                    board[r][c] = '.'
+
     return solve(board)
