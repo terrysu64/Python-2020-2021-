@@ -700,6 +700,36 @@ def possible(board,value,r,c): #r = row, c = column
         
     return True
 
+#a backtracking method was used through recursion to step through one cell at a time
+#each cell = a deeper layer of the recursive function
+
+def solveSudoku_allAns(board):
+    empty = 0 #return answer if no empty cells are left
+    for r in board:
+        for c in r:
+            if c == '.':
+                empty += 1
+    if empty == 0:
+        ans += 1
+        return print(board)
+
+    r,c = None,None
+            
+    for r_index, r_value in enumerate(board): #aquire empty cell coordinates (row and column indices)
+        if '.' in r_value:
+            r,c = r_index, r_value.index('.')
+            break
+            
+    if r != None:
+        for num in range(1,10): #try each number in empty cell
+                            
+            pos = possible(board,str(num),r,c)
+
+            if pos == True:
+                board[r][c] = str(num)
+                solveSudoku(board) #if the number is possible, push it through the recursive function and proceed to next cell
+                board[r][c] = '.'
+               
 ans = 0
 def solveSudoku_oneAns(board):
 
@@ -736,29 +766,4 @@ def solveSudoku_oneAns(board):
     else:
         return
 
-def solveSudoku_allAns(board):
-    empty = 0
-    for r in board:
-        for c in r:
-            if c == '.':
-                empty += 1
-    if empty == 0:
-        ans += 1
-        return print(board)
 
-    r,c = None,None
-            
-    for r_index, r_value in enumerate(board):
-        if '.' in r_value:
-            r,c = r_index, r_value.index('.')
-            break
-            
-    if r != None:
-        for num in range(1,10):
-                            
-            pos = possible(board,str(num),r,c)
-
-            if pos == True:
-                board[r][c] = str(num)
-                solveSudoku(board)
-                board[r][c] = '.'
