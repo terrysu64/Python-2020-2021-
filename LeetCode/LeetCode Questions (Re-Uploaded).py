@@ -671,8 +671,8 @@ def combinationSum(candidates,target):
 #Each of the digits 1-9 must occur exactly once in each column.
 #Each of the digits 1-9 must occur exactly once in each of the 9 3x3 sub-boxes of the grid.
 #The '.' character indicates empty cells.
-                    
-def solveSudoku(board):
+
+def possible(board,value,r,c): #r = row, c = column
 
     box_coor = [[(0,0),(0,1),(0,2),(1,0),(1,1),(1,2),(2,0),(2,1),(2,2)], #box coordinates by row
                 [(0,3),(0,4),(0,5),(1,3),(1,4),(1,5),(2,3),(2,4),(2,5)],
@@ -684,50 +684,81 @@ def solveSudoku(board):
                 [(6,3),(6,4),(6,5),(7,3),(7,4),(7,5),(8,3),(8,4),(8,5)],
                 [(6,6),(6,7),(6,8),(7,6),(7,7),(7,8),(8,6),(8,7),(8,8)]]
         
-    def possible(value,r,c): #r = row, c = column
+    #check row
+    if value in board[r]:
+        return False
+
+    #check column
+    if value in [x[c] for x in board]:
+        return False
+
+    #check box
+    for box in box_coor:
+        if (r,c) in box:
+            if value in [board[spot[0]][spot[1]] for spot in box]:
+                return False
         
-        #check row
-        if value in board[r]:
-            return False
+    return True
 
-        #check column
-        if value in [x[c] for x in board]:
-            return False
+ans = 0
+def solveSudoku_oneAns(board):
 
-        #check box
-        for box in box_coor:
-            if (r,c) in box:
-                if value in [board[spot[0]][spot[1]] for spot in box]:
-                    return False
+    global ans
+
+    if ans == 0:
         
-        return True
-
-    def solve(board):
         empty = 0
         for r in board:
             for c in r:
                 if c == '.':
                     empty += 1
         if empty == 0:
-            return board
+            ans += 1
+            return print(board)
 
-        r = None
-        c = None
-        
+        r,c = None,None
+            
         for r_index, r_value in enumerate(board):
             if '.' in r_value:
-                r = r_index
-                c = r_value.index('.')
+                r,c = r_index, r_value.index('.')
                 break
-        
+            
         if r != None:
             for num in range(1,10):
-                        
-                pos = possible(str(num),r,c)
+                            
+                pos = possible(board,str(num),r,c)
 
                 if pos == True:
                     board[r][c] = str(num)
-                    solve(board)
+                    solveSudoku(board)
                     board[r][c] = '.'
 
-    return solve(board)
+    else:
+        return
+
+def solveSudoku_allAns(board):
+    empty = 0
+    for r in board:
+        for c in r:
+            if c == '.':
+                empty += 1
+    if empty == 0:
+        ans += 1
+        return print(board)
+
+    r,c = None,None
+            
+    for r_index, r_value in enumerate(board):
+        if '.' in r_value:
+            r,c = r_index, r_value.index('.')
+            break
+            
+    if r != None:
+        for num in range(1,10):
+                            
+            pos = possible(board,str(num),r,c)
+
+            if pos == True:
+                board[r][c] = str(num)
+                solveSudoku(board)
+                board[r][c] = '.'
