@@ -641,7 +641,7 @@ def combinationSum(candidates,target):
 
     res = []
         
-    def scan(ans,curr,target):
+    def scan(ans,target):
             
         if target == 0:
             if sorted(ans) not in res:
@@ -651,11 +651,11 @@ def combinationSum(candidates,target):
         elif target < 0:
             return
             
-        for index,num in enumerate(candidates): #looping over every candidate and adding to current value
-                                                #we keep track of used candidates, current value, and how far we are from current value
-            scan(ans+[candidates[index]] ,curr+num ,target-num)
+        for num in candidates: #looping over every candidate and substract from how far we are to acheiving the target
+                                                #we keep track of used candidates, and how far we are from current value
+            scan(ans+[num],target-num)
         
-    scan([],0,target)
+    scan([],target)
 
     return res
 
