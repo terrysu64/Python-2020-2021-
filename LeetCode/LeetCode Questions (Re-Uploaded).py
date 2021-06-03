@@ -640,12 +640,12 @@ def combinationSum(candidates,target):
     #a recursive method to branch out all possibilities and only keeping those who add up to target
 
     res = []
-    res_final = []
         
     def scan(ans,curr,target):
             
         if target == 0:
-            res.append(ans)
+            if sorted(ans) not in res:
+                res.append(sorted(ans))
             return
             
         elif target < 0:
@@ -657,10 +657,7 @@ def combinationSum(candidates,target):
         
     scan([],0,target)
 
-    res = list(map(lambda x: sorted(x), res)) #sorting each element in res
-    [res_final.append(x) for x in res if x not in res_final] #removing duplicates
-    
-    return res_final
+    return res
 
 #Date: May 30, 2021 
 #Write a program to solve a Sudoku puzzle by filling the empty cells.
