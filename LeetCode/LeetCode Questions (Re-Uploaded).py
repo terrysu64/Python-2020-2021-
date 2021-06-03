@@ -763,4 +763,34 @@ def solveSudoku_oneAns(board):
     else:
         return
 
+#Date: June 3, 2021 (not done)
+#Given a collection of candidate numbers (candidates) and a target number (target),
+#find all unique combinations in candidates where the candidate numbers sum to target.
 
+#Each number in candidates may only be used once in the combination.
+#Note: The solution set must not contain duplicate combinations.
+
+def combinationSum2(candidates,target):
+        
+    res = []
+        
+    def suspend(array,value):
+        array.remove(value)
+        return array
+        
+    def push(used,left,needed,count): #needed is value needed to acheive target
+        if needed < 0:
+            return
+            
+        elif needed == 0:
+            if sorted(used) not in res:
+                res.append(sorted(used))
+            return
+        
+        else:
+            for value in left:
+                push(used+[value],suspend(left,value),needed-value,count+1)
+        
+    push([],candidates,target,0)
+       
+    return res
