@@ -10,40 +10,51 @@ class Node:
         self.left = left
         self.right = right
 
-class BST: 
+class BST:
+
+    #left child node always < parent node
+    #right child node always > parent node
 
     def __init__(self,root = None):
         self.root = root
 
     def insert(self,value):
         
-        spot = self.root.value
+        spot = self.root
+        new_node = Node(value)
+
+        if self.root == None:
+            self.root = new_node
+            return
         
-        while spot != None:
-            if value > spot.value:
+        while True:
+            if value > spot.value: #going right
                 
                 if spot.right == None:
-                    spot.right = value
+                    spot.right = new_node
                     return
-                
-                spot = spot.right
 
-            elif value < spot.value:
+                else:
+                    spot = spot.right
+
+            elif value < spot.value: #going left
 
                 if spot.left == None:
-                    spot.left = value
+                    spot.left = new_node
                     return
-                
-                spot = spot.left
+
+                else:
+                    spot = spot.left
 
             elif value == spot.value:
                 return 
 
     def lookup(self,value):
         
-        spot = self.root.value
+        spot = self.root
         
         while spot != None:
+            print('h')
             if value > spot.value:
                 spot = spot.right
 
@@ -51,9 +62,17 @@ class BST:
                 spot = spot.left
 
             elif value == spot.value:
-                return spot
+                return print(value, 'was found')
 
-        return 'value not found'
-
+        return print(value, 'was not found')
 
     #def remove
+
+
+root = Node(5)
+tree = BST(root)
+tree.insert(4)
+tree.insert(3)
+tree.insert(6)
+tree.lookup(9)
+print(tree.root.left.left.value)
