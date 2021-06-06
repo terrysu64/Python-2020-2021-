@@ -1,6 +1,6 @@
 #Name: Terry Su
 #Date: June 5, 2021
-#Purpose: Building a binary search tree + some methods from scratch (not done)
+#Purpose: Building an unbalanced binary search tree + some methods from scratch (not done)
 
 class Node:
 
@@ -27,7 +27,7 @@ class BST:
             self.root = new_node
             return
         
-        while True:
+        while True: #until according empty spot is found (spot.left or spot.right)
             if value > spot.value: #going right
                 
                 if spot.right == None:
@@ -46,15 +46,14 @@ class BST:
                 else:
                     spot = spot.left
 
-            elif value == spot.value:
+            elif value == spot.value: #special case if value inserted already exists
                 return 
 
     def lookup(self,value):
         
         spot = self.root
         
-        while spot != None:
-            print('h')
+        while spot != None: #traverse tree according to rules
             if value > spot.value:
                 spot = spot.right
 
@@ -62,11 +61,9 @@ class BST:
                 spot = spot.left
 
             elif value == spot.value:
-                return print(value, 'was found')
+                return spot
 
         return print(value, 'was not found')
-
-    #def remove
 
 
 root = Node(5)
