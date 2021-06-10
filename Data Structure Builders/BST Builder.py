@@ -1,6 +1,6 @@
 #Name: Terry Su
 #Date: June 5, 2021
-#Purpose: Building an unbalanced binary search tree + some methods from scratch (not done)
+#Purpose: Building an unbalanced binary search tree + some methods from scratch 
 
 class Node:
 
