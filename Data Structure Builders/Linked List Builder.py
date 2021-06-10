@@ -112,7 +112,7 @@ class LinkedList:
             current.next = prev #reverses current pointer
             prev = current #stores current node so next node can point back
             current = Hold
-        self.head = prev #second last 'current' (last node but nont None)
+        self.head = prev #second last 'current' (last node but not None)
 
 # Singly Linked List with insertion and print methods
 Test = LinkedList()
