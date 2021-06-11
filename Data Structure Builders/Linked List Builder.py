@@ -113,6 +113,10 @@ class LinkedList:
             prev = current #stores current node so next node can point back
             current = Hold
         self.head = prev #second last 'current' (last node but not None)
+        
+#Note: we can only use a seperate variable like "curr"
+#      to traverse the linked list while modifying the original
+#      datastructure because its a SHALLOW COPY VARIABLE**
 
 # Singly Linked List with insertion and print methods
 Test = LinkedList()
