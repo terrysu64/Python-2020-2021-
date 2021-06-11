@@ -790,3 +790,49 @@ def combinationSum2(candidates,target):
     push([],candidates,target,0)
        
     return res
+
+
+#Date: June 10, 2021
+#You are given two non-empty linked lists representing two non-negative integers.
+#The digits are stored in REVERSE order, and each of their nodes contains a single digit. (sorta like 123
+                                                                                                    # 345
+                                                                                                #  +---------but from the opposite side
+#Add the two numbers and return the sum as a linked list.
+
+#You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+
+def addTwoNumbers(l1,l2):
+        
+    curr1,curr2 = l1,l2
+    val1 = []
+    val2 = []
+        
+        
+    while curr1 != None: #reverse digits in linked lists and store as array
+            
+        val1.insert(0, str(curr1.val))
+        curr1 = curr1.next
+        
+    while curr2 != None:
+            
+        val2.insert(0, str(curr2.val))
+        curr2 = curr2.next
+        
+
+    target = [int(x) for x in list(str(int(''.join(val1)) + int(''.join(val2))))] #add two integers once reversed
+    target.reverse() #reverse the result 
+        
+
+    res = ListNode(None)
+    for i,x in enumerate(target): #store each digit of result as a linked list
+            
+        curr = res #we can use a SHALLOW COPY variable to traverse the linked list and append each digit
+        while (curr.next):
+            curr = curr.next 
+                
+        curr.val = x
+            
+        if i != len(target)-1:
+            curr.next = ListNode(None)
+       
+    return res
