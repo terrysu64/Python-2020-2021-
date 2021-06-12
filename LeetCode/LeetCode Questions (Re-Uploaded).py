@@ -794,15 +794,35 @@ def combinationSum2(candidates,target):
 
 #Date: June 10, 2021
 #You are given two non-empty linked lists representing two non-negative integers.
-#The digits are stored in REVERSE order, and each of their nodes contains a single digit. (sorta like 123
-                                                                                                    # 345
-                                                                                                #  +---------but from the opposite side
+#The digits are stored in REVERSE order, and each of their nodes contains a single digit. 
 #Add the two numbers and return the sum as a linked list.
 
 #You may assume the two numbers do not contain any leading zero, except the number 0 itself.
 
-def addTwoNumbers(l1,l2):
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def convert(arr): #convert array to Linked List (most likely built in the LeetCode problem in the back-end)
+    if arr[0]:
+        res = ListNode()
         
+        for index,element in enumerate(arr): #we can use a SHALLOW COPY variable to traverse the linked list and append each digit
+            curr = res
+            while curr.next:
+                curr = curr.next
+            curr.val = element
+
+            if index != len(arr) - 1: #exception for last value in array (we dont want an extra empty node)
+                curr.next = ListNode()
+
+    return res
+            
+def addTwoNumbers(l1,l2): 
+
+    l1,l2 = map(convert,[l1,l2])
+    
     curr1,curr2 = l1,l2
     val1 = []
     val2 = []
@@ -822,17 +842,33 @@ def addTwoNumbers(l1,l2):
     target = [int(x) for x in list(str(int(''.join(val1)) + int(''.join(val2))))] #add two integers once reversed
     target.reverse() #reverse the result 
         
+    res = convert(target)
 
-    res = ListNode(None)
-    for i,x in enumerate(target): #store each digit of result as a linked list
-            
-        curr = res #we can use a SHALLOW COPY variable to traverse the linked list and append each digit
-        while (curr.next):
-            curr = curr.next 
-                
-        curr.val = x
-            
-        if i != len(target)-1:
-            curr.next = ListNode(None)
-       
     return res
+
+#alternate solution (better time + memory complexity):
+#sorta like doing (sorta like 123
+                            # 345
+                        #  +---------but from the opposite side
+
+def addTwoNumbers2(l1,l2):
+
+    l1,l2 = map(convert,[l1,l2])
+
+    carry = 0
+    res = n = ListNode(0) #n is shallow copy of res
+
+    while l1 or l2 or carry: #checking if 'carry' exists is for the last digit's carryover
+                 # 0 or None -> False in most languages
+        if l1:
+            carry += l1.val
+            l1 = l1.next
+                
+        if l2:
+            carry += l2.val #do the addition without the carryover digit first
+            l2 = l2.next
+            
+        carry, val = divmod(carry, 10) #divmod returns quotient,remainder
+        n.next = n = ListNode(val) #n is shallow copy of n.next so we can traverse the linked list
+            
+    return res.next
