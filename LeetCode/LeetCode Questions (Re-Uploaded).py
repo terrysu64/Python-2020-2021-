@@ -872,3 +872,38 @@ def addTwoNumbers2(l1,l2):
         n.next = n = ListNode(val) #n is shallow copy of n.next so we can traverse the linked list
             
     return res.next
+
+#Date: June 14, 2021
+#Merge two sorted linked lists and return it as a sorted list.
+#The list should be made by splicing together the nodes of the first two lists.
+
+def mergeTwoLists(l1,l2):
+
+    l1,l2 = map(convert,[l1,l2])
+
+    if l1 == None and l2 == None:
+        return
+        
+    curr1, curr2 = l1, l2
+    conv = []
+        
+    while curr1:
+        conv.append(curr1.val)
+        curr1 = curr1.next
+        
+    while curr2:
+        conv.append(curr2.val)
+        curr2 = curr2.next
+        
+    conv.sort()
+        
+    ans = curr = ListNode()
+    for i,x in enumerate(conv):
+            
+        curr.val = x
+            
+        if i != len(conv)-1:
+            curr.next = curr = ListNode()
+            
+        
+    return ans
