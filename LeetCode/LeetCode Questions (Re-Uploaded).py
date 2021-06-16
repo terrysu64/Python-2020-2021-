@@ -887,16 +887,18 @@ def mergeTwoLists(l1,l2):
     curr1, curr2 = l1, l2
     conv = []
         
-    while curr1:
-        conv.append(curr1.val)
+    while curr1: #all values in both linked-lists are appended to a single array
+        conv.append(curr1.val) 
         curr1 = curr1.next
         
     while curr2:
         conv.append(curr2.val)
         curr2 = curr2.next
         
-    conv.sort()
-        
+    conv.sort() #the array is sorted
+
+
+    #the array is re-converted into a linked-list 
     ans = curr = ListNode()
     for i,x in enumerate(conv):
             
@@ -904,6 +906,5 @@ def mergeTwoLists(l1,l2):
             
         if i != len(conv)-1:
             curr.next = curr = ListNode()
-            
         
     return ans
