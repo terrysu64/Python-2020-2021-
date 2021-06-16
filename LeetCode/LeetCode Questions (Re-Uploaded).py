@@ -908,3 +908,18 @@ def mergeTwoLists(l1,l2):
             curr.next = curr = ListNode()
         
     return ans
+
+#Date: June 16, 2021
+#Given an unsorted integer array nums, find the smallest missing positive integer.
+#You must implement an algorithm that runs in O(n) time
+
+def firstMissingPositive(self, nums):
+        
+    store = set([i for i in nums])
+    ans = 1
+        
+    while ans in store: #prevents O(n^2) as sets have lookup of O(1)
+                        #a set is implemented as values in a hash table
+        ans += 1
+            
+    return ans
