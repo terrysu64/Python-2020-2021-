@@ -66,10 +66,24 @@ class BST:
         return print(value, 'was not found')
 
 
+    def traverse(self,node): #node should start with self.root when called
+                             #prints all values in the BST
+        if node:
+            print(node.value)
+
+        if node.left:
+            self.traverse(node.left)
+                
+        if node.right:
+            self.traverse(node.right)
+
+        return
+
 root = Node(5)
 tree = BST(root)
 tree.insert(4)
 tree.insert(3)
 tree.insert(6)
 tree.lookup(9)
-print(tree.root.left.left.value)
+print(tree.lookup(5))
+tree.traverse(tree.root)
