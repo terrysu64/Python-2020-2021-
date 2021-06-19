@@ -1018,3 +1018,35 @@ def searchInsert(nums,target):
             return nums.index(left_compare) + 1
         
     return divide(nums)
+
+#Date: June 19, 2021
+#Given the head of a linked list, REMOVE the nth node from the end of the list and return its head.
+
+def removeNthFromEnd(head):
+
+    curr = head
+    length = len_linked_list(head) #find length of linked list first
+
+    #special conditions
+    if head == None or head.next == None: #if linked list is empty or only has one node
+        return
+        
+    if n == length: #if the first node needs to be removed
+        return head.next
+        
+    for x in range(0,length-n-1): #find node before the nth node from end; we need to add the -1 as we start initially on the head node as we traverse
+        curr = curr.next
+        
+    curr.next = curr.next.next #this resets the sucessor of the node BEFORE the removed node to the node initially AFTER the removed node
+    return head
+    
+def len_linked_list(linked_list = None):
+        
+    count = 0
+    curr = linked_list
+        
+    while curr:
+        curr = curr.next
+        count += 1
+        
+    return count
