@@ -967,3 +967,54 @@ def romanToInt(s):
             ans += roman[s[i]]
                 
     return ans + roman[s[-1]] #for the last index of string so we dont encounter IndexError
+
+#Date: June 18, 2021
+#Given a sorted array of distinct integers and a target value, return the index if the target is found.
+#If not, return the index where it would be if it were inserted in order.
+#You must write an algorithm with O(log n) runtime complexity.
+
+def searchInsert(nums,target):
+    #use divide and conquer
+    #Note: len(), and indexing have a time complexity of O(1)
+        
+    #special conditions:
+    if len(nums) == 0: #nums is empty
+        return 0
+        
+    if len(nums) == 1: #nums only has one value
+        if target <= nums[0]:
+                return 0
+            
+        elif target > nums[0]:
+            return 1
+        
+    if target > nums[-1]: #target is larger than everything
+        return len(nums)
+        
+    if target < nums[0]: #target is smaller than everything
+        return 0
+        
+        
+    def divide(curr):
+        #1. break the array to left and right
+        #2. check if target if on edges of left and right, or recurse by splitting either left or right into a smaller arrays (depending on the situation)
+            
+        left, right = curr[:len(curr)//2], curr[len(curr)//2:]
+        left_compare, right_compare = left[-1], right[0]
+            
+        if target == left_compare: #target found!
+            return nums.index(left_compare)
+                
+        elif target == right_compare: #target found!
+            return nums.index(right_compare)
+                
+        elif target > right_compare: #target in right sub-array somewhere
+            return divide(right)
+                    
+        elif target < left_compare: #target in left sub-array somewheere
+                return divide(left)
+
+        else: #target doesnt exist
+            return nums.index(left_compare) + 1
+        
+    return divide(nums)
