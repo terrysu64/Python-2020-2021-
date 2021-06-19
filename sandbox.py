@@ -12,7 +12,7 @@ def reverse(s):
 def reverse2(s):
     return s[::-1]
 
-def bubble_sort(arr):
+def bubble_sort(arr): #bubble up largest values one by one
     
     count = len(arr) - 1
     
@@ -26,7 +26,7 @@ def bubble_sort(arr):
 
     return arr
 
-def selection_sort(arr):
+def selection_sort(arr): #find minimum values one by one and place them at front of array
 
     count = 0
 
@@ -44,7 +44,8 @@ def selection_sort(arr):
 
     return arr
 
-def insertion_sort(arr):
+def insertion_sort(arr): #rebuilding a sorted list within itself, one index at a time
+                         #iterate through each index (starting with index:1) and find its respective position among previous indices
 
     for i in range(1,len(arr)):
 
