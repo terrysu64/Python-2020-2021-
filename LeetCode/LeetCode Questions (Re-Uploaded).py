@@ -995,29 +995,30 @@ def searchInsert(nums,target):
         return 0
         
         
-    def divide(curr):
+    def divide(curr,leftbound,rightbound): #leftbound and rightbound is index range of curr relative to nums
         #1. break the array to left and right
-        #2. check if target if on edges of left and right, or recurse by splitting either left or right into a smaller arrays (depending on the situation)
-            
+        #2. check 
+
         left, right = curr[:len(curr)//2], curr[len(curr)//2:]
         left_compare, right_compare = left[-1], right[0]
-            
+
         if target == left_compare: #target found!
-            return nums.index(left_compare)
-                
+            return leftbound + len(left) - 1
+
         elif target == right_compare: #target found!
-            return nums.index(right_compare)
-                
-        elif target > right_compare: #target in right sub-array somewhere
-            return divide(right)
-                    
-        elif target < left_compare: #target in left sub-array somewheere
-                return divide(left)
+            return leftbound + len(left)
+
+        #target must be in left somewhere, in right somewhere, or doesnt exist
+        elif target > right_compare:
+            return divide(right,leftbound+len(left),rightbound)
+
+        elif target < left_compare:
+            return divide(left,leftbound,rightbound-len(right))
 
         else: #target doesnt exist
-            return nums.index(left_compare) + 1
-        
-    return divide(nums)
+            return leftbound + len(left)
+
+    return divide(nums,0,len(nums)-1)
 
 #Date: June 19, 2021
 #Given the head of a linked list, REMOVE the nth node from the end of the list and return its head.
