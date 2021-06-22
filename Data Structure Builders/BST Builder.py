@@ -68,6 +68,7 @@ class BST:
 
     def traverse(self,node): #node should start with self.root when called
                              #prints all values in the BST
+                             #a pre-order DFS
         if node:
             print(node.value)
 
@@ -79,11 +80,12 @@ class BST:
 
         return
 
-root = Node(5)
+root = Node(9)
 tree = BST(root)
 tree.insert(4)
-tree.insert(3)
+tree.insert(20)
+tree.insert(1)
 tree.insert(6)
-tree.lookup(9)
-print(tree.lookup(5))
+tree.insert(15)
+tree.insert(170)
 tree.traverse(tree.root)
