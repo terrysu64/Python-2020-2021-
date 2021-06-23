@@ -1059,41 +1059,23 @@ def len_linked_list(linked_list = None):
 #The right subtree of a node contains only nodes with keys greater than the node's key.
 #Both the left and right subtrees must also be binary search trees.
 
+#Date: June 22, 2021 
+#Given the root of a binary tree, determine if it is a valid binary search tree (BST).
+#A valid BST is defined as follows:
+#The left subtree of a node contains only nodes with keys less than the node's key.
+#The right subtree of a node contains only nodes with keys greater than the node's key.
+#Both the left and right subtrees must also be binary search trees.
+
 def isValidBST(root):
         
-    #run a pre-order DFS across the BST to cover each node
-    #if ever a right child < parent or if a left child > parent; return false
-
+    #a preorder DFS method; if any node ever fails to meet definition of BST in its sub-tree, we return false
+    #Note: float('inf') and float('-inf') are indefinely large and small float values
         
-    def dfs(node,less_than = None,larger_than = None):
-            
-        print(node.val,less_than,larger_than)
-            
-        if node.left:
-            if node.left.val >= node.val:
-                print('a')
-                return False
-                
-            if larger_than and node.left.val <= larger_than:
-                print('h')
-                return False
-                
-            return dfs(node.left,node.val,larger_than)   
-                
-        if node.right:
-            if node.right.val <= node.val:
-                print('b')
-                return False
-                
-            if less_than and node.right.val >= less_than:
-                print('c')
-                return False
-                
-            return dfs(node.right,less_than,node.val)
+    if root == None: #reached bottom of a branch
+        return True 
         
-    res = dfs(root)
+    if root.val <= largerThan or root.val >= lessThan:
+        return False
         
-    if res == None:
-        return True
-        
-    return False
+    return isValidBST(root.left, root.val, largerThan) and / #if we proceed left, all children nodes must <= current node from now and on
+            isValidBST(root.right, lessThan, root.val) #if we proceed right, all children nodes must >= current node from now and on
