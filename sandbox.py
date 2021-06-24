@@ -58,3 +58,45 @@ def insertion_sort(arr): #rebuilding a sorted list within itself, one index at a
                 break
                 
     return arr
+
+def fib(n):
+
+    calculations = 0
+    
+    def calculate(n):
+        
+        nonlocal calculations
+        # Defining a variable as non-local will cause it to bind
+        # to the nearest non-global variable with the same name.
+        calculations += 1
+        
+        if n <= 2:
+            return 1
+
+        return calculate(n-1) + calculate(n-2)
+
+    return calculate(n), calculations
+
+def dynamic_programming_fib(n): #optimized with memoization
+
+    calculations = 0
+    cache = {} #we could also put 'seen' in global scope at the sacrifice of global pollution
+
+    def calculate(n):
+
+        nonlocal calculations
+        nonlocal cache
+
+        calculations += 1
+
+        if n in cache:
+            return cache[n]
+
+        if n <= 2:
+            return 1
+
+        cache[n] = calculate(n-1) + calculate(n-2)
+
+        return cache[n]
+
+    return calculate(n), calculations
