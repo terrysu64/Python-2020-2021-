@@ -1052,13 +1052,6 @@ def len_linked_list(linked_list = None):
         
     return count
 
-#Date: June 22, 2021 (not done)
-#Given the root of a binary tree, determine if it is a valid binary search tree (BST).
-#A valid BST is defined as follows:
-#The left subtree of a node contains only nodes with keys less than the node's key.
-#The right subtree of a node contains only nodes with keys greater than the node's key.
-#Both the left and right subtrees must also be binary search trees.
-
 #Date: June 22, 2021 
 #Given the root of a binary tree, determine if it is a valid binary search tree (BST).
 #A valid BST is defined as follows:
@@ -1079,3 +1072,53 @@ def isValidBST(root):
         
     return isValidBST(root.left, root.val, largerThan) and / #if we proceed left, all children nodes must <= current node from now and on
             isValidBST(root.right, lessThan, root.val) #if we proceed right, all children nodes must >= current node from now and on
+    
+ #Date: June 25, 2021 (not done)
+#You are a professional robber planning to rob houses along a street.
+#Each house has a certain amount of money stashed,
+#the only constraint stopping you from robbing each of them is that adjacent houses have security systems connected
+#and it will automatically contact the police if two adjacent houses were broken into on the same night.
+#Given an integer array nums representing the amount of money of each house, return the maximum amount of money you can rob tonight without alerting the police.
+
+def rob(nums):
+        
+    #use recursion (starting from an initial house) and 
+    #branch possibilities of next house by index order. We will then find the maximum sum stolen 
+    #and return it as the answer.
+    #Note: optimized using dynamic programming
+        
+        
+    #special case (no input)
+    if nums == []:
+        return 0
+        
+    ans = []
+    cache = {}
+        
+    def next_house(start,house_index,total):
+            
+        if house_index == len(nums) - 1 or house_index == len(nums) - 2: #recursive base cases (we've reached either last house or second last house)
+                
+            if start not in cache:
+                cache[start] = [total]
+                
+            else:
+                cache[start].append(total)
+                    
+            ans.append(total)
+            return
+            
+        for i,money in enumerate(nums[house_index + 2:]): #branching out to next possible houses
+                
+            if house_index + 2 + i in cache: #optimized path instead of stacking recursive functions to continue branching possibilities
+                for x in cache[house_index + 2 + i]:
+                    ans.append(total + x)
+                return
+                
+            next_house(start,house_index + 2 + i, total + money)
+        
+    for i,first in enumerate(nums[0:2]): #we start with first two houses because you cant go from house 0 --> 1 or 1 --> 2
+                                         #but aside from that, you can jump to the same houses from these start points.
+        next_house(i,i,first)
+            
+    return max(ans)
