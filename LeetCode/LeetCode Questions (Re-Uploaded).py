@@ -1073,19 +1073,18 @@ def isValidBST(root):
     return isValidBST(root.left, root.val, largerThan) and / #if we proceed left, all children nodes must <= current node from now and on
             isValidBST(root.right, lessThan, root.val) #if we proceed right, all children nodes must >= current node from now and on
     
- #Date: June 25, 2021 (not done)
+#Date: June 25, 2021 
 #You are a professional robber planning to rob houses along a street.
 #Each house has a certain amount of money stashed,
 #the only constraint stopping you from robbing each of them is that adjacent houses have security systems connected
 #and it will automatically contact the police if two adjacent houses were broken into on the same night.
 #Given an integer array nums representing the amount of money of each house, return the maximum amount of money you can rob tonight without alerting the police.
 
-def rob(nums):
+def rob(nums): #Brute force and bad time complexity
         
     #use recursion (starting from an initial house) and 
     #branch possibilities of next house by index order. We will then find the maximum sum stolen 
     #and return it as the answer.
-    #Note: optimized using dynamic programming
         
         
     #special case (no input)
@@ -1093,32 +1092,41 @@ def rob(nums):
         return 0
         
     ans = []
-    cache = {}
         
-    def next_house(start,house_index,total):
-            
-        if house_index == len(nums) - 1 or house_index == len(nums) - 2: #recursive base cases (we've reached either last house or second last house)
-                
-            if start not in cache:
-                cache[start] = [total]
-                
-            else:
-                cache[start].append(total)
-                    
+    def next_house(start,house_index,total):                  
             ans.append(total)
             return
             
         for i,money in enumerate(nums[house_index + 2:]): #branching out to next possible houses
                 
-            if house_index + 2 + i in cache: #optimized path instead of stacking recursive functions to continue branching possibilities
-                for x in cache[house_index + 2 + i]:
-                    ans.append(total + x)
-                return
-                
             next_house(start,house_index + 2 + i, total + money)
         
     for i,first in enumerate(nums[0:2]): #we start with first two houses because you cant go from house 0 --> 1 or 1 --> 2
-                                         #but aside from that, you can jump to the same houses from these start points.
+                                         #but aside from that, you can jump to the same houses from these start points; starting at each house would be redundant
         next_house(i,i,first)
             
     return max(ans)
+
+#alternative
+
+def rob2(nums): 
+
+    #use dynamic programming to break the array into "sub-problems" O(n)
+    #while traversing the array, we keep track of MAX AMOUNT THAT CAN BE ROBBED UP TO THE CURRENT HOUSE WE'RE ON (using 'total' array)
+        
+    #to do that, we consider 3 indices/houses of nums at a time to take into account adjacent houses that cant be robbed, but might hold more money (total sum-wise up to that point) than the current total.
+        
+    #https://www.youtube.com/watch?v=73r3KWiEvyk
+
+    #special conditions
+    if len(nums)==0:
+        return 0
+    if len(nums)==1 or len(nums) == 2:
+        return max(nums)
+			
+    total = [max(nums[0:i]) for i in range(1,3)] #setting up first 2 indices of dp array
+
+    for i in range(2, len(nums)):
+        total.append(max(nums[i] + total[i-2], total[i-1])) #Should we skip the current house and stick with the maximum amount up to the last house, or add the money in the current house the maximum amount up to the second last house (to decide maximum up to the current house)??
+        
+        return total[-1]
