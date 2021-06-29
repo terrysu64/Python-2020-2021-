@@ -1130,3 +1130,42 @@ def rob2(nums):
         total.append(max(nums[i] + total[i-2], total[i-1])) #Should we skip the current house and stick with the maximum amount up to the last house, or add the money in the current house the maximum amount up to the second last house (to decide maximum up to the current house)??
         
         return total[-1]
+
+#Date: June 29, 2021
+#You are given an array prices where prices[i] is the price of a given stock on the ith day.
+#You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.
+#Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
+
+def maxProfit(prices):
+        
+    #O(n^2) time (pretty slow run time)
+    #iterate through each day and check every day that follows to determine each possible "profit"; we keep track of max profit at all times
+        
+    max_profit = 0
+    count = 0
+        
+    while count <= len(prices) - 2: #stop on second last day
+            
+        buy = prices[count]
+            
+        for sell in prices[count + 1:]:
+            max_profit = max(max_profit, sell-buy)
+            
+        count += 1
+        
+    return max_profit
+
+#alternative
+def maxProfit2(prices):
+    #O(n) traversal solution
+    #we keep track of minimum price (transient) as we iterate through the array, and find possible profits given that minimum price
+    #this also insures that buying date < selling date chronologically
+        
+    minimum_buy = float('inf')
+    max_profit = 0
+        
+    for price in prices:
+        minimum_buy = min(minimum_buy,price)
+        max_profit = max(max_profit, price - minimum_buy)
+        
+    return max_profit
