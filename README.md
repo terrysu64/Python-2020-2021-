@@ -1,2 +1,2 @@
-# Grade11_School_Year-2020-2021-
-Despite not being able to take another computer science elective course this school year. I decided to continue and play around with python and try new ideas from whenever ipossible on my own time. In pursuit of my own interest, I also decided to register for the Waterloo Junior Canadian Computing Contest for the first time (some solutions to practice problems can be found in this repository)!
+# Python 2020-2022
+Despite not being able to take another computer science elective course during my junior/senior years. I decided to continue and play around with python and try new ideas from whenever ipossible on my own time. In pursuit of my own interest, I also decided to register for the Waterloo Junior Canadian Computing Contest for the first time (some solutions to practice problems can be found in this repository)!
