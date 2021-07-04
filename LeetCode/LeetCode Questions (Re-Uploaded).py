@@ -1169,3 +1169,53 @@ def maxProfit2(prices):
         max_profit = max(max_profit, price - minimum_buy)
         
     return max_profit
+
+#Date: July 3, 2021 
+#Given an array of non-negative integers nums, you are initially positioned at the first index of the array.
+#Each element in the array represents your maximum jump length at that position.
+#Your goal is to reach the last index in the minimum number of jumps.
+#You can assume that you can always reach the last index.
+
+def jump(nums):
+        
+    #an intuitive O(n^2) brute force/dynamic programming solution
+    #in essence we want to find the smallest # of jumps to each index and eventually make our way to the end.
+    #to accomplish this, we will loop through each index in 'nums' while checking all possible positions that we can jump to from that particular index; we keep track of the least amount of jumps that we need to reach each visited index in a hash table.
+        
+    ans = {n: float('inf') for n in range(0,len(nums))} 
+    ans[0] = 0
+        
+    if len(nums) == 1:
+        return 0
+        
+    for start,max_jump in enumerate(nums):
+        for end in range(start+1, start+max_jump+1): #visiting each possible index we can jump to 
+                
+            ans[end] = min(ans[end], ans[start] + 1) #we use min() incase the index we jumped to has already been visited with a smaller # of jumps.
+                
+            if end == len(nums) - 1: #our return condition; if we reach the end
+                return ans[end]
+            
+#alternative with better time complexity
+def jump2(nums):
+    #The idea is to maintain a transient frame between two pointers: left and right,
+    #which represent a range of indexes that can be reached with a minimum of 'x' jumps.
+    #Left initialy set to be 0 and right set to be nums[0]. Hence, points between 0 and nums[0]
+    #can be reached using just 1 jump. Next, we want to find points I can reach using 2 jumps... and so on;
+    #our new left will be set equal to right, and our new right will be set equal to the farest point we
+    #can reach by two jumps. which is:
+
+    #right = max(i + nums[i] for i in range(left, right + 1)
+
+    if len(nums) == 1: 
+        return 0
+        
+    left, right = 0, nums[0]
+    jumps = 1
+        
+    while right < len(nums) - 1:
+        jumps += 1
+        nxt_right = max([i + nums[i] for i in range(left, right + 1)]) #furtherst of all possible next positions 
+        left, right = right, nxt_right
+            
+    return jumps
