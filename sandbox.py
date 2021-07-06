@@ -100,3 +100,15 @@ def dynamic_programming_fib(n): #optimized with memoization
         return cache[n]
 
     return calculate(n), calculations
+
+def x():
+    hi = 'hi'
+
+    def y():
+        nonlocal hi
+        hi += 'a'
+        print('hi')
+
+    y()
+
+x()
