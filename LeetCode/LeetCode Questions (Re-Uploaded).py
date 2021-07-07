@@ -1219,3 +1219,29 @@ def jump2(nums):
         left, right = right, nxt_right
             
     return jumps
+
+#Date: July 6, 2021
+#Given an array nums of distinct integers, return all the possible permutations. You can return the answer in any order.
+
+def permute(self, nums: List[int]) -> List[List[int]]:
+        
+    #recursive DFS approach; approximately O(2^n) time due to recursive call stack
+    #base case: when permutation length = nums = length
+    #arguments: current permutation, whats left in nums for us to use
+        
+    ans = []
+        
+    def helper(curr, remaining):
+        
+        if len(remaining) == 0: #base case; theres nothing left to add to the permutation
+            if curr not in ans:
+                ans.append(curr)
+            return
+          
+        for i, next_elem in enumerate(remaining): #add each possible "next value" to the current permutation and recurse
+            helper(curr + [next_elem], remaining[:i] + remaining[i+1:])
+          
+        
+    helper([],nums)
+        
+    return ans
