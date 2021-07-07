@@ -112,3 +112,17 @@ def x():
     y()
 
 x()
+
+class test():
+
+    def print_num(self):
+        print(1+1)
+
+    @staticmethod
+    def method(x):
+        print(x)
+    
+d = test()
+d.print_num()
+d.print_num = 'g'
+print(d.print_num)
