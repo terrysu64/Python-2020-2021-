@@ -1244,3 +1244,32 @@ def permute(self, nums: List[int]) -> List[List[int]]:
     helper([],nums)
         
     return ans
+
+#Date: July 7, 2021
+#Given a collection of numbers, nums, that might contain duplicates, return all possible unique permutations in any order.
+
+def permuteUnique(nums):
+    
+    #dfs + dynamic programming solution
+    #similar solution to previous question. However, each time we add the next layer to each individual permutation we check if a particular number has already been used (avoids duplicates and unecessary run time) through a hash table.
+        
+    res = []
+                
+    def dfs(nums, path, res):
+        
+        used = {}
+
+        if not nums: #base case to stop the dfs recursion
+            res.append(path)
+            return
+
+        for i in range(len(nums)):
+
+            if used.get(nums[i]):
+                continue #returns to begenning of loop while ignoring rest of the code
+                    
+            used[nums[i]] = True
+            dfs(nums[:i]+nums[i+1:], path+[nums[i]], res)
+                
+    dfs(nums, [], res)
+    return res
