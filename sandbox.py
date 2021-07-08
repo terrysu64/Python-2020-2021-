@@ -126,3 +126,30 @@ d = test()
 d.print_num()
 d.print_num = 'g'
 print(d.print_num)
+
+class Animal: #polymorphism
+  def type(self): 
+    print("Various types of animals")
+      
+  def age(self): 
+    print("Age of the animal.") 
+    
+class Rabbit(Animal): 
+  def age(self): 
+    print("Age of rabbit.")
+
+a = Animal()
+r = Rabbit()
+print(r.type())
+print(r.age())
+
+class dunder():
+
+    def __len__(self):
+        print('replacement')
+
+print('ffgf'.__len__())
+
+x = dunder()
+print(x.__len__())
+
