@@ -1234,8 +1234,7 @@ def permute(self, nums: List[int]) -> List[List[int]]:
     def helper(curr, remaining):
         
         if len(remaining) == 0: #base case; theres nothing left to add to the permutation
-            if curr not in ans:
-                ans.append(curr)
+            ans.append(curr)
             return
           
         for i, next_elem in enumerate(remaining): #add each possible "next value" to the current permutation and recurse
