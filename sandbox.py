@@ -153,3 +153,10 @@ print('ffgf'.__len__())
 x = dunder()
 print(x.__len__())
 
+from functools import reduce
+arr = [1,2,3]
+
+def accumulator(acc, item): #acc is transient and continuously becomes acc + item
+    return acc + item
+
+print(reduce(accumulator, arr, 0)) #arguments: function, iterable, initial accumulator
