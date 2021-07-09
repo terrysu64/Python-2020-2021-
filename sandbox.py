@@ -160,3 +160,21 @@ def accumulator(acc, item): #acc is transient and continuously becomes acc + ite
     return acc + item
 
 print(reduce(accumulator, arr, 0)) #arguments: function, iterable, initial accumulator
+
+
+#an example of a decorator to superboost a a function
+from time import time
+def preformance(func):
+    def wrapper(*args, **kwargs):
+        t1 = time()
+        result = func(*args, **kwargs)
+        t2 = time()
+        print(f'took {t2-t1}s')
+    return wrapper
+
+@preformance
+def hihi():
+    print('hi')
+
+def args_test(*args, **kwargs):
+    print(args,kwargs)
