@@ -1273,3 +1273,24 @@ def permuteUnique(nums):
                 
     dfs(nums, [], res)
     return res
+
+#Date: July 9, 2021
+#Given an array of strings strs, group the anagrams together. You can return the answer in any order.
+#An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
+
+def groupAnagrams(strs):
+        
+    #to approach this we must note that all anagrams will produce the same string if sorted
+    #with that in noted, we can group anagrams together with a hash table when traversing 'strs'; the key will be the sorted anagram and the value will the anagrams
+        
+    res = {}
+        
+    for word in strs:
+            
+        if not res.get(temp := tuple(sorted(word))): #we use a tuple over an array because its hashable
+            res[temp] = [word]
+            continue
+            
+        res[temp].append(word)
+        
+    return res.values()
