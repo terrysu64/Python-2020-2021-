@@ -1274,6 +1274,29 @@ def permuteUnique(nums):
     dfs(nums, [], res)
     return res
 
+#Date: July 10, 2021
+#Given an integer array nums, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.
+
+def maxSubArray(nums):
+    #an iterative dynamic programming approach O(n)
+        
+    #we initialize a current subarray to start at nums[0], for every next index we may either choose to keep its value in our current subarray,
+    #or choose to start a new subarray at that value.
+    #if we choose to keep the value (if value + current sum of subarray > value), we add the value to the sum of our current subarray
+    #otherwise, we will start a new subarray at nums[i]
+        
+    #to actually solve the question however, it is important to note,that we will keep track of our desired answer (contiguous subarray with largest sum)
+    #by comparing the current sum of each subarray at every index and keeping track of the max value. 
+        
+    sub_array_sum = nums[0] #sum of current subarray, from a particular start index to another index (both currently 0)
+    res = nums[0]
+        
+    for i in range(1,len(nums)):
+        sub_array_sum = max(sub_array_sum + nums[i], nums[i]) #in this context, nums[i] marks a potential start to a new subarray
+        res = max(res, sub_array_sum)
+        
+    return res
+
 #Date: July 9, 2021
 #Given an array of strings strs, group the anagrams together. You can return the answer in any order.
 #An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
