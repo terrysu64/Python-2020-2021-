@@ -178,3 +178,28 @@ def hihi():
 
 def args_test(*args, **kwargs):
     print(args,kwargs)
+    
+#error handling test
+def error_test(arr):
+    try:
+        print(int(arr[0]))
+    except (IndexError, ValueError):
+        print('error')
+    else:
+        print('all good')
+
+#generator test
+def generator(arr):
+    for i in range(len(arr)):
+        try:
+            yield i
+        except:
+            return
+        
+#debugger test
+import pdb
+
+def add(num1,num2):
+    pdb.set_trace()
+    t = 1+1
+    return num1 + num2
