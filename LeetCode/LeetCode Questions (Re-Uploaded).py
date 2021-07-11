@@ -1317,3 +1317,85 @@ def groupAnagrams(strs):
         res[temp].append(word)
         
     return res.values()
+
+#Date: July 10, 2021
+#Given an integer array nums, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.
+
+def maxSubArray(nums):
+    #an iterative dynamic programming approach O(n)
+        
+    #we initialize a current subarray to start at nums[0], for every next index we may either choose to keep its value in our current subarray,
+    #or choose to start a new subarray at that value.
+    #if we choose to keep the value (if value + current sum of subarray > value), we add the value to the sum of our current subarray
+    #otherwise, we will start a new subarray at nums[i]
+        
+    #to actually solve the question however, it is important to note,that we will keep track of our desired answer (contiguous subarray with largest sum)
+    #by comparing the current sum of each subarray at every index and keeping track of the max value. 
+        
+    sub_array_sum = nums[0] #sum of current subarray, from a particular start index to another index (both currently 0)
+    res = nums[0]
+        
+    for i in range(1,len(nums)):
+        sub_array_sum = max(sub_array_sum + nums[i], nums[i]) #in this context, nums[i] marks a potential start to a new subarray
+        res = max(res, sub_array_sum)
+        
+    return res
+
+#Date: July 11, 2021
+#Given an m x n matrix, return all elements of the matrix in spiral order.
+
+def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+        
+    #an O(n) solution where n is number of total elements
+    #while the matrix still holds element, we peel layers in this sequence:
+    #1.top row (rightwards), 2.right (downwards), 3.bottom (leftwards), 4.left (upwards)
+        
+    ans = []
+        
+    def done(matrix):
+            
+        if len(matrix) == 0: #either whole matrix is empty
+            return True
+            
+        count = 0 #or every array in the matrix is empty
+        for arr in matrix:
+            if len(arr) != 0:
+                count += 1
+        if count == 0:
+            return True
+            
+        return False
+        
+    while True:
+            
+        #1.
+        ans += [j for j in matrix[0]]
+        matrix.pop(0)
+            
+        if done(matrix):
+            return ans
+            
+        #2.
+        ans += [j[-1] for j in matrix]
+        for row in matrix:
+            row.pop()
+                
+            if done(matrix):
+                return ans
+            
+        #3.
+        ans += [matrix[-1][i*-1] for i in range(1,len(matrix[-1])+1)]
+        matrix.pop()
+
+        if done(matrix):
+            return ans
+                     
+        #4.
+        ans += [matrix[i*-1][0] for i in range(1,len(matrix)+1)]
+        for row in matrix:
+            row.pop(0)
+                
+        if done(matrix):
+            return ans
+            
+    return ans
