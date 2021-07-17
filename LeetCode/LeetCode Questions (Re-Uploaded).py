@@ -1452,3 +1452,22 @@ def swapPairs(self):
             
         
     return dummy.next
+
+#Date: July 17, 2021
+#Given an array of non-negative integers nums, you are initially positioned at the first index of the array.
+#Each element in the array represents your maximum jump length at that position.
+#Determine if you are able to reach the last index.
+
+def canJump(self, nums: List[int]) -> bool:
+        
+    #An O(n) traversal solution; we continuously update the maximum index we can potentially reach, up to and including a particular index.
+    #if an index within the nums is ever beyond our max reach --> its impossible to reach the end. 
+        
+    max_reach = 0
+        
+    for i, j in enumerate(nums):
+        if i > max_reach:
+            return False
+        max_reach = max(max_reach, i+j)
+            
+    return True
