@@ -1471,3 +1471,29 @@ def canJump(self, nums: List[int]) -> bool:
         max_reach = max(max_reach, i+j)
             
     return True
+
+#Date: July 18, 2021
+#Given an array of intervals where intervals[i] = [starti, endi],
+#merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.
+
+def merge(intervals):
+        
+    #an O(n^2*log n) solution
+    #Assuming starting point of intervals are increasing... we will start with one initial (current) interval to focus on,
+    #and traverse the remaining intervals while checking the following:
+        
+    #1. if start > current end --> add new interval
+    #2. if start <= current end and end > current end --> current end = end
+        
+    intervals = sorted(intervals, key=lambda x: x[0])
+    ans = [intervals[0]]
+        
+    for i in range(1, len(intervals)):
+            
+        if intervals[i][0] > ans[-1][1]:
+            ans.append(intervals[i])
+            
+        elif intervals[i][1] > ans[-1][1]:
+            ans[-1][1] = intervals[i][1]
+        
+    return ans
