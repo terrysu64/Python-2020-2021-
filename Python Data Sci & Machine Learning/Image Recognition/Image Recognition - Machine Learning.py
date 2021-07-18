@@ -14,15 +14,15 @@ prediction.loadModel()
 
 predictions, probabilities = prediction.classifyImage(os.path.join(execution_path, 'house.jpg'), result_count = 10 ) #producing 10 predictions for house.jpg
 for eachPrediction, eachProbability in zip(predictions, probabilities):
-    print(eachPrediction , " : " , eachProbability)
+    print(eachPrediction , " : " , f'%{eachProbability}')
 print()
 
 predictions, probabilities = prediction.classifyImage(os.path.join(execution_path, 'godzilla.jpg'), result_count = 10 ) #producing 10 predictions for house.jpg
 for eachPrediction, eachProbability in zip(predictions, probabilities):
-    print(eachPrediction , " : " , eachProbability)
+    print(eachPrediction , " : " , f'%{eachProbability}')
 print()
 
 predictions, probabilities = prediction.classifyImage(os.path.join(execution_path, 'giraffe.jpg'), result_count = 10 ) #producing 10 predictions for house.jpg
 for eachPrediction, eachProbability in zip(predictions, probabilities):
-    print(eachPrediction , " : " , eachProbability)
+    print(eachPrediction , " : " , f'%{eachProbability}')
 print()
