@@ -1497,3 +1497,57 @@ def merge(intervals):
             ans[-1][1] = intervals[i][1]
         
     return ans
+
+#Date: July 19, 2021
+#Given a string s consists of some words separated by spaces,
+#return the length of the last word in the string. If the last word does not exist, return 0.
+#A word is a maximal substring consisting of non-space characters only.
+
+def lengthOfLastWord(self, s: str) -> int:
+        
+    #An O(n) solution; traverse the string backwards and stop when we see a space and + have already seen a non-space character in the past 
+        
+    seen_char = False
+    count = 0
+        
+    for i in range(1,len(s)+1):
+            
+        if seen_char and s[i*-1] == ' ':
+            return count
+            
+        if s[i*-1] != ' ':
+            seen_char = True
+            count += 1
+        
+    return count
+
+#Date: July 19, 2021
+#You are given an array of k linked-lists lists, each linked-list is sorted in ascending order.
+#Merge all the linked-lists into one sorted linked-list and return it.
+
+def mergeKLists(self, lists: List[ListNode]) -> ListNode:
+        
+    #A O(2n+nlog n) --> O(n+nlog n) solution
+    #Change into array data structure, sort, then convert back
+        
+    temp = []
+        
+    def ll_to_arr(head):
+        curr = head
+        while curr:
+            temp.append(curr.val)
+            curr = curr.next
+        
+    def arr_to_ll(arr):
+        curr = dummy = ListNode()
+        for x in arr:
+            curr.next = ListNode(x)
+            curr = curr.next
+        return dummy.next
+                
+    for head in lists:
+        ll_to_arr(head)
+    temp.sort()
+        
+    return arr_to_ll(temp)
+
