@@ -1551,3 +1551,93 @@ def mergeKLists(self, lists: List[ListNode]) -> ListNode:
         
     return arr_to_ll(temp)
 
+#Date: July 20, 2021
+#Given a positive integer n, generate an n x n matrix filled with elements from 1 to n^2 in spiral order.
+
+def generateMatrix(n):
+        
+    #keep track of our position (i.e row, column) in the matrix and traverse in the following order: right, down, left, up
+        
+    #we change directions given two cases:
+    #1. we receive an index error (we went outside of the given dimensions)
+    #2. we have reached a spot that has already been filled
+              
+    matrix = [[None for x in range(0,n)] for y in range(0,n)]
+        
+    curr, filled = [0,-1], 0 
+    #[row, column]
+
+       
+    while filled < n*n:
+            
+        #right
+        curr[1] += 1
+        while True:
+            try:
+                if not matrix[curr[0]][curr[1]]:
+                    matrix[curr[0]][curr[1]] = filled + 1
+                    filled += 1
+                    curr[1] += 1
+                    
+                else:
+                    curr[1] -= 1
+                    break
+                
+            except IndexError:
+                curr[1] -= 1
+                break
+            
+            
+        #down
+        curr[0] += 1
+        while True:
+            try:
+                if not matrix[curr[0]][curr[1]]:
+                    matrix[curr[0]][curr[1]] = filled + 1
+                    filled += 1
+                    curr[0] += 1
+                    
+                else:
+                    curr[0] -= 1
+                    break
+                
+            except IndexError:
+                curr[0] -= 1
+                break
+            
+            
+        #left
+        curr[1] -= 1
+        while True:
+            try:
+                if not matrix[curr[0]][curr[1]]:
+                    matrix[curr[0]][curr[1]] = filled + 1
+                    filled += 1
+                    curr[1] -= 1
+                    
+                else:
+                    curr[1] += 1
+                    break
+                
+            except IndexError:
+                curr[1] += 1
+                break
+            
+        #up
+        curr[0] -= 1
+        while True:
+            try:
+                if not matrix[curr[0]][curr[1]]:
+                    matrix[curr[0]][curr[1]] = filled + 1
+                    filled += 1
+                    curr[0] -= 1
+                    
+                else:
+                    curr[0] += 1
+                    break
+                
+            except IndexError:
+                curr[0] += 1
+                break
+                        
+    return matrix
