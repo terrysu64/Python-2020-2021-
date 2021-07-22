@@ -1641,3 +1641,36 @@ def generateMatrix(n):
                 break
                         
     return matrix
+
+#Date: July 22, 2021 (not working)
+#The set [1, 2, 3, ..., n] contains a total of n! unique permutations.
+#By listing and labeling all of the permutations in order, we get the following sequence for n = 3:
+#"123"
+#"132"
+#"213"
+#"231"
+#"312"
+#"321"
+#Given n and k, return the kth permutation sequence.
+
+def getPermutation(n,k):
+        
+    import math
+        
+    rem = [str(x) for x in range(1,n+1)]
+    curr =n-1
+    ans = ''
+        
+    for i in range(0,n):
+            
+        quotient, remainder = divmod(k,math.factorial(curr))
+        ans += rem[quotient]
+        rem.pop(quotient)
+            
+        k = remainder
+ 
+        curr -= 1
+    
+            
+        
+    return ans
