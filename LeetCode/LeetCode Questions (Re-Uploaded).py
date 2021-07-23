@@ -1642,35 +1642,41 @@ def generateMatrix(n):
                         
     return matrix
 
-#Date: July 22, 2021 (not working)
-#The set [1, 2, 3, ..., n] contains a total of n! unique permutations.
-#By listing and labeling all of the permutations in order, we get the following sequence for n = 3:
-#"123"
-#"132"
-#"213"
-#"231"
-#"312"
-#"321"
-#Given n and k, return the kth permutation sequence.
+#Date: July 23, 2021 
+#Given the head of a linked list, rotate the list to the right by k places.
 
-def getPermutation(n,k):
+def rotateRight(head,k):
         
-    import math
+    #O(kn) time; worst case of O(n^2) time.
+    #for each rotation we traverse to the end of the linked list and bring the last node to the head
+    #the minimum number of iterations/rotations needed is calculated by:
+
+    #round(((k / length) - (k // length)) * length), where length is the length of the linked list
+      
         
-    rem = [str(x) for x in range(1,n+1)]
-    curr =n-1
-    ans = ''
+    if (not head) or (not head.next):
+        return head
         
-    for i in range(0,n):
+    def len_ll(head):
+        count = 0
+        curr = head
+        while curr:
+            count += 1
+            curr = curr.next      
+        return count
+        
+    length = len_ll(head)
+    iterations = round(((k / length) - (k // length)) * length)
             
-        quotient, remainder = divmod(k,math.factorial(curr))
-        ans += rem[quotient]
-        rem.pop(quotient)
+    for x in range(0,iterations):
             
-        k = remainder
- 
-        curr -= 1
-    
+        curr = head
+        while curr.next.next:
+            curr = curr.next
             
-        
-    return ans
+        hold = curr.next
+        curr.next = None
+        hold.next = head
+        head = hold
+            
+    return head
