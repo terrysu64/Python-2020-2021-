@@ -1,3 +1,8 @@
+#Date: July 24, 2021
+#Author: Terry Su
+#Purpose: Using selenium to locate HTML elements on a page;
+#we will we collecting article summaries when typing the keyword "test" into https://techwithtim.net
+
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
