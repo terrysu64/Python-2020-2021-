@@ -1680,3 +1680,22 @@ def rotateRight(head,k):
         head = hold
             
     return head
+
+#Date: July 24, 2021
+#A robot is located at the top-left corner of a m x n grid (marked 'Start' in the diagram below).
+#The robot can only move either down or right at any point in time. The robot is trying to reach the bottom-right corner of the grid (marked 'Finish' in the diagram below).
+#How many possible unique paths are there?
+
+def uniquePaths(m,n):
+
+    #an O(mn) time dynammic programming approach
+    #possbilities of getting to matrix[row][column] = matrix[row-1][column] + matrix[row][column-1]
+        
+    matrix = [[1] + [None for i in range(0,n-1)] for j in range(0,m)]
+    matrix[0] = [1 for i in range(0,n)]
+        
+    for r in range(1,m):
+        for c in range(1,n):
+            matrix[r][c] = matrix[r][c-1] + matrix[r-1][c]
+        
+    return matrix[m-1][n-1]
