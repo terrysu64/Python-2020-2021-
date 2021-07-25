@@ -19,7 +19,7 @@ search.send_keys('test')
 search.send_keys(Keys.RETURN)
 
 try:
-    main = WebDriverWait(driver, 10).until(
+    main = WebDriverWait(driver, 10).until( #handles case where the code runs before the page loads itself (waits for a maximum of 10s)
         EC.presence_of_element_located((By.ID, 'main'))
     )
 
