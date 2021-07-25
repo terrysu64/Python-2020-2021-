@@ -1699,3 +1699,41 @@ def uniquePaths(m,n):
             matrix[r][c] = matrix[r][c-1] + matrix[r-1][c]
         
     return matrix[m-1][n-1]
+
+#Date: July 25, 2021
+#A robot is located at the top-left corner of a m x n grid (marked 'Start' in the diagram below).
+#The robot can only move either down or right at any point in time.
+#The robot is trying to reach the bottom-right corner of the grid (marked 'Finish' in the diagram below).
+#Now consider if some obstacles are added to the grids. How many unique paths would there be?
+#An obstacle and space is marked as 1 and 0 respectively in the grid.
+
+def uniquePathsWithObstacles(obstacleGrid):
+        
+    #O(3mn + m) time
+    #1. we first traverse the matrix to convert all the 0s to 1s and vice versa
+    #2. from there, we need to add an additional layer of of 0s to wrap the top and left of the matrix to overcome situations where there obstacles blockade an entire row
+    #3. ultimately we will traverse the matrix and take the same approach as the previous question
+
+    #3.
+    def helper(matrix,m,n):
+        for r in range(1,m):
+            for c in range(1,n):
+                if matrix[r][c] != 0 and (r!=1 or c!=1):
+                    matrix[r][c] = matrix[r][c-1] + matrix[r-1][c]
+
+        return matrix[-1][-1]
+
+    #1. 
+    for r in range(0,rows:=len(obstacleGrid)):
+        for c in range(0,cols:=len(obstacleGrid[0])):     
+            if obstacleGrid[r][c] == 1: obstacleGrid[r][c] = 0
+            else: obstacleGrid[r][c] = 1
+
+    #2.
+    for r in range(0,rows):
+        obstacleGrid[r].insert(0,0)
+    obstacleGrid.insert(0,[0 for i in range(0,cols+1)])
+        
+
+    return helper(obstacleGrid, rows+1, cols+1)
+
