@@ -18,6 +18,7 @@ search = driver.find_element_by_name('s')
 search.send_keys('test')
 search.send_keys(Keys.RETURN)
 
+#explicit wait
 try:
     main = WebDriverWait(driver, 10).until( #handles case where the code runs before the page loads itself (waits for a maximum of 10s)
         EC.presence_of_element_located((By.ID, 'main'))
