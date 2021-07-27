@@ -1737,3 +1737,53 @@ def uniquePathsWithObstacles(obstacleGrid):
 
     return helper(obstacleGrid, rows+1, cols+1)
 
+#Date: July 26, 2021
+#Given a m x n grid filled with non-negative numbers, find a path from top left to bottom right, which minimizes the sum of all numbers along its path.
+#Note: You can only move either down or right at any point in time.
+
+def minPathSum(grid):
+        
+    #dynamic programming O(mn + m + n) time solution
+    #minPathSum(grid[r][c]) = minimum of current box + top box and current box + left box
+        
+    #initialize the first row to be all 1s
+    for r in range(1,rows:=len(grid)):
+        grid[r][0] = grid[r][0] + grid[r-1][0]
+        
+    #initialize the first column to be all 1s
+    for c in range(1,cols:=len(grid[0])):
+        grid[0][c] = grid[0][c] + grid[0][c-1]
+        
+    for r in range(1,rows):
+        for c in range(1,cols):
+            grid[r][c] = min(grid[r][c]+grid[r-1][c], grid[r][c]+grid[r][c-1])
+        
+    return grid[-1][-1]
+
+#Date: July 27, 2021
+#Given a non-empty array of decimal digits representing a non-negative integer, increment one to the integer.
+#The digits are stored such that the most significant digit is at the head of the list, and each element in the array contains a single digit.
+#You may assume the integer does not contain any leading zero, except the number 0 itself.
+
+def plusOne(digits):
+        
+    #Best time: O(1), average time: O(n), worst case: O(2n)
+        
+    for i in range(1,len(digits)+1):
+            
+        digits[i*-1] = digits[i*-1] + 1
+            
+        #if there isnt any digit to carry over, we are finished
+        if len(str(digits[i*-1])) == 1:
+            return digits
+            
+        #if there is a digit to carry over but we are already on the 0th index, we insert and extra 1 in the front of the array
+        elif i == len(digits):
+            digits[0] = 0
+            digits.insert(0,1)
+            return digits
+            
+        #if there is a digit to carry over, we add it to the previous index
+        else:
+            digits[i*-1] = digits[i*-1] - 10
+
