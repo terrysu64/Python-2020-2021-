@@ -1786,4 +1786,33 @@ def plusOne(digits):
         #if there is a digit to carry over, we add it to the previous index
         else:
             digits[i*-1] = digits[i*-1] - 10
+    return
+
+#Date: July 28, 2021
+#Given two binary strings a and b, return their sum as a binary string.
+
+def addBinary(a,b):
+        
+    #1. make sure the two binary strings are of equal length
+    if (l_a := len(a)) > (l_b := len(b)): 
+        b = ''.join(['0' for i in range(0,l_a-l_b)]) + b
+            
+    if l_b > l_a: 
+        a = ''.join(['0' for i in range(0,l_b-l_a)]) + a
+        
+    #2. do the addition digit-by-digit by traversing backwards
+    #ans has length of len(a) + 1 in case the last digit has a carry-over
+    ans = ['0' for i in range(0,len(a)+1)]
+    for i in range(-1,-1*(1+len(ans)),-1):
+            
+        if i > -1*len(ans):
+            ans[i] = str(int(ans[i]) + int(a[i]) + int(b[i]))
+            
+        #situation adressing a possible carry-over to the next digit
+        if int(ans[i]) > 1:
+            ans[i-1],ans[i] = str(divmod(int(ans[i]),2)[0]), str(divmod(int(ans[i]),2)[1])
+        
+    if ans[0] == '0': return ''.join(ans[1:])
+    return ''.join(ans)
+
 
