@@ -1815,4 +1815,31 @@ def addBinary(a,b):
     if ans[0] == '0': return ''.join(ans[1:])
     return ''.join(ans)
 
+#Date: July 29, 2021
+#Given a non-negative integer x, compute and return the square root of x.
+#Since the return type is an integer, the decimal digits are truncated, and only the integer part of the result is returned.
+
+#Note: You are not allowed to use any built-in exponent function or operator,
+
+def mySqrt(x):
+        
+    #An O(log n) time divide and conquer solution
+    #we have a transient range of numbers for which the answer could be in, and continuously evaluate the average of the range (num) to be the potential solution
+    #if it occurs that num is too large, we cut the range down to the smaller half; and vice versa if num is too small
+        
+    frame = [0,(x//2)+2]
+    num = (frame[0] + frame[1]) // 2
+        
+    while True:
+        
+        if num * num <= x and (num+1) * (num+1) > x:
+            return num
+            
+        elif num * num < x:
+            frame = [num, frame[1]]
+            num = (frame[0] + frame[1]) // 2
+            
+        else:
+            frame = [0,num]
+            num = (frame[0] + frame[1]) // 2
 
