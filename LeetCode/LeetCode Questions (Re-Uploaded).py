@@ -1843,3 +1843,102 @@ def mySqrt(x):
             frame = [0,num]
             num = (frame[0] + frame[1]) // 2
 
+#Date: July 29, 2021:
+#Implement pow(x, n), which calculates x raised to the power n (i.e., xn).
+
+def myPow(x,n):
+        
+    #An optimized recursive solution
+        
+    if not n:
+        return 1
+        
+    if n < 0: #a^-b = 1/a^b
+        return 1 / myPow(x, -n)
+        
+    if n % 2 == 1: 
+        return x * myPow(x, n-1)
+        
+    return myPow(x*x, n/2) #since a^b = (a^2)^b/2; this is done for the sake of optimization
+
+#Date: July 29, 2021
+#Given an m x n integer matrix matrix, if an element is 0, set its entire row and column to 0's, and return the matrix.
+
+def setZeroes(matrix):
+    """
+    Do not return anything, modify matrix in-place instead.
+    """
+        
+    #An average O(n^2) time traversal solution with memoization
+    #for each 0 we encounter, we update the entire row and column to 0s, but on the condition that the row/column has not been updated yet
+        
+    row_cache = {}
+    column_cache = {}
+        
+    for r in range(0,rows := len(matrix)):
+        for c in range(0,cols := len(matrix[0])):
+    
+            if matrix[r][c] == 0:
+                    
+                if not row_cache.get(r):
+                    for i in range(0,cols):
+                        if matrix[r][i] != 0:
+                            matrix[r][i] = '0' #we use strings so we only consider the initial 0s
+                    row_cache[r] = True
+                    
+                if not column_cache.get(c):
+                    for i in range(0,rows):
+                        if matrix[i][c] != 0:
+                            matrix[i][c] = '0'
+                    column_cache[c] = True
+    return
+
+#Date: July 29, 2021
+#Write an efficient algorithm that searches for a value in an m x n matrix. This matrix has the following properties:
+
+#1. Integers in each row are sorted from left to right.
+#2. The first integer of each row is greater than the last integer of the previous row.
+
+def searchMatrix(matrix):
+        
+    #An O(log n) divide and conquer solution
+    #by using an upper/lower range and assuming that target exists, divide and conquer on a 2D scale, then on a 1D scale once you've narrowed down one row the target is located in
+    #if at any point target gets caught right between the upper/lower range, return False
+        
+    while len(matrix) > 1:
+            
+        div = len(matrix) // 2 #divides the upper/lower range
+            
+        if target == matrix[div-1][-1] or target == matrix[div][0]:
+            return True
+              
+        elif target < matrix[div-1][-1]:
+            matrix = matrix[:div]
+            
+        elif target > matrix[div][0]:
+            matrix = matrix[div:]
+            
+        else:
+            return False
+        
+    matrix = matrix[0]
+    while len(matrix) > 1:
+            
+        div = len(matrix) // 2
+            
+        if target == matrix[div-1] or target == matrix[div]:
+            return True
+            
+        elif target < matrix[div-1]:
+            matrix = matrix[:div]
+            
+        elif target > matrix[div]:
+            matrix = matrix[div:]
+            
+        else:
+            return False
+        
+    if matrix[0] == target:
+        return True
+    return False
+
