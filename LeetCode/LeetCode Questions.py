@@ -1970,3 +1970,28 @@ def sortColors(nums):
         else:
             nums[mid],nums[high] = nums[high],nums[mid]
             high -= 1
+
+#August 1, 2021:
+#Given two integers n and k, return all possible combinations of k numbers out of the range [1, n].
+#You may return the answer in any order.
+
+def combine(n,k):
+        
+    #A dfs recursive approach
+    #we build each combination (curr) individually - one number per call
+    #a new recursive call must add on a number greater than the previous to the current combination (this is to avoid creating overlaps/permutations instead of combinations)
+        
+        
+    res = []
+        
+    def dfs(rem, curr):
+            
+    if len(curr) == k:
+        res.append(curr)
+        return 
+            
+        for i in range(len(rem)):
+            dfs(rem[i+1:], curr+[rem[i]])
+        
+    dfs([x for x in range(1,n+1)], [])
+    return res
