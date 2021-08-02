@@ -1995,3 +1995,26 @@ def combine(n,k):
         
     dfs([x for x in range(1,n+1)], [])
     return res
+
+#August 2, 2021:
+#Given an integer array nums of unique elements, return all possible subsets (the power set).
+#The solution set must not contain duplicate subsets. Return the solution in any order.
+
+def subsets(nums):
+        
+    #a dfs recursive solution
+    #the same approach as the previous question besides the prodcedure of appending our current combination to the global answer on every recursive call
+        
+    ans = []
+        
+    def dfs(curr,rem):
+            
+        ans.append(curr)
+        if rem == 0:
+            return
+            
+        for i in range(0,len(rem)):
+            dfs(curr+[rem[i]], rem[i+1:])
+    
+    dfs([],nums)
+    return ans
