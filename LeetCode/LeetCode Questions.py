@@ -2018,3 +2018,35 @@ def subsets(nums):
     
     dfs([],nums)
     return ans
+
+#August 3, 2021
+#Given the head of a sorted linked list, delete all duplicates such that each element appears only once. Return the linked list sorted as well.
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
+def deleteDuplicates(head):
+        
+    #An O(n) traversal solution
+    #We keep track of all seen values in a hash table 
+    #if we come across a value that has already be seen, we remove it
+        
+    seen = {}
+    prev = None
+    curr = head
+        
+    while curr:
+            
+        if not seen.get(curr.val):
+            seen[curr.val] = True
+            prev = curr
+            curr = curr.next
+            
+        else:
+            curr = curr.next
+            prev.next = curr
+        
+    return head
