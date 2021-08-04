@@ -2050,3 +2050,60 @@ def deleteDuplicates(head):
             prev.next = curr
         
     return head
+
+#Date: August 4, 2021
+#Given an m x n grid of characters board and a string word, return true if word exists in the grid.
+#The word can be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring.
+#The same letter cell may not be used more than once.
+
+def exist(board,word):
+        
+    #A recursive dfs solution
+    #From each position on the board, we branch out possible paths to neighboring cells that might contain the word;
+    #for each recursive branch, we keep track of the matched characters (of the word), and the traversed positions (so we dont traverse the same cell twice).
+        
+    #1. if at any point the current position on the board mismatches the word, we halt the current recursive branch 
+        
+    #2. if all characters of the word are matched, we update the global answer (to be returned) to true
+          
+    ans = False
+        
+    def dfs(r,c,pointer,traversed):
+            
+        nonlocal ans
+                
+        if board[r][c] == word[pointer]:
+                
+            if pointer == len(word)-1:
+                ans = True
+                return
+                
+            #right
+            if c < len(board[0])-1 and not traversed.get((r,c+1)):
+                traversed[(r,c+1)] = True
+                dfs(r,c+1,pointer+1,traversed)
+                traversed.pop((r,c+1))
+                    
+            #left
+            if c > 0 and not traversed.get((r,c-1)):
+                traversed[(r,c-1)] = True
+                dfs(r,c-1,pointer+1,traversed)
+                traversed.pop((r,c-1))
+                    
+            #up
+            if r > 0 and not traversed.get((r-1,c)):
+                traversed[(r-1,c)] = True
+                dfs(r-1,c,pointer+1,traversed)
+                traversed.pop((r-1,c))
+                
+            #down
+            if r < len(board)-1 and not traversed.get((r+1,c)):
+                traversed[(r+1,c)] = True
+                dfs(r+1,c,pointer+1,traversed)
+                traversed.pop((r+1,c))
+        return
+        
+    for i in range(0,len(board)):
+        for j in range(0,len(board[0])):
+            dfs(i,j,0,{(i,j):True})
+    return ans
