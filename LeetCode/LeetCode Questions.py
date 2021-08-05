@@ -2107,3 +2107,89 @@ def exist(board,word):
         for j in range(0,len(board[0])):
             dfs(i,j,0,{(i,j):True})
     return ans
+
+#August 5, 2021
+#Given a rows x cols binary matrix filled with 0's and 1's, find the largest rectangle containing only 1's and return its area.
+
+def maximalRectangle(matrix):
+        
+    #we will traverse the matrix; for each '1' we encounter, we will initialize a rectangle with dimensions of 1x1 initially
+    #sequentially, we will push the width and height of the rectangle as far right/down as possible while possible. 
+    #this allows us to find the area of all rectangles in the matrix - from which we can then deduce the maximum area
+        
+    areas = [0]
+        
+    #push down
+    def push_down(start,end,curr_row,row,cols):
+        areas.append(cols*row)
+        if curr_row < len(matrix)-1 and all(n == '1' for n in matrix[curr_row+1][start:end+1]):
+            push_down(start,end,curr_row+1,row+1,cols)
+        
+    #push right
+    def push_right(i,j):
+        temp_j = j
+        cols = 1
+        while temp_j < len(matrix[0]) and matrix[i][temp_j] == '1':
+            push_down(j,temp_j,i,1,cols)
+            temp_j += 1
+            cols += 1
+        
+    for i in range(0,len(matrix)):
+        for j in range(0,len(matrix[0])):
+            if matrix[i][j] == '1':
+                push_right(i,j)
+        
+    return max(areas)
+
+#August 5, 2021
+#Given the head of a linked list and a value x, partition it such that all nodes less than x come before nodes greater than or equal to x.
+#You should preserve the original relative order of the nodes in each of the two partitions.
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
+def partition(head,x):
+        
+    #An O(n) traversal solution using dummy nodes and external memory
+    #we group together all node values < x in one linked list, and all other nodes in another linked list while preserving their "relative positions"
+    #ultimately, we will join together the two lists in their respective order (smaller nodes --> other nodes)
+        
+    curr_o = others = ListNode()
+    curr_s = smaller = ListNode()
+    curr = head
+        
+    while curr:
+            
+        if curr.val < x:
+            curr_s.next = ListNode(curr.val)
+            curr_s = curr_s.next
+            
+        else:
+            curr_o.next = ListNode(curr.val)
+            curr_o = curr_o.next
+                
+        curr = curr.next
+                
+    curr_s.next = others.next
+    return smaller.next
+
+#August 5, 2021
+#You are given two integer arrays nums1 and nums2, sorted in non-decreasing order, and two integers m and n,
+#representing the number of elements in nums1 and nums2 respectively.
+
+#Merge nums1 and nums2 into a single array sorted in non-decreasing order.
+
+#The final sorted array should not be returned by the function, but instead be stored inside the array nums1. To accommodate this, nums1 has a length of m + n, where the first m elements denote the elements that should be merged, and the last n elements are set to 0 and should be ignored. nums2 has a length of n.
+
+def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+    """
+    Do not return anything, modify nums1 in-place instead.
+    """
+        
+    #intuitive O('n' + nlogn) time solution
+        
+    nums1[m:] = nums2[:n]
+    nums1.sort()
