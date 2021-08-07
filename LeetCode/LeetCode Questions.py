@@ -2193,3 +2193,49 @@ def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
         
     nums1[m:] = nums2[:n]
     nums1.sort()
+
+#August 7, 2021:
+#Given the head of a singly linked list and two integers left and right where left <= right, reverse the nodes of the list from position left to position right, and return the reversed list.
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
+def reverseBetween(head):
+        
+    #an O(n) traversal solution
+    #we divide the linked list into 3 sections using dummy nodes: left/right of the section (left-right) of interest, and the section of interest itself
+    #regarding the section of interest in particular, we will reverse the desired portion of the linked list as we traverse it
+    #finally, we'll concatenate the 3 sections together and return the result
+        
+    l_trav = l = ListNode(0)
+    sec = None
+    r_trav = r = ListNode(0)
+    hold = None
+        
+    curr,node = head,1
+    while curr:
+            
+        if node < left:
+            l_trav.next = ListNode(curr.val)
+            l_trav = l_trav.next
+                
+        elif node > right:
+            r_trav.next = ListNode(curr.val)
+            r_trav = r_trav.next
+            
+        else:
+            sec, sec.next= ListNode(curr.val), sec
+
+            if node == left:
+                hold = sec
+                
+        curr = curr.next
+        node += 1
+        
+    l_trav.next = sec
+    hold.next = r.next
+       
+    return l.next
