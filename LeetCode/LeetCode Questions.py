@@ -2239,3 +2239,38 @@ def reverseBetween(head):
     hold.next = r.next
        
     return l.next
+
+#Date: August 8, 2021
+#Given a string s containing only digits, return all possible valid IP addresses that can be obtained from s. You can return them in any order.
+#A valid IP address consists of exactly four integers, each integer is between 0 and 255, separated by single dots and cannot have leading zeros.
+#For example, "0.1.2.201" and "192.168.1.1" are valid IP addresses and "0.011.255.245", "192.168.1.312" and "192.168@1.1" are invalid IP addresses. 
+
+def restoreIpAddresses(s):
+        
+    #a dfs solution
+    #we seek to insert the dots in the given string one at a time to form a potentially valid adress
+    #we able to insert a dot at a given index under the following coditions:
+        #1. there will be enough characters remaining to insert the remaining dots (e.g we can only insert the first dot if there at a minimum of 3 characters that will follow the dot)
+        #2. the integer that comes before the dot must have a maximum of 3 characters between 0 and 255
+        #3. the integer in question must to start with a 0
+    #Once, we've inserted 3 valid dots, we append our current possibility to an array of solutions
+                
+    ans = []
+        
+    def dfs(curr,dot,depth):
+            
+        if depth == 3:
+            if curr[dot:] != '' and int(curr[dot:]) >= 0 and int(curr[dot:]) <= 255:
+                if not (len(curr[dot:]) >= 2 and curr[dot] == '0'):
+                    ans.append(curr)
+                    return
+            return
+            
+        for i in range(dot+1,dot+4):
+            if len(curr[i:]) >= 3-depth:
+                if int(curr[dot:i]) >= 0 and int(curr[dot:i]) <= 255:
+                    if not (len(curr[dot:i]) >= 2 and curr[dot] == '0'): 
+                        dfs(curr[:i] + '.' + curr[i:],i+1,depth+1)
+                     
+    dfs(s,0,0)
+    return ans
