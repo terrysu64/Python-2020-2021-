@@ -2275,3 +2275,80 @@ def restoreIpAddresses(s):
     dfs(s,0,0)
     return ans
 
+#Date: August 9, 2021
+#Given the root of a binary tree, return the postorder traversal of its nodes' values.
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+def postorderTraversal(root):
+        
+    ans = []
+        
+    def dfs(node):
+            
+        nonlocal ans
+            
+        if node:
+            dfs(node.left)
+            dfs(node.right)
+            ans += [node.val]
+                
+    dfs(root)
+    return ans
+
+#Date: August 9, 2021
+#Given the root of a binary tree, return the inorder traversal of its nodes' values.
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+def inorderTraversal(root):
+        
+    ans = []
+        
+    def dfs(node):
+            
+        nonlocal ans
+            
+        if node:
+            dfs(node.left)
+            ans += [node.val]
+            dfs(node.right)
+                  
+    dfs(root)
+    return ans
+
+#Date: August 9, 2021
+#Given the root of a binary tree, return the preorder traversal of its nodes' values.
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+def preorderTraversal(root):
+        
+    ans = []
+        
+    def dfs(node):
+            
+        nonlocal ans
+            
+        if node:
+            ans += [node.val]
+            dfs(node.left)
+            dfs(node.right)
+                  
+    dfs(root)
+    return ans
