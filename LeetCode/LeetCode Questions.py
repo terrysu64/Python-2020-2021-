@@ -2352,3 +2352,59 @@ def preorderTraversal(root):
                   
     dfs(root)
     return ans
+
+#August 10, 2021
+#Given the roots of two binary trees p and q, write a function to check if they are the same or not.
+#Two binary trees are considered the same if they are structurally identical, and the nodes have the same value.
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+def isSameTree(p,q):
+        
+    #a bfs solution
+    #we check both trees simultaneously - one layer at a time
+    #if at any point, the layers do not match up, the answer is falsified
+    #if both layers comprise only of None valued nodes (meaning we cleared the whole tree), we return true
+        
+    if p == None:
+        p = TreeNode(None)
+    if q == None:
+        q = TreeNode(None)
+            
+    def next_layer(layer):
+            
+        for i in range(0,len(layer)):
+                
+            if type(layer[i].val) == int:
+                if layer[i].left:
+                    layer += [layer[i].left]
+                else:
+                    layer += [TreeNode(None)]
+                if layer[i].right:
+                    layer += [layer[i].right]
+                else:
+                    layer += [TreeNode(None)]
+            else:
+                layer += [TreeNode(None), TreeNode(None)]
+            
+        return layer
+            
+
+    def bfs(p_layer, q_layer):
+            
+        if any(p_layer[i].val != q_layer[i].val for i in range(0,len(p_layer))):
+            return False
+        elif all(node.val == None for node in p_layer + q_layer):
+            return True
+            
+        prev = len(p_layer)
+        p_layer, q_layer = next_layer(p_layer), next_layer(q_layer)
+                    
+        return bfs(p_layer[prev:],q_layer[prev:])
+                
+    return bfs([p],[q])
