@@ -2408,3 +2408,54 @@ def isSameTree(p,q):
         return bfs(p_layer[prev:],q_layer[prev:])
                 
     return bfs([p],[q])
+
+#August 12, 2021
+#You are given the root of a binary search tree (BST), where exactly two nodes of the tree were swapped by mistake.
+#Recover the tree without changing its structure.
+#Follow up: A solution using O(n) space is pretty straight forward. Could you devise a constant space solution?
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+def recoverTree(root):
+        
+    """
+    Do not return anything, modify root in-place instead.
+    """
+        
+    #inorder dfs solution; we will exploit the fact that the an INORDER dfs traversal for a binary tree will always return
+    #the node values in increasing order due to its nature
+    #thus, given the two nodes we will need to swap, 
+    #[1] the first node will always be greater then its next node, 
+    #and [2] the second node will always be smaller than its previous node. 
+    #Otherwise, there will be more than one swap required - which is impossible.
+        
+    node1 = None
+    node2 = None
+    prev = TreeNode(float(-inf))
+        
+    def dfs(node):
+            
+        nonlocal node1, node2, prev
+            
+        if node:
+            dfs(node.left)
+                
+            if not node1 and prev.val >= node.val: #[1]
+                node1 = prev
+                
+            if prev.val >= node.val: #[2]
+                node2 = node
+                
+            prev = node
+                
+            dfs(node.right)
+        return
+        
+    dfs(root)
+    node1.val,node2.val = node2.val,node1.val
+    return
