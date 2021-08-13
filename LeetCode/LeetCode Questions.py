@@ -2459,3 +2459,35 @@ def recoverTree(root):
     dfs(root)
     node1.val,node2.val = node2.val,node1.val
     return
+
+#Date August 13, 2021
+#Given the root of a binary tree, check whether it is a mirror of itself (i.e., symmetric around its center).
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+def isSymmetric(root):
+    
+    #a dfs traversal solution, starting from the children of the root node, we compare each set of symmetrical nodes by recursing with the outer pair and inner pair of the current node 
+    #if all pairs have cleared the tree without having been falsified, we return True
+    
+    if root == None:
+        return True
+    return Mirror(root.left, root.right)
+
+def Mirror(left, right):
+        
+    if left == None and right == None:
+        return True
+    if left == None or right == None:
+        return False
+
+    if left.val == right.val:
+        outPair = Mirror(left.left, right.right)
+        inPiar = Mirror(left.right, right.left)
+        return outPair and inPiar
+    return False          
