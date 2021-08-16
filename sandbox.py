@@ -203,3 +203,19 @@ def add(num1,num2):
     pdb.set_trace()
     t = 1+1
     return num1 + num2
+
+#testing asynchronous programming
+import asyncio
+anim = None
+def hi():
+    print('hi')
+    return
+
+async def hello():
+    print('hello')
+
+
+hi()
+asyncio.run(hello())
+
+

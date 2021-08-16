@@ -1458,7 +1458,7 @@ def swapPairs(self):
 #Each element in the array represents your maximum jump length at that position.
 #Determine if you are able to reach the last index.
 
-def canJump(self, nums: List[int]) -> bool:
+def canJump(nums):
         
     #An O(n) traversal solution; we continuously update the maximum index we can potentially reach, up to and including a particular index.
     #if an index within the nums is ever beyond our max reach --> its impossible to reach the end. 
@@ -1525,7 +1525,7 @@ def lengthOfLastWord(self, s: str) -> int:
 #You are given an array of k linked-lists lists, each linked-list is sorted in ascending order.
 #Merge all the linked-lists into one sorted linked-list and return it.
 
-def mergeKLists(self, lists: List[ListNode]) -> ListNode:
+def mergeKLists(lists):
         
     #A O(2n+nlog n) --> O(n+nlog n) solution
     #Change into array data structure, sort, then convert back
@@ -1986,9 +1986,9 @@ def combine(n,k):
         
     def dfs(rem, curr):
             
-    if len(curr) == k:
-        res.append(curr)
-        return 
+        if len(curr) == k:
+            res.append(curr)
+            return 
             
         for i in range(len(rem)):
             dfs(rem[i+1:], curr+[rem[i]])
@@ -2184,7 +2184,7 @@ def partition(head,x):
 
 #The final sorted array should not be returned by the function, but instead be stored inside the array nums1. To accommodate this, nums1 has a length of m + n, where the first m elements denote the elements that should be merged, and the last n elements are set to 0 and should be ignored. nums2 has a length of n.
 
-def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+def merge(nums1,n,nums2,m):
     """
     Do not return anything, modify nums1 in-place instead.
     """
@@ -2490,4 +2490,43 @@ def Mirror(left, right):
         outPair = Mirror(left.left, right.right)
         inPiar = Mirror(left.right, right.left)
         return outPair and inPiar
-    return False          
+    return False
+
+#Date: August 16, 2021
+#Given the root of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+def levelOrder(root):
+        
+    #a layer-by-layer bfs traversal. 
+        
+    res = []
+        
+    if root == None:
+        return []
+        
+    def bfs(layer):
+            
+        nonlocal res
+        if layer == []:
+            return
+            
+        res.append([n.val for n in layer])
+            
+        for i in range(0,prev := len(layer)):
+                
+            if layer[i].left:
+                layer += [layer[i].left]
+                
+            if layer[i].right:
+                layer += [layer[i].right]
+        bfs(layer[prev:])
+            
+    bfs([root])
+    return res
