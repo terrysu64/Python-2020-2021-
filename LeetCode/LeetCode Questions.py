@@ -2530,3 +2530,68 @@ def levelOrder(root):
             
     bfs([root])
     return res
+
+#Date: August 17, 2021
+#Given the root of a binary tree, return the zigzag level order traversal of its nodes' values.
+#(i.e., from left to right, then right to left for the next level and alternate between).
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+def zigzagLevelOrder(root):
+        
+    #a bfs solution; however, we iterate through the nodes from each layer in reverse order to how they were appended and create the next layer, through either a node.left -> node.right -> next node or a node.right -> node.left -> next node parrtern, while iterating through the current layer#
+        
+    #take the binary tree [3,9,20,null,null,15,7] for instance
+        
+    #layer 0: root
+    #layer 1: iterating in reverse [3] => [20,9]
+    #layer 2: iterating in reverse [20,9] => [15,7]
+        
+    def check_left(node):
+        if node.left:
+            return node.left
+        return None
+        
+    def check_right(node):
+        if node.right:
+            return node.right
+        return None
+            
+    def helper(layer, count):
+        
+        nonlocal res
+            
+        if len(layer) == 0:
+            return
+            
+        res.append([node.val for node in layer])
+            
+        temp = []
+        for i in range(-1,-((len(layer))+1),-1):
+   
+            if count % 2 == 1:
+                if check_right(layer[i]):
+                    temp += [layer[i].right]
+                if check_left(layer[i]):
+                    temp += [layer[i].left]
+                
+            else:
+                if check_left(layer[i]):
+                    temp += [layer[i].left]
+                if check_right(layer[i]):
+                    temp += [layer[i].right]
+                        
+        helper(temp,count+1 )
+        
+    if root == None:
+        return []
+        
+    res = []
+        
+    helper([root], 1)
+    return res
