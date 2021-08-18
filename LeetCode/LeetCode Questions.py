@@ -2595,3 +2595,26 @@ def zigzagLevelOrder(root):
         
     helper([root], 1)
     return res
+
+#Date: August 18, 2021
+#Given an integer n, return true if n has exactly three positive divisors. Otherwise, return false.
+#An integer m is a divisor of n if there exists an integer k such that n = k * m.
+
+import math
+def isThree(n):
+        
+    #an O(n) solution; given that 1 and n must be factors of n, check for other possible factors from n till square root of n (to avoid overlap)
+        
+    divs = 2
+        
+    for i in range(2,int(math.sqrt(n))+1):
+            
+        if n/i == n//i:
+            if i == math.sqrt(n):
+                divs += 1
+            else:
+                divs += 2
+        
+    if divs == 3:
+        return True
+    return False
