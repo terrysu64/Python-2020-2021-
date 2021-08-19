@@ -2618,3 +2618,39 @@ def isThree(n):
     if divs == 3:
         return True
     return False
+
+#Date: August 19, 2021
+#Given the root of a binary tree, return its maximum depth.
+#A binary tree's maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+def maxDepth(root):
+        
+    #a pre-order traversal while keeping track of the current depth (which will allow the global answer to constantly be updated)
+    
+    ans = 0
+        
+    def dfs(node, depth):
+        
+        nonlocal ans
+        
+        ans = max(ans,depth)
+        
+        if node.left != None:
+            dfs(node.left, depth+1)
+        
+        if node.right != None:
+            dfs(node.right, depth+1)
+        
+        return
+    
+    if root != None:
+        dfs(root,1)
+        return ans
+    return 0
