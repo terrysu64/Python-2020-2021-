@@ -2710,3 +2710,32 @@ def goodNodes(root):
     good = 0
     helper(root,float('-inf'))
     return good
+
+#Date: August 22, 2021
+#Given the root of a binary tree, invert the tree, and return its root.
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+def invertTree(root):
+    """
+    :type root: TreeNode
+    :rtype: TreeNode
+    """
+    
+    #preorder traversal: swap every pair of branches
+    
+    def dfs(node):
+        
+        if node:
+            node.left,node.right = node.right,node.left
+            dfs(node.left)
+            dfs(node.right)
+    
+    dfs(root)
+    return root
+    
