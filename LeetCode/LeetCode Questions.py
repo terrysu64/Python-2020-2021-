@@ -2679,3 +2679,34 @@ def sortedArrayToBST(nums):
     root.right = self.sortedArrayToBST(nums[mid+1:])
 
     return root
+
+#Date August 22, 2021
+#Given a binary tree root, a node X in the tree is named good if in the path from root to X there are no nodes with a value greater than X.
+#Return the number of good nodes in the binary tree.
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+def goodNodes(root):
+        
+    #preorder dfs + keeping track of max_value on each path 
+    
+    def helper(node,max_val):
+        
+        nonlocal good
+        
+        if node:
+            if node.val >= max_val:
+                good += 1
+
+            helper(node.left,max(node.val,max_val))
+            helper(node.right,max(node.val,max_val))        
+        return 
+    
+    good = 0
+    helper(root,float('-inf'))
+    return good
