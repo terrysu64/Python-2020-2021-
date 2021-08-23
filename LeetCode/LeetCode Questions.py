@@ -2804,5 +2804,39 @@ def hasPathSum(root,targetSum):
     if not root: return False
     dfs(root,root.val)
     return ans
+
+#Date: August 23, 2021
+#Given the root of a binary tree and an integer targetSum, return all root-to-leaf paths where the sum of the node values in the path equals targetSum. Each path should be returned as a list of the node values, not node references.
+#A root-to-leaf path is a path starting from the root and ending at any leaf node. A leaf is a node with no children.
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+def pathSum(root,targetSum):
+        
+    #pre order dfs
+    
+    def dfs(node, curr, used):
+        nonlocal ans
+    
+        if curr == targetSum and not (node.left or node.right):
+            ans += [used]
+
+        if node.left:
+            dfs(node.left, curr + node.left.val, used + [node.left.val])
+
+        if node.right:
+            dfs(node.right, curr + node.right.val, used +[node.right.val])
+        
+        return
+    
+    ans = []
+    if not root: return []
+    dfs(root,root.val,[root.val])
+    return ans
                     
     
