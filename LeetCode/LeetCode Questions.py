@@ -2738,4 +2738,71 @@ def invertTree(root):
     
     dfs(root)
     return root
+
+#Date: August 22, 2021
+#Given a binary tree, find its minimum depth.
+#The minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node.
+#Note: A leaf is a node with no children.
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+def minDepth(root):
+        
+    def dfs(node,depth):
+        nonlocal ans
+        
+        if node:
+            if not (node.left or node.right):
+                ans = min(ans,depth)
+            
+            dfs(node.left,depth + 1)
+            dfs(node.right,depth + 1)
+        return
+    
+    ans = float('inf')
+    dfs(root,1)
+    if not root: return 0
+    return ans
+
+#Date: August 22, 2021
+#Given the root of a binary tree and an integer targetSum, return true if the tree has a root-to-leaf path such that
+#adding up all the values along the path equals targetSum.
+#A leaf is a node with no children.
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+def hasPathSum(root,targetSum):
+        
+    #preorder dfs; go down every possible path and check the sums
+
+    def dfs(node,curr):
+        nonlocal ans
+        
+        if node:
+            
+            if not (node.left or node.right) and curr == targetSum:
+                ans = True
+                return
+            
+            if node.left:
+                dfs(node.left,curr+node.left.val)
+            
+            if node.right:
+                dfs(node.right,curr+node.right.val)
+    
+    ans = False
+    if not root: return False
+    dfs(root,root.val)
+    return ans
+                    
     
