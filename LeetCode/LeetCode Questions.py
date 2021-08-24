@@ -2891,3 +2891,57 @@ def findTarget(root,k):
 
     return dfs(root,0,{})
   
+#Date: August 24, 2021
+#There is a special typewriter with lowercase English letters 'a' to 'z' arranged in a circle with a pointer. A character can only be typed if the pointer is pointing to that character. The pointer is initially pointing to the character 'a'.
+#Each second, you may perform one of the following operations:
+
+#1. Move the pointer one character counterclockwise or clockwise.
+#2. Type the character the pointer is currently on.
+
+#Given a string word, return the minimum number of seconds to type out the characters in word.
+
+def minTimeToType(word):
+        
+    #O(2n); for each spin, check if its faster to spin CW or CCW by comparing index differences (their distance)
+    
+    wheel = {j:i for i,j in enumerate(["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"])}
+    ans = 0
+    curr = 'a'
+    
+    for x in word:
+        ans+=min(abs(wheel[curr] - wheel[x]), 26 - abs(wheel[curr] - wheel[x]) )
+        curr = x
+        
+    return ans + len(word) # + len() to take into account typing time
+
+#Date: August 24, 2021
+#You are given an n x n integer matrix. You can do the following operation any number of times:
+
+#Choose any two adjacent elements of matrix and multiply each of them by -1.
+#Two elements are considered adjacent if and only if they share a border.
+
+#Your goal is to maximize the summation of the matrix's elements. Return the maximum sum of the matrix's elements using the operation mentioned above.
+
+def maxMatrixSum(matrix):
+
+    #the key is to realizing that, given an unlimited number of moves, we can always have either no negatives or only 1 negative left. 
+    #There are two scenarios that fufill this claim:
+
+    #1. if the number of -ves + 0s are even, we can make them all positives by moving the negative signs across the matrix until each one finds a pair
+    #2. if the number of -ves + 0s are even, the same applies, except we can choose to leave out the value of smallest magnitude to be a -ve at the end 
+    #   (which doesnt necessarily need to be an initial -ve)
+        
+    negs, ans,smol = 0, 0, float('inf')
+    for r in matrix:
+        for c in r:
+            if c <= 0:
+                negs += 1
+            smol = min(smol,abs(c))
+
+    for r in matrix:
+        ans += sum([abs(i) for i in r])
+    
+    if negs%2==0:
+        return ans
+
+    return ans-(2*smol)
