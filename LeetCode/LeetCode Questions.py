@@ -2839,4 +2839,55 @@ def pathSum(root,targetSum):
     dfs(root,root.val,[root.val])
     return ans
                     
-    
+#Date: August 23, 2021
+#Given an array of integers numbers that is already sorted in non-decreasing order, find two numbers such that they add up to a specific target number.
+#Return the indices of the two numbers (1-indexed) as an integer array answer of size 2, where 1 <= answer[0] < answer[1] <= numbers.length.
+#The tests are generated such that there is exactly one solution. You may not use the same element twice.
+
+def twoSum(numbers,target):
+        
+    #simple O(n) 2 pointer method (start at very left and right of array respectively); increment left pointer if current sum is too small and decrement the right if vice-versa
+
+    p1, p2 = 0, len(numbers)-1
+
+    while True:
+        
+        curr = numbers[p1] + numbers[p2]
+        
+        if curr == target:
+            return [p1+1, p2+1]
+        
+        elif curr < target:
+            p1 += 1
+            
+        else:
+            p2 -= 1
+
+#Date: August 23, 2021
+#Given the root of a Binary Search Tree and a target number k, return true if there exist two elements in the BST such that their sum is equal to the given target.
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+def findTarget(root,k):
+
+    #dfs and keep track of seen node values, if value needed to aquire sum of k when added with current node value has been traversed -> return true
+        
+    def dfs(node,curr,seen):
+        
+        if node:
+            
+            rem = k-node.val
+            if rem in seen:
+                return True
+            seen[node.val] = True
+            
+            return dfs(node.left,curr+node.val,seen) or dfs(node.right,curr+node.val,seen)
+        return False
+
+    return dfs(root,0,{})
+  
