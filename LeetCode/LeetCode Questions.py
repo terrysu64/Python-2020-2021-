@@ -2976,3 +2976,28 @@ def connect(root):
     
     bfs([root,None])
     return root
+
+    #Date: August 25, 2021
+    #Given a non-negative integer c, decide whether there're two integers a and b such that a2 + b2 = c.
+
+    def judgeSquareSum(c):
+        
+        #O(sqrt n) solution using two pointer technique
+        
+        left, right = 0, int(c**0.5)
+
+        while left <= right:
+            
+            res = left ** 2 + right ** 2
+
+            if res == c:
+                return True
+            
+            elif res < c:
+                left += 1
+                
+            elif res > c:
+                right -= 1
+                
+        return False
+        
