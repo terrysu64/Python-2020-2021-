@@ -2945,3 +2945,34 @@ def maxMatrixSum(matrix):
         return ans
 
     return ans-(2*smol)
+
+# #Date: August 25, 2021
+# #You are given a perfect binary tree where all leaves are on the same level, and every parent has two children. 
+# Populate each next pointer to point to its next right node. If there is no next right node, the next pointer should be set to NULL.
+# Initially, all next pointers are set to NULL.
+
+# Definition for a Node.
+# class Node:
+#     def __init__(self, val: int = 0, left: 'Node' = None, right: 'Node' = None, next: 'Node' = None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+#         self.next = next
+
+def connect(root):
+        
+    #bfs with queue - a recursive layer-by-layer traversal
+    
+    def bfs(layer):
+        
+        if all(node == None for node in layer):
+            return
+        
+        for i in range(0,prev:=(len(layer))-1):
+            layer[i].next = layer[i+1]
+            layer += [layer[i].left, layer[i].right]
+        
+        bfs(layer[prev+1:]+[None])
+    
+    bfs([root,None])
+    return root
