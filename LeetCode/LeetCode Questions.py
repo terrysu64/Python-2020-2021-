@@ -3000,4 +3000,56 @@ def connect(root):
                 right -= 1
                 
         return False
+
+#Date: August 27, 2021
+# Given an integer array nums, return the length of the longest strictly increasing subsequence.
+# A subsequence is a sequence that can be derived from an array by deleting some or no elements without changing the order of the remaining elements. 
+# For example, [3,6,2,7] is a subsequence of the array [0,3,1,6,2,2,7].
+
+def lengthOfLIS(nums):
         
+    #an established O(n^2) dynamic programming algorithm
+    #keep track of a symmetric dp array to that keeps track of the max increasing subsequence up to each index (is transient)
+    #for each index in nums, loop through all the previous indexes in dp to check which prior index would allow it to have the largest increasing subsequence
+    
+    dp = [1]*len(nums)
+
+    for i in range(1,len(nums)):
+        for j in range(0,i):
+            if nums[i] > nums[j]:
+                dp[i] = max(dp[i], 1+dp[j])
+                
+    if not nums: return 0
+    return max(dp)   
+
+#August 27, 2021
+#Given an array of strings strs, return the length of the longest uncommon subsequence between them. If the longest uncommon subsequence does not exist, return -1.
+#An uncommon subsequence between an array of strings is a string that is a subsequence of one string but not the others.
+#A subsequence of a string s is a string that can be obtained after deleting any number of characters from s.
+#For example, "abc" is a subsequence of "aebdc" because you can delete the underlined characters in "aebdc" to get "abc". Other subsequences of "aebdc" include "aebdc", "aeb", and "" (empty string).      
+
+def findLUSlength(strs):
+        
+    #an intuitive/brute force approach; make all subsequences recursively and compare lengths out of all subseqences that have only been seen once
+    
+    def helper(curr, rem):
+        
+        if not curr:
+            return
+        
+        if curr in seen:
+            seen[curr] = False
+        else:
+            seen[curr] = len(curr)
+        
+        for i in range(0,len(rem)):
+            helper(curr+rem[i], rem[i+1:])
+        return
+    
+            
+    seen = {' ':-1}    
+    for s in strs:
+        for i in range(0,len(s)):
+            helper(s[i],s[i+1:])
+
+    return max(seen[x] for x in seen if seen[x])
