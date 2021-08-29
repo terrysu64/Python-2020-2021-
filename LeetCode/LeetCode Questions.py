@@ -3053,3 +3053,40 @@ def findLUSlength(strs):
             helper(s[i],s[i+1:])
 
     return max(seen[x] for x in seen if seen[x])
+
+#Date: August 29, 2021
+#Given an integer numRows, return the first numRows of Pascal's triangle.
+#In Pascal's triangle, each number is the sum of the two numbers directly above it as shown:
+
+def generate(numRows):
+        
+    #an intuitive iterative solution; each row starting from the 2nd is formulated by 1,sequence of sums derived from upper row (the length of which is equivalent to one less than the upper row),and another 1 
+    
+    ans = [[1]]
+    
+    for i in range(1,numRows):
+        ans += [[1] + [ans[-1][i]+ans[-1][i+1] for i in range(0,len(ans[-1])-1)] + [1]]
+    
+    return ans
+
+#Date: August 29, 2021
+#Given an integer rowIndex, return the rowIndexth (0-indexed) row of the Pascal's triangle.
+#In Pascal's triangle, each number is the sum of the two numbers directly above it as shown:
+
+def getRow(rowIndex):
+        
+    #clever O(n) solution using the zip() to generate row; essentially, to form a subsequent row, we generate two copies of the current row and shift one by an index forward. Then, we add each corresponding index. This works beause it allows each value of the current row to be sumed with the value to its left (in the row) while including the two additional 1s on the edge. 
+    
+    #e.g (to forming the 5th row):
+    
+    #[0,1,4,6,4,1] (shifted 1 index forward)
+    #[1,4,6,4,1,0]
+    #+--------------
+    #[1,5,10,10,5,1]
+    
+    row = [1]
+    
+    for n in range(0,rowIndex):
+        row = [i+j for i,j in zip([0]+row,row+[0])]
+        
+    return row
