@@ -3111,3 +3111,19 @@ def maxIceCream(costs,coins):
         break
         
     return ans
+
+#Date: August 30, 2021
+#Given a triangle array, return the minimum path sum from top to bottom.
+#For each step, you may move to an adjacent number of the row below. More formally, if you are on index i on the current row, you may move to either index i or index i + 1 on the next row.
+
+def minimumTotal(triangle):
+        
+    #O(n) time/memory bottom-up dynammic programming solution; at each position we must we will move either leftwards or rightwards down to accumulate up to the minimum sum. 
+    #Thus, beginning from positions in the second last row, we decide which direction to take starting from that position and store the minimum sum acheived in a dp array. This is repeated as we move upwards in the triangle; the final answer will be dp[0][0]
+    
+    dp = triangle
+    for i in range(-2,-(len(triangle)+1),-1):
+        for j in range(0,len(dp[i])):
+            dp[i][j] = min(dp[i][j]+dp[i+1][j],dp[i][j]+dp[i+1][j+1])
+            
+    return dp[0][0]
