@@ -3127,3 +3127,26 @@ def minimumTotal(triangle):
             dp[i][j] = min(dp[i][j]+dp[i+1][j],dp[i][j]+dp[i+1][j+1])
             
     return dp[0][0]
+
+#Date August 31, 2021
+#Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
+#Notice that the solution set must not contain duplicate triplets.
+
+def threeSum(nums):
+        
+    #intuitive O(n^2) time solution; for each index (a potential starting point for a triplet), run the 2sum algorithm on all the other subsequent indexes.
+    
+    def helper(val, arr):
+        nonlocal ans
+        seen = {}
+        for n in arr:
+            if 0-val-n in seen:
+                if (temp := sorted([val,n,0-val-n])) not in ans:
+                    ans += [temp]
+            seen[n] = True
+        return
+    
+    ans = []
+    for i in range(0,len(nums)-2):
+        helper(nums[i],nums[i+1:])
+    return ans
