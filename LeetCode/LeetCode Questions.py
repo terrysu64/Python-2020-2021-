@@ -3150,3 +3150,22 @@ def threeSum(nums):
     for i in range(0,len(nums)-2):
         helper(nums[i],nums[i+1:])
     return ans
+
+#Date: September 1, 2021
+#Given a string s, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.
+
+def isPalindrome(s):
+        
+    #intuitive O(n) time solution with two pointers
+    
+    dic = {'a': True, 'b': True, 'c': True, 'd': True, 'e': True, 'f': True, 'g': True, 'h': True, 'i': True, 'j': True, 'k': True, 'l': True, 'm': True, 'n': True, 'o': True, 'p': True, 'q': True, 'r': True, 's': True, 't': True, 'u': True, 'v': True, 'w': True, 'x': True, 'y': True, 'z': True, '0': True, '1': True, '2': True, '3': True, '4': True, '5': True, '6': True, '7': True, '8': True, '9': True}
+    s = ''.join([j.lower() for j in s if j.lower() in dic])
+    left,right = 0,len(s)-1
+    
+    while left < right:
+        if s[left] == s[right]:
+            left += 1
+            right -= 1
+            continue
+        return False
+    return True
