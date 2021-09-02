@@ -3169,3 +3169,65 @@ def isPalindrome(s):
             continue
         return False
     return True
+
+#Date: September 2, 2021
+#Given an input string s and a pattern p, implement regular expression matching with support for '.' and '*' where:
+# '.' Matches any single character.
+# '*' Matches zero or more of the preceding element.
+# The matching should cover the entire input string (not partial).
+
+def isMatch(s,p):
+        
+    #great explanation: https://www.youtube.com/watch?v=l3hda49XcDE
+    
+    #an O(n^2) dynammic programming approach
+    #essentially as we traverse a dp matrix (rows and columns represent indices of the string and pattern respectively) for each cell in the dp matrix, we are comparing if string[:row] == pattern[:column] under a series of conditions
+    
+    dp = [[False for c in range(0,len(p)+1)] for r in range(0,len(s)+1)]
+    dp[0][0] = True
+    
+    #deals with edge case patterns that would match '' (e.g a*, a*b*c*)
+    for i in range(1,len(dp[0])):
+        if p[i-1] == '*':
+            dp[0][i] = dp[0][i-2]
+    
+    for i in range(1,len(dp)):
+        for j in range(1,len(dp[0])):
+            
+            #the index in the string matches the index of the pattern (while both are letters) or the index in the pattern is .
+            if s[i-1] == p[j-1] or p[j-1] == '.':
+                dp[i][j] = dp[i-1][j-1]
+                continue
+            
+            #if theres a star in the index in the pattern theres two conditions: 
+            #1. if the character before the star is repeated 0 times
+            #2. the character before the star is repeated < 0 times
+            if p[j-1] == '*':
+                dp[i][j] = dp[i][j-2] #repetition = 0
+                if s[i-1] == p[j-2] or p[j-2] == '.':
+                    dp[i][j] = dp[i][j] or dp[i-1][j] 
+                continue
+                
+            #respective indexes in the string and pattern are letters that do not match 
+            dp[i][j] = False
+            
+    return dp[-1][-1]
+
+#Date: September 2, 2021
+#Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence.
+#You must write an algorithm that runs in O(n) time.
+
+def longestConsecutive(nums):
+        
+    #solution using sets (O(1) lookup time); for each value in nums, check if it could be the smallest of a consequtive sequence and keep extending the sequence for as long as possible
+    
+    nums, ans = set(nums), 0
+    
+    for n in nums:
+        if not n-1 in nums:
+            count = n
+            while count in nums:
+                count += 1
+            ans = max(ans, count-n)
+    
+    return ans
