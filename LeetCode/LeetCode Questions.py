@@ -3231,3 +3231,25 @@ def longestConsecutive(nums):
             ans = max(ans, count-n)
     
     return ans
+
+#Date: September 3, 2021
+#You are given an integer array prices where prices[i] is the price of a given stock on the ith day.
+# On each day, you may decide to buy and/or sell the stock. You can only hold at most one share of the stock at any time. However, you can buy it then immediately sell it on the same day.
+# Find and return the maximum profit you can achieve.
+
+def maxProfit(prices):
+        
+    #An interative O(n) time solution. The idea behind the solution mostly reflects the question: "best time to buy and sell stock I". 
+    
+    #Essentially, given a current stock at hand, we either switch to a cheaper stock if there's one available, or we sell the stock WHENVER theres a price > buy price becuase we dont have to worry about high prices that were missed; we could just buy the another stock and make back the missed profit
+    
+    curr,ans = prices[0], 0
+    
+    for n in prices[1:]:
+        if n < curr:
+            curr = n
+        elif n > curr:
+            ans += n-curr
+            curr = n
+    
+    return ans
