@@ -3253,3 +3253,34 @@ def maxProfit(prices):
             curr = n
     
     return ans
+
+#Date: September 3, 2021
+#You are given the root of a binary tree containing digits from 0 to 9 only.
+# Each root-to-leaf path in the tree represents a number.
+# For example, the root-to-leaf path 1 -> 2 -> 3 represents the number 123.
+# Return the total sum of all root-to-leaf numbers. Test cases are generated so that the answer will fit in a 32-bit integer.
+# A leaf node is a node with no children.
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+def sumNumbers(root):
+        
+    #preorder dfs: while traversing down a branch, we keep track our current number; we ill add it to the sum when its reached a leaf node
+    
+    def dfs(node,curr):
+        nonlocal ans
+        if not (node.left or node.right): 
+            ans += int(curr)
+            return
+        if node.left: dfs(node.left, curr+str(node.left.val))
+        if node.right: dfs(node.right, curr+str(node.right.val))
+        return
+    
+    ans = 0
+    dfs(root,str(root.val))
+    return ans
