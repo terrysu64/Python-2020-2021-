@@ -3339,3 +3339,47 @@ def findFarmland(land):
                 ans += [[i,j,m_down,m_right]]
     
     return ans
+
+#Date: September 4, 2021
+#Given an m x n matrix board containing 'X' and 'O', capture all regions that are 4-directionally surrounded by 'X'.
+#A region is captured by flipping all 'O's into 'X's in that surrounded region.
+
+def solve(board):
+    """
+    Do not return anything, modify board in-place instead.
+    """
+    
+    #An O(2mn) time solution; the first O(mn) traversal is to preform a bfs on all tiles attached to edge 'O' tiles (can't convert to 'X's); the second is to convert all remaining 'O's into 'X's
+    
+    def bfs(curr,r,c):
+        if not curr: return
+        prev = len(curr)
+        for n in range(0,prev):
+            i,j = curr[n][0],curr[n][1]
+            board[i][j] = 'A'
+            for x,y in [(-1, 0), (0, -1), (1, 0), (0, 1)]:
+                x_n = i+x
+                y_n = j+y
+                if x_n >= 0 and x_n < r and y_n >= 0 and y_n < c and board[x_n][y_n] == "O":
+                    curr += [(x_n,y_n)]
+        bfs(curr[prev:],r,c)
+
+    
+    q,r,c = [],len(board),len(board[0])
+    if not r or q: return
+
+    for i in range(r):
+        for j in range(c):
+            if (i==0 or j==0 or i==r-1 or j==c-1) and board[i][j] == "O":
+                q += [(i,j)]
+                
+    bfs(q,r,c)
+
+    for i in range(r):
+        for j in range(c):   
+            if board[i][j] == "O": 
+                board[i][j] = "X"
+            elif board[i][j] == "A":
+                board[i][j] = "O"
+    
+    return 
