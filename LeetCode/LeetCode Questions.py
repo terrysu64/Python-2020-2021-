@@ -3284,3 +3284,58 @@ def sumNumbers(root):
     ans = 0
     dfs(root,str(root.val))
     return ans
+
+#September 4, 2021 (Bi-weekly contest 60)
+# Given a 0-indexed integer array nums, find the leftmost middleIndex (i.e., the smallest amongst all the possible ones).
+# A middleIndex is an index where nums[0] + nums[1] + ... + nums[middleIndex-1] == nums[middleIndex+1] + nums[middleIndex+2] + ... + nums[nums.length-1].
+# If middleIndex == 0, the left side sum is considered to be 0. Similarly, if middleIndex == nums.length - 1, the right side sum is considered to be 0.
+# Return the leftmost middleIndex that satisfies the condition, or -1 if there is no such index.
+
+def findMiddleIndex(nums):
+    
+    #intuitive O(n); traverse through list and check for potential "middle index"
+
+    for i in range(0,len(nums)):
+        if sum(nums[:i]) == sum(nums[i+1:]):
+            return i
+    return -1
+
+#September 4, 2021 (Bi-weekly contest 60)
+# You are given a 0-indexed m x n binary matrix land where a 0 represents a hectare of forested land and a 1 represents a hectare of farmland.
+# To keep the land organized, there are designated rectangular areas of hectares that consist entirely of farmland. These rectangular areas are called groups. No two groups are adjacent, meaning farmland in one group is not four-directionally adjacent to another farmland in a different group.
+# land can be represented by a coordinate system where the top left corner of land is (0, 0) and the bottom right corner of land is (m-1, n-1). Find the coordinates of the top left and bottom right corner of each group of farmland. A group of farmland with a top left corner at (r1, c1) and a bottom right corner at (r2, c2) is represented by the 4-length array [r1, c1, r2, c2].
+# Return a 2D array containing the 4-length arrays described above for each group of farmland in land. If there are no groups of farmland, return an empty array. You may return the answe in any order.
+
+
+def findFarmland(land):
+    
+    #extend as far right as possible, then do the same downwards
+    
+    ans,seen = [],{}
+    
+    def right(r,c):
+        while c<len(land[0]) and land[r][c]:
+            print(r,c)
+            c+=1
+        return c-1
+    
+    def down(r,c):
+        while r<len(land) and land[r][c]:
+            r+=1
+        return r-1
+    
+    for i in range(0,len(land)):
+        for j in range(0,len(land[0])):
+            if land[i][j]:
+                
+                if (i,j) in seen:
+                    continue
+
+                m_right,m_down = right(i,j), down(i,j)
+                for r in range(i,m_down+1):
+                    for c in range(j,m_right+1):
+                        seen[(r,c)] = True
+
+                ans += [[i,j,m_down,m_right]]
+    
+    return ans
