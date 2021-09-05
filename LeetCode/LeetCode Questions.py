@@ -3383,3 +3383,24 @@ def solve(board):
                 board[i][j] = "O"
     
     return 
+
+#Date: September 5, 2021
+#You are given an array prices where prices[i] is the price of a given stock on the ith day.
+# Find the maximum profit you can achieve. You may complete at most two transactions.
+# Note: You may not engage in multiple transactions simultaneously (i.e., you must sell the stock before you buy again).
+
+def maxProfit(prices) -> int:
+        
+    #O(n) solution; b1,s1,b2,s2 represent our maximum net profit after the first purchase, first sale, second purchase, and second sell respectively. This is valid since s1,b2, and s2 are dependant on the previous transactions. 
+    
+    #Additionally, changes in s1 (i.e better selling price for first purchase that would theoretically change the transaction b1 b2 s2 s1) won't follow through all the way to s2 as the final b2,s2 values are based on earlier b1,s1 values
+    
+    b1,s1,b2,s2 = -prices[0], float('-inf'), float('-inf'), float('-inf')
+    
+    for n in prices:
+        b1 = max(b1,-n)
+        s1 = max(s1, b1+n)
+        b2 = max(b2, s1-n)
+        s2 = max(s2, b2+n)
+    
+    return s2
