@@ -3404,3 +3404,34 @@ def maxProfit(prices) -> int:
         s2 = max(s2, b2+n)
     
     return s2
+
+#Date: September 6, 2021
+# Given a string s, partition s such that every substring of the partition is a palindrome. Return all possible palindrome partitioning of s.
+# A palindrome string is a string that reads the same backward as forward.
+
+class Solution:
+    def partition(s):
+        
+        #dfs solution. Ideally, on each recursive call, we want to check for all possible palindrome segements of the string from a starting index (which is initially 0); as we discover palindrome segements, we increment the starting index by calling recursing the dfs funtion and we append the segment to our current partition sequence (curr). 
+        
+        def dfs(ans,curr,rem):
+            
+            if not rem:
+                ans += [curr]
+                return
+            
+            for i in range(len(rem)):
+                if self.check_pal(rem[:i+1]):
+                    dfs(ans,curr+[rem[:i+1]],rem[i+1:])
+            return ans 
+        
+        return dfs([],[],s)
+        
+    def check_pal(self,seg):
+        left,right = 0,len(seg)-1
+        while left < right:
+            if seg[left] != seg[right]:
+                return False
+            left += 1
+            right -= 1
+        return True
