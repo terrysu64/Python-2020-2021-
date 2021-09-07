@@ -3479,3 +3479,40 @@ def minCut(s):
                 dp[j+1] = min(dp[j+1], dp[i]+1)
                     
     return dp[-1]
+
+#Date: September 7, 2021
+# Given an input string (s) and a pattern (p), implement wildcard pattern matching with support for '?' and '*' where:
+# '?' Matches any single character.
+# '*' Matches any sequence of characters (including the empty sequence).
+# The matching should cover the entire input string (not partial).
+
+def isMatch(s,p):
+        
+    #pretty much same O(n^2) dynammic programming approach as regular expression matching besides the fact that we check dp[i][j-1] for the end of a '*' sequence in the dp matrix 
+    
+    #dp rows represent the string and columns represent the pattern
+    
+    dp = [[False for c in range(len(p)+1)] for r in range(len(s)+1)]
+    dp[0][0] = True
+    
+    #edge case because '*' can also represent nothing
+    for n in range(1,len(dp[0])):
+        if p[n-1]=='*': dp[0][n] = dp[0][n-1]
+    
+    for i in range(1,len(dp)):
+        for j in range(1,len(dp[0])):
+            
+            #1. characters in string are same or the index in the pattern is '?':
+            if s[i-1]==p[j-1] or p[j-1]=='?':
+                dp[i][j] = dp[i-1][j-1]
+            
+            #2. index in pattern is '*'
+            elif p[j-1]=='*':
+                
+                #i. its the end of the sequence/sequence is empty (or)
+                #ii. s[i-1] is a part of the sequence
+                dp[i][j] = dp[i][j-1] or dp[i-1][j]
+            
+            #3. characters are different
+    
+    return dp[-1][-1]
