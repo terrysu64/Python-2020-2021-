@@ -3458,3 +3458,24 @@ def slowestKey(releaseTimes, keysPressed):
         prev = j
     
     return ans
+
+#Date: September 7, 2021
+# Given a string s, partition s such that every substring of the partition is a palindrome.
+# Return the minimum cuts needed for a palindrome partitioning of s.
+
+def minCut(s):
+        
+    #O(n^2) 1-D dynammic programming solution
+    #dp[i] ultimately represents the solution to s[:i+1]
+    #Essentially, for each substring within s, if the substring is a valid palindrome, we attempt to minimize the total cuts up to the end of the substring by checking if we can reduce dp[end of substring] by overriding it with dp[start of substring-1]+1 (becuase we will only require one more cut given that dp[:start of substring] is not a palindrome). 
+    #It may not always be the case, however, that dp[end of substring] gets overrided as it may already by the minimum solution
+    
+    leng = len(s)
+    dp = [n for n in range(-1,leng)]
+    
+    for i in range(leng):
+        for j in range(i,leng):
+            if s[i:j+1]==s[i:j+1][::-1]:
+                dp[j+1] = min(dp[j+1], dp[i]+1)
+                    
+    return dp[-1]
