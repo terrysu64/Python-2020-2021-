@@ -3516,3 +3516,64 @@ def isMatch(s,p):
             #3. characters are different
     
     return dp[-1][-1]
+
+#Date: September 8, 2021
+# Given an integer array nums, handle multiple queries of the following type:
+# Calculate the sum of the elements of nums between indices left and right inclusive where left <= right.
+# Implement the NumArray class:
+# NumArray(int[] nums) Initializes the object with the integer array nums.
+# int sumRange(int left, int right) Returns the sum of the elements of nums between indices left and right inclusive (i.e. nums[left] + nums[left + 1] + ... + nums[right]).
+
+class NumArray:
+    
+    #prefix sum array; O(n) initialization time and O(1) sum time
+
+    def __init__(self, nums):
+        self.ps = [nums[0]]
+        for n in nums[1:]:
+            self.ps += [n+self.ps[-1]]
+
+    def sumRange(self, left, right) -> int:
+        if left==0:
+            return self.ps[right]
+        return self.ps[right]-self.ps[left-1]
+
+#Date: September 8, 2021
+# Given an integer array nums, handle multiple queries of the following types:
+# Update the value of an element in nums.
+# Calculate the sum of the elements of nums between indices left and right inclusive where left <= right.
+# Implement the NumArray class:
+# NumArray(int[] nums) Initializes the object with the integer array nums.
+# void update(int index, int val) Updates the value of nums[index] to be val.
+# int sumRange(int left, int right) Returns the sum of the elements of nums between indices left and right inclusive (i.e. nums[left] + nums[left + 1] + ... + nums[right]).
+
+class NumArray:
+    
+    #A solution using fendwick trees: average O(n) time init and O(logn) time update/sumRange
+
+    def __init__(self, nums):
+        self.nums = nums
+        self.bit = [0]+nums
+        for i in range(1,length:=len(self.bit)):
+            if (j:=i+(i&-i)) < length:
+                self.bit[j] += self.bit[i]
+        return
+        
+    def update(self, index, val) -> None:
+        i,diff = index+1,val-self.nums[index]
+        self.nums[index] = val
+        while i < len(self.bit):
+            self.bit[i] += diff
+            i += i&-i
+        return
+
+    def sumRange(self, left, right) -> int:
+        
+        def prefix_sum(i):
+            res = 0
+            while i>0:
+                res += self.bit[i]
+                i -= i&-i
+            return res
+        
+        return prefix_sum(right+1) - prefix_sum(left)
