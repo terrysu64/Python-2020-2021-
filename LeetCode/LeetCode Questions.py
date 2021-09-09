@@ -3577,3 +3577,53 @@ class NumArray:
             return res
         
         return prefix_sum(right+1) - prefix_sum(left)
+
+#Date: September 9, 2021
+# You are given an integer n. You have an n x n binary grid grid with all values initially 1's except for some indices given in the array mines. The ith element of the array mines is defined as mines[i] = [xi, yi] where grid[xi][yi] == 0.
+# Return the order of the largest axis-aligned plus sign of 1's contained in grid. If there is none, return 0.
+# An axis-aligned plus sign of 1's of order k has some center grid[r][c] == 1 along with four arms of length k - 1 going up, down, left, and right, and made of 1's. Note that there could be 0's or 1's beyond the arms of the plus sign, only the relevant area of the plus sign is checked for 1's.
+
+def orderOfLargestPlusSign(n,mines):
+        
+    #a O(n^2) time dynammic programming solution, we check how far each cell can extend in each direction - the minimum of the 4 directions (or the maximum order of a "plus sign" centered in that cell will be dp[i][j])
+    
+    mines = {tuple(mine) for mine in mines}
+    dp = [[float('inf')]*n for i in range(n)]
+    
+    #right
+    for i in range(n):
+        count = 1
+        for j in range(n):
+            if (i,j) in mines: 
+                count = 0
+            dp[i][j] = min(dp[i][j], count)
+            count += 1
+   
+    #left
+    for i in range(-1,-(n+1), -1):
+        count = 1
+        for j in range(-1,-(n+1), -1):
+            if (n+i,n+j) in mines: 
+                count = 0
+            dp[i][j] = min(dp[i][j], count)
+            count += 1                
+            
+    #down
+    for i in range(n):
+        count = 1
+        for j in range(n):
+            if (j,i) in mines: 
+                count = 0
+            dp[j][i] = min(dp[j][i], count)
+            count += 1
+    
+    #up 
+    for i in range(-1,-(n+1), -1):
+        count = 1
+        for j in range(-1,-(n+1), -1):
+            if (n+j,n+i) in mines: 
+                count = 0
+            dp[j][i] = min(dp[j][i], count)
+            count += 1
+    
+    return max(max(dp[i]) for i in range(n))
