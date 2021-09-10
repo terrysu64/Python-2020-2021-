@@ -3627,3 +3627,30 @@ def orderOfLargestPlusSign(n,mines):
             count += 1
     
     return max(max(dp[i]) for i in range(n))
+
+#Date: September 10, 2021
+#Given an m x n 2D binary grid grid which represents a map of '1's (land) and '0's (water), return the number of islands.
+#An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.
+
+from collections import deque
+def numIslands(grid):
+        
+    #a bfs solution; for each '1', expand the island for as long as possible while marking all visited '1' cells with '0'/seen. Each completed expansion/bfs seach will suggest a distinct island
+    
+    ans = 0
+    for i in range(len(grid)):
+        for j in range(len(grid[0])):
+            if grid[i][j]=='1':
+                grid[i][j] = '0'
+                self.bfs(grid,(i,j))
+                ans += 1
+    return ans
+
+def bfs(self,grid,pos):
+    q = deque([pos])
+    while q:
+        I,J = q.popleft()
+        for i,j in [I+1,J],[I,J+1],[I-1,J],[I,J-1]:
+            if 0 <= i < len(grid) and 0 <= j < len(grid[0]) and grid[i][j] == '1':
+                grid[i][j] = '0'
+                q.append((i,j))
