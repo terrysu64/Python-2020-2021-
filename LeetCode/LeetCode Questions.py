@@ -3654,3 +3654,35 @@ def bfs(self,grid,pos):
             if 0 <= i < len(grid) and 0 <= j < len(grid[0]) and grid[i][j] == '1':
                 grid[i][j] = '0'
                 q.append((i,j))
+
+#Date: September 11, 2021
+# On a 2D plane, we place n stones at some integer coordinate points. Each coordinate point may have at most one stone.
+# A stone can be removed if it shares either the same row or the same column as another stone that has not been removed.
+# Given an array stones of length n where stones[i] = [xi, yi] represents the location of the ith stone, return the largest possible number of stones that can be removed.
+
+def removeStones(stones):
+        
+    #A disjoint set solution. Each stone is considered its own disjoint set initially; everytime we run into a neighbor stone (a stone in the same column/row as a stone in another disjoint set), we will unify the two sets. The maximum # of stones we'll ultimately be able to remove is equivalent to #of stones - #of disjoint sets that remain
+    
+    sets = []
+    
+    for pos in stones:
+        r,c = pos
+        new,parent = True,None
+        for ds in sets:
+            if r in {x[0] for x in ds} or c in {x[1] for x in ds}:
+                new = False
+                
+                #first merge
+                if not parent:
+                    parent = ds
+                    parent.add((r,c))
+                    continue
+                
+                #second+ merge
+                parent |= ds
+                sets.remove(ds)
+            
+        if new: sets.append({(r,c)})
+    
+    return len(stones)-len(sets)
