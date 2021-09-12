@@ -3699,3 +3699,29 @@ def rob(nums):
     
     if len(nums) in {1,2}: return max(nums)
     return max(helper(nums[1:]), helper(nums[:-1]))
+
+#Date: September 12, 2021
+#https://leetcode.com/problems/clone-graph/
+
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val = 0, neighbors = None):
+        self.val = val
+        self.neighbors = neighbors if neighbors is not None else []
+"""
+def cloneGraph(node): 
+    
+    #A dfs solution with a hash table (which is formmatted as such -> node object: copy of node object). For cloned nodes, if a neighbor node has already been copied, add it to its adjacency list, otherwise, create it first.
+    
+    def dfs(seen,node):
+        for adj in node.neighbors:
+            if adj not in seen:
+                seen[adj] = Node(adj.val)
+                dfs(seen,adj)
+            seen[node].neighbors += [seen[adj]]
+    
+    if not node: return
+    seen = {node: Node(node.val)}
+    dfs(seen,node)
+    return seen[node]
