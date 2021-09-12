@@ -3686,3 +3686,20 @@ def removeStones(stones):
         if new: sets.append({(r,c)})
     
     return len(stones)-len(sets)
+
+#Date: September 11, 2021
+# You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed. All houses at this place are arranged in a circle. That means the first house is the neighbor of the last one. Meanwhile, adjacent houses have a security system connected, and it will automatically contact the police if two adjacent houses were broken into on the same night.
+# Given an integer array nums representing the amount of money of each house, return the maximum amount of money you can rob tonight without alerting the police.
+
+def rob(nums):
+        
+    #An O(n) dynammic solution solution; we cannot rob both the first and last house. Thus, we will take the maximum we can rob between cases where we exclude the first/last houses respectively
+    
+    def helper(dp): 
+        dp[1] = max(dp[0],dp[1])
+        for i in range(2,len(dp)):
+            dp[i] = max(dp[i]+dp[i-2],dp[i-1])
+        return dp[-1]
+    
+    if len(nums) in {1,2}: return max(nums)
+    return max(helper(nums[1:]), helper(nums[:-1]))
