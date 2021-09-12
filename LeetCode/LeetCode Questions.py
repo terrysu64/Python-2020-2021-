@@ -3664,28 +3664,24 @@ def removeStones(stones):
         
     #A disjoint set solution. Each stone is considered its own disjoint set initially; everytime we run into a neighbor stone (a stone in the same column/row as a stone in another disjoint set), we will unify the two sets. The maximum # of stones we'll ultimately be able to remove is equivalent to #of stones - #of disjoint sets that remain
     
-    sets = []
+    def find(parent, i):
+        if parent[i]==-1:
+            return i
+        return find(parent, parent[i])
+
+    def union(parent, x, y):
+        xset = find(parent, x)
+        yset = find(parent, y)
+        if xset==yset: return
+        parent[xset] = yset
     
-    for pos in stones:
-        r,c = pos
-        new,parent = True,None
-        for ds in sets:
-            if r in {x[0] for x in ds} or c in {x[1] for x in ds}:
-                new = False
-                
-                #first merge
-                if not parent:
-                    parent = ds
-                    parent.add((r,c))
-                    continue
-                
-                #second+ merge
-                parent |= ds
-                sets.remove(ds)
-            
-        if new: sets.append({(r,c)})
+    dsu = {tuple(pos):-1 for pos in stones}
+    for i in range(len(stones)):
+        for j in range(i+1,len(stones)):
+            if stones[i][0]==stones[j][0] or stones[i][1]==stones[j][1]:
+                union(dsu,tuple(stones[i]),tuple(stones[j]))
     
-    return len(stones)-len(sets)
+    return len(stones)-sum([1 for x in dsu if dsu[x]==-1])
 
 #Date: September 11, 2021
 # You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed. All houses at this place are arranged in a circle. That means the first house is the neighbor of the last one. Meanwhile, adjacent houses have a security system connected, and it will automatically contact the police if two adjacent houses were broken into on the same night.
