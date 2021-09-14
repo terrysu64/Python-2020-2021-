@@ -3725,3 +3725,28 @@ def cloneGraph(node):
     seen = {node: Node(node.val)}
     dfs(seen,node)
     return seen[node]
+
+#Date: September 13, 2021
+#https://leetcode.com/problems/number-of-provinces/
+
+class Solution:
+    def findCircleNum(self, isConnected: List[List[int]]) -> int:
+        
+        #a disjoint set union-find implementations with an O(n^2) runtime; the number of disjoint sets ultimately = number of provinces
+        
+        n = len(isConnected)
+        dtstr = {x:-1 for x in range(n)}
+        for i in range(n):
+            for j in range(n):
+                if isConnected[i][j]: self.union(dtstr,i,j)
+        return sum([1 for x in dtstr if dtstr[x]==-1])
+        
+    def find(self,dtstr, i): #with path compression to optimize
+        if dtstr[i]==-1: return i
+        dtstr[i] = self.find(dtstr, dtstr[i])
+        return dtstr[i]
+        
+    def union(self,dtstr,i,j):
+        I,J = self.find(dtstr,i), self.find(dtstr,j)
+        if I==J: return
+        dtstr[I] = J
