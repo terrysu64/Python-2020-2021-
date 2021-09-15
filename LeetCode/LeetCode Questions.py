@@ -3730,7 +3730,7 @@ def cloneGraph(node):
 #https://leetcode.com/problems/number-of-provinces/
 
 class Solution:
-    def findCircleNum(self, isConnected: List[List[int]]) -> int:
+    def findCircleNum(isConnected):
         
         #a disjoint set union-find implementations with an O(n^2) runtime; the number of disjoint sets ultimately = number of provinces
         
@@ -3750,3 +3750,19 @@ class Solution:
         I,J = self.find(dtstr,i), self.find(dtstr,j)
         if I==J: return
         dtstr[I] = J
+
+#Date: September 14, 2021
+#https://leetcode.com/problems/kth-largest-element-in-an-array/
+
+import heapq
+def findKthLargest(nums,k):
+        
+    #An O(nlogn) time approach using a min heap (I think its more elegant than using .sort() lol). Essentially, the root of the heap will always maintain the smallest element of the heap; will limit the heap to k elements while ensuring they are k of the largest elements (that have been traversed).
+
+    hp = []
+
+    for n in nums:
+        heapq.heappush(hp, n)
+        if len(hp) > k: heapq.heappop(hp) #heappop = removing root node
+
+    return hp[0]
