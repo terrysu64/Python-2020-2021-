@@ -3766,3 +3766,20 @@ def findKthLargest(nums,k):
         if len(hp) > k: heapq.heappop(hp) #heappop = removing root node
 
     return hp[0]
+
+#September 17, 2021
+#https://leetcode.com/problems/single-number-ii/
+
+def singleNumber(nums):
+        
+    #same O(n) implementation as single number I
+    
+    seen = {}
+    
+    for n in nums:
+        if n not in seen:
+            seen[n] = 1
+            continue
+        seen[n] += 1
+    
+    return [n for n in seen if seen[n]==1][0]
