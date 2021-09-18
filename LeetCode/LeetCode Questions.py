@@ -3767,7 +3767,7 @@ def findKthLargest(nums,k):
 
     return hp[0]
 
-#September 17, 2021
+#Date: September 17, 2021
 #https://leetcode.com/problems/single-number-ii/
 
 def singleNumber(nums):
@@ -3780,6 +3780,57 @@ def singleNumber(nums):
         if n not in seen:
             seen[n] = 1
             continue
-        seen[n] += 1
+        return n
     
-    return [n for n in seen if seen[n]==1][0]
+#Date: September 18, 2021
+#https://leetcode.com/contest/biweekly-contest-61/problems/count-number-of-pairs-with-absolute-difference-k/
+
+def countKDifference(nums,k):
+
+    #O(n^2) intutive solution
+
+    ans = 0
+    for i in range(len(nums)-1):
+        for j in range(i+1,len(nums)): 
+            if abs(nums[i]-nums[j]) == k:
+                ans += 1
+    return ans
+
+#Date: September 18, 2021
+#https://leetcode.com/contest/biweekly-contest-61/problems/find-original-array-from-doubled-array/
+
+def findOriginalArray(changed):
+        
+    #O(nlogn) time. The theory behind the solution is to keep track of the frequency of each number's apperance. We will traverse the array in increasing order (because if the array were to be "doubled" it would be the smallest elements that would be multiplied by 2) and everytime we come across a number, we deduct its frequency by one. Moreover, if its double still has a frequency > 1, we reduce the its frequency by one as well. 
+    
+    if len(changed)%2==1 or not changed: #odd length can't be "doubled array"
+        return []
+    
+    counter, ans = Counter(changed), []
+
+    for n in sorted(changed):
+        if counter[n]: 
+            counter[n] -= 1
+            if counter[n*2]:
+                counter[n*2] -= 1
+                ans += [n]
+                
+    if len(ans)*2==len(changed):
+        return ans
+    return []
+
+#Date: September 18, 2021
+#https://leetcode.com/problems/maximum-length-of-pair-chain/submissions/
+
+def findLongestChain(pairs):
+        
+    #A common greedy implementation; we would like to continuously select the chains that end ASAP given a starting index point
+    
+    start, ans = float('-inf'), 0
+    
+    for inter in sorted(pairs, key=lambda p:p[1]):
+        if inter[0] > start:
+            ans += 1
+            start = inter[1]
+    
+    return ans
