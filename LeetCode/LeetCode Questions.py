@@ -3834,3 +3834,43 @@ def findLongestChain(pairs):
             start = inter[1]
     
     return ans
+
+#Date: September 19, 2021
+#https://leetcode.com/problems/trapping-rain-water/
+
+def trap(height):
+        
+    #a stack approach. We keep track of the highest elevation we've encountered so far; for every smaller elevation, we will append their values to a stack. Given such there are two possible calculations we can make:
+    
+    #1. we encounter an elevation that < tallest but can still trap water:
+        
+        #we'll see how much it can trap and flatten out all holes that were filled (to prevent repeated calculations)
+    
+    #2. we encounter an elevation that >= tallest
+    
+        #we will fully calculate the water trapped between previous tallest elevation and new tallest elevation
+    
+    stack,l_m,ans = [],0,0
+    
+    for h in height:
+        if not l_m:
+            l_m = h
+            continue
+        
+        #full calculation
+        if h >= l_m:
+            while stack:
+                ans += l_m - stack.pop()
+            l_m = h
+            continue
+        
+        #partial calculation
+        i = -1
+        while stack and i >= -len(stack) and h > stack[i]:
+            ans += h-stack[i]
+            stack[i] = h
+            i -= 1
+           
+        stack += [h]
+        
+    return ans
