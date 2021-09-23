@@ -3874,3 +3874,26 @@ def trap(height):
         stack += [h]
         
     return ans
+
+#Date: September 22, 2021
+#https://leetcode.com/problems/gas-station/
+
+def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
+        
+    #A worst case O(n^2) time solution; try starting on a station if net gas gained/lost is positive by the time you get to the next. If that station allows us to complete the loop, return its index.
+    
+    net = [gas[i]-cost[i] for i in range(len(gas))]
+    
+    for i,j in enumerate(net):
+        possi = i
+        if j >= 0:
+            curr = 0 
+            for _ in range(len(net)):
+                if curr < 0 : break
+                if i == len(net): i=0
+                curr += net[i]
+                i += 1
+            if curr >= 0:
+                return possi
+    
+    return -1
