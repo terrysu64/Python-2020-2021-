@@ -3878,7 +3878,7 @@ def trap(height):
 #Date: September 22, 2021
 #https://leetcode.com/problems/gas-station/
 
-def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
+def canCompleteCircuit(gas,cost):
         
     #A worst case O(n^2) time solution; try starting on a station if net gas gained/lost is positive by the time you get to the next. If that station allows us to complete the loop, return its index.
     
@@ -3897,3 +3897,22 @@ def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
                 return possi
     
     return -1
+
+#Date: September 24, 2021
+#https://leetcode.com/explore/challenge/card/september-leetcoding-challenge-2021/639/week-4-september-22nd-september-28th/3986/
+
+def tribonacci(n):
+        
+    #intuitive recursive solution with memoization optimization
+    
+    def helper(n,seen):
+        
+        if n==0: return 0
+        if n in [1,2]: return 1
+        
+        if n in seen: return seen[n]
+        seen[n] = helper(n-1,seen)+helper(n-2,seen)+helper(n-3,seen)
+        
+        return seen[n] 
+    
+    return helper(n,{})
