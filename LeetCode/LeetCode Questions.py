@@ -3938,7 +3938,7 @@ def search(nums,target):
 from collections import deque
 def shortestPath(grid,k):
     
-    #bfs: queue contents = row,column,shots left,seen
+    #bfs: queue contents = row,column,remaining barrier destructions
     
     def bfs(queue,steps,seen):
         for i in range(len(queue)):
@@ -3964,3 +3964,32 @@ def shortestPath(grid,k):
         steps += 1
         
     return -1
+
+#Date: September 25, 2021
+#https://leetcode.com/problems/maximum-profit-in-job-scheduling/
+
+import bisect
+def jobScheduling(startTime,endTime,profit):
+        
+        #O(nlogn) dynammic programming solution, an enhanced solution built-upon the O(n^2) approach. At each job, we have two choices:
+        
+        #1. skip the job --> dp[i] = dp[i-1]
+        #2. take the job; if we chose this option, we will be building upon the most recent non-overlapping job (if it exists)
+        
+        #this algorithm prevents the repetitive comparisons from dp[i] to dp[j] in the O(n^2) solution
+        
+        jobs = sorted(zip(startTime,endTime,profit), key=lambda x:x[1])
+        ends,dp = [x[1] for x in jobs], [jobs[0][2]]+[0]*(len(jobs)-1)
+        
+        for i in range(1,len(dp)):
+            
+            #skip job 
+            dp[i] = dp[i-1]
+            
+            #take job
+            chain = bisect.bisect_right(ends,jobs[i][0])-1
+
+            #compares the two options
+            dp[i] = max(dp[i],jobs[i][2]+(dp[chain] if chain>=0 else 0))
+        
+        return dp[-1]
