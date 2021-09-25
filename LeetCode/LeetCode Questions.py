@@ -3916,3 +3916,51 @@ def tribonacci(n):
         return seen[n] 
     
     return helper(n,{})
+
+#Date: September 25, 2021
+#https://leetcode.com/problems/binary-search/submissions/
+
+def search(nums,target):
+        
+        #iterative implementation of binary search
+        
+        l,h = 0,len(nums)-1
+        while l <= h:
+            i = (l+h)//2
+            if (curr:=nums[i]) == target: return i
+            elif curr > target: h = i-1
+            else: l = i+1
+        return -1
+
+#Date: September 25, 2021
+#https://leetcode.com/submissions/detail/560805870/
+
+from collections import deque
+def shortestPath(grid,k):
+    
+    #bfs: queue contents = row,column,shots left,seen
+    
+    def bfs(queue,steps,seen):
+        for i in range(len(queue)):
+            pos = queue.popleft()
+            r,c = pos[0],pos[1]
+            if grid[r][c] == 1:
+                if pos[2] > 0: pos[2] -= 1
+                else: continue
+            seen.add((r,c))
+            if (r,c) == (len(grid)-1,len(grid[0])-1): return steps #base case
+            for R,C in [(r+1,c),(r-1,c),(r,c+1),(r,c-1)]:
+                if 0 <= R < len(grid) and 0 <= C < len(grid[0]) and (R,C) not in seen:
+                    queue += [[R,C,pos[2]]]
+        return queue
+        
+    q = deque([[0,0,k]]) 
+    seen = set()
+    steps = 0
+    while q:
+        if type(next_layer := bfs(q,steps,seen)) == int:
+            return next_layer
+        q = next_layer
+        steps += 1
+        
+    return -1
