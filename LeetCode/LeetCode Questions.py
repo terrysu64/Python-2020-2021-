@@ -3993,3 +3993,42 @@ def jobScheduling(startTime,endTime,profit):
             dp[i] = max(dp[i],jobs[i][2]+(dp[chain] if chain>=0 else 0))
         
         return dp[-1]
+
+#September 26, 2021
+#https://leetcode.com/problems/min-cost-climbing-stairs/
+
+def minCostClimbingStairs(cost):
+        
+    #O(n) dynammic programming, the minimum cost of reaching stair 'i' is will be attained from climbing up from the cheapest option between the last 2 stairs 
+    
+    if len(cost) == 2: return min(cost)
+    
+    for i in range(2,len(cost)):
+        cost[i] = min(cost[i]+cost[i-1],cost[i]+cost[i-2])
+    
+    return min(cost[-1],cost[-2])
+
+#September 26, 2021
+#https://leetcode.com/problems/edit-distance/
+
+def minDistance(word1,word2):
+        
+    #an O(mn) time 2-D dynammic programming approach (very similar to wildcard or expression matching where dp[i][j] is determined from a set of comparable conditions). Columns and rows represent word1 and word 2 respectively.
+    
+    #There will be two main cases:
+    
+    #1. the last letters of the two dp strings match:
+        #dp[i][j] = top left corner
+    
+    #2. the last letters dont match:
+        #dp[i][j] = min(replace (top left corner) , insert (left) , delete (top)) + 1 (becuase they are operations)
+    
+    dp = [[n for n in range(len(word1)+1)]] + [[i]+[0]*len(word1) for i in range(1,len(word2)+1)]
+    for i in range(1,len(dp)):
+        for j in range(1,len(dp[0])):
+            if word1[j-1]==word2[i-1]: 
+                dp[i][j] = dp[i-1][j-1]
+                continue
+            dp[i][j] = min(dp[i-1][j-1],dp[i-1][j],dp[i][j-1])+1
+    
+    return dp[-1][-1]
