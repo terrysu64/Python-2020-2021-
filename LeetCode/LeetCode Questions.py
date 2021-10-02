@@ -4036,7 +4036,7 @@ def minDistance(word1,word2):
 #October 1, 2021
 #https://leetcode.com/problems/longest-common-subsequence/submissions/
 
-def longestCommonSubsequence(text1,text2):\
+def longestCommonSubsequence(text1,text2):
 
     #classic O(n^2) time 2-d dynammic programming solution (rows = text1, cols = text2). If two characters in dp cell are the same, max-substring increases in length by 1
     
@@ -4048,3 +4048,88 @@ def longestCommonSubsequence(text1,text2):\
                 continue
             dp[i][j] = max(dp[i-1][j],dp[i][j-1]) #check left/top because word2 could be continuing off a substring in word1 and vice versa
     return dp[-1][-1]
+
+#October 2, 2021:
+#https://leetcode.com/contest/biweekly-contest-62/problems/convert-1d-array-into-2d-array/
+def construct2DArray(original,m,n):
+        
+    #O(n) intuitive solution
+    
+    if m*n != len(original):
+        return []
+
+    ans,curr,count = [],[],1
+    for x in original:
+        curr += [x]
+        count += 1
+        if count == n+1:
+            ans += [curr]
+            curr = []
+            count = 1
+    return ans
+
+#October 2, 2021
+#https://leetcode.com/contest/biweekly-contest-62/problems/number-of-pairs-of-strings-with-concatenation-equal-to-target/
+
+def numOfPairs(nums,target):
+        
+    #O(n^2) intuitive solution
+    
+    ans = 0
+    for i in range(len(nums)):
+        for j in range(len(nums)):
+            if nums[i]+nums[j]==target and i!=j: ans +=1
+
+    return ans
+
+#October 2, 2021:
+#https://leetcode.com/problems/max-consecutive-ones-iii/
+
+def longestOnes(nums,k):
+        
+    #O(n) two pointer approach; while we attempt to extend our right pointer we can run into the following scenarios:
+    
+    #1. run into a 1:
+        #keep extending
+    
+    #2. run into a 0:
+        #increment the left pointer until theres space for the 0 (if we dont have any more k left)
+        #otherwise keep extending
+    
+    ans, l = 0, 0
+    
+    for r in range(len(nums)):
+        if nums[r] == 0:                       
+            if not k:                        
+                while nums[l] != 0 : l += 1
+                l += 1
+            else : 
+                k -= 1                     
+        ans = max(ans,r-l+1)    
+        
+    return ans
+
+#Date: October 2, 2021
+#https://leetcode.com/contest/biweekly-contest-62/problems/maximize-the-confusion-of-an-exam/
+
+class Solution:
+    def maxConsecutiveAnswers(self, answerKey,k):
+        
+        #same idea behind max consecutive ones III, we just need to determine the longest subarray with at most k 'F's or 'T's
+        
+        pos1,pos2 = [(1 if x=='T' else 0) for x in answerKey], [(1 if x=='F' else 0) for x in answerKey] #possibilities that answer will be subarray of 'T's and 'F's respectively
+        return max(self.solve(pos1,k),self.solve(pos2,k))
+        
+    def solve(self,arr,k):
+        res,l = 0,0
+        for i in range(len(arr)):
+            if arr[i]==1: 
+                res = max(res,i-l+1)
+                continue
+            if not k:
+                while arr[l]!=0:
+                    l += 1
+                l += 1
+            else: k -= 1
+            res = max(res,i-l+1)
+        return res
