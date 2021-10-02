@@ -4032,3 +4032,19 @@ def minDistance(word1,word2):
             dp[i][j] = min(dp[i-1][j-1],dp[i-1][j],dp[i][j-1])+1
     
     return dp[-1][-1]
+
+#October 1, 2021
+#https://leetcode.com/problems/longest-common-subsequence/submissions/
+
+def longestCommonSubsequence(text1,text2):\
+
+    #classic O(n^2) time 2-d dynammic programming solution (rows = text1, cols = text2). If two characters in dp cell are the same, max-substring increases in length by 1
+    
+    dp = [[0 for _ in range(len(text2)+1)] for __ in range(len(text1)+1)]
+    for i in range(1,len(dp)):
+        for j in range(1,len(dp[0])):
+            if text1[i-1]==text2[j-1]: 
+                dp[i][j] = dp[i-1][j-1]+1
+                continue
+            dp[i][j] = max(dp[i-1][j],dp[i][j-1]) #check left/top because word2 could be continuing off a substring in word1 and vice versa
+    return dp[-1][-1]
