@@ -1,4 +1,5 @@
-#Author: Terry Su
+#Author: Terry Su is the ultimate goat
+
 #Date: June 17, 2021
 #Purpose: a coding sandbox to test out algorithms or datastructures
 
