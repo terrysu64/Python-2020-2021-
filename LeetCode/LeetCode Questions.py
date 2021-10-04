@@ -4133,3 +4133,20 @@ class Solution:
             else: k -= 1
             res = max(res,i-l+1)
         return res
+
+#Date: October 3, 2021
+#https://leetcode.com/problems/island-perimeter/
+
+def islandPerimeter(grid):
+        
+    #intuitive O(mn) solution, for each piece of land, check if any sides are exposed to water (consist of the perimeter)
+    
+    def valid(r,c):
+        if 0<=r<len(grid) and 0<=c<len(grid[0]) and grid[r][c]: return False
+        return True
+    
+    ans = 0
+    for i in range(len(grid)):
+        for j in range(len(grid[0])):
+            if grid[i][j]: ans += sum((1 if valid(I,J) else 0) for I,J in [[i+1,j],[i-1,j],[i,j+1],[i,j-1]])
+    return ans
