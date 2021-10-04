@@ -204,6 +204,14 @@ def add(num1,num2):
     t = 1+1
     return num1 + num2
 
+# Removes the codeblock when pasting from other websites
+def cleanup_code(content):
+    # remove ```py\n```
+    if content.startswith('```') and content.endswith('```'):
+        return '\n'.join(content.split('\n')[1:-1])
+
+    return content.strip('` \n')
+
 #testing asynchronous programming
 import asyncio
 anim = None
