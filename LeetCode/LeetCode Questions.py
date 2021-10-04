@@ -4150,3 +4150,20 @@ def islandPerimeter(grid):
         for j in range(len(grid[0])):
             if grid[i][j]: ans += sum((1 if valid(I,J) else 0) for I,J in [[i+1,j],[i-1,j],[i,j+1],[i,j-1]])
     return ans
+
+#Date: October 4, 2021
+#https://leetcode.com/problems/maximum-sum-circular-subarray/submissions/
+
+def maxSubarraySumCircular(nums):
+        
+        #O(n) kadane's algorithm; ans = max(the max subarray sum, the total sum - the min subarray sum) because there are 2 cases (either max subarray is or is not circular)
+        
+        cma,cmi,gma,gmi = [nums[0]]*4
+        for n in nums[1:]:
+            cma = max(n,n+cma)
+            cmi = min(n,n+cmi)
+            gma = max(gma,cma)
+            gmi = min(gmi,cmi)
+        
+        if all(x<0 for x in nums): return gma #edge case
+        return max(gma,sum(nums)-gmi)
