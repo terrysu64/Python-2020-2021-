@@ -4167,3 +4167,30 @@ def maxSubarraySumCircular(nums):
         
         if all(x<0 for x in nums): return gma #edge case
         return max(gma,sum(nums)-gmi)
+
+#Date: October 8, 2021
+#https://leetcode.com/problems/copy-list-with-random-pointer/
+
+def copyRandomList(head):
+        
+        #two-pass O(n) solution using hashmaps; first iteration will be creating the base linked list {old node:new node} and the second will connect the random nodes
+        
+        if not head: return None
+        
+        copy = {None:None} 
+        
+        #1. 
+        curr = head
+        while curr:
+            copy[curr] = Node(curr.val)
+            curr = curr.next
+
+        #2.
+        curr = head
+        while curr:
+            newnode = copy[curr]
+            newnode.next,newnode.random = copy[curr.next],copy[curr.random]
+            curr = curr.next
+        
+        return copy[head] 
+    
