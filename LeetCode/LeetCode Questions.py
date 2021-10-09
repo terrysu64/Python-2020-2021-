@@ -4270,3 +4270,16 @@ def wordBreak(s,wordDict):
                 break
     
     return dp[-1]
+
+#October 9, 2021
+#https://leetcode.com/problems/bitwise-ors-of-subarrays/submissions/
+
+def subarrayBitwiseORs(arr):
+        
+    #An O(n) time set approach; the crux of the solution lies in the set "curr"; as we traverse the array, curr keeps track of all distinct answers if we build on previous contiguous values. Hence, this allows us to constantly update res with new curr values
+    
+    curr,res = set(),set()
+    for n in arr:
+        curr={n|x for x in curr}|{n}
+        res |= curr
+    return len(res)
