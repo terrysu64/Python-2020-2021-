@@ -4253,3 +4253,20 @@ def waysToPartition(nums,k_):
             
         
         return ans
+
+#Date: October 9, 2021
+#https://leetcode.com/problems/word-break/submissions/
+
+def wordBreak(s,wordDict):
+        
+    #O(nm) time dynammic programming solution. dp[i] = answer for s[:i]. For dp[i] to hold true it must build on a previous substring whose dp[i]==True while also having the substring between the previous/current indices in question to exist within wordDict.
+    
+    dp,wds = [True]+[False]*len(s), set(wordDict)
+    
+    for i in range(1,len(dp)):
+        for j in range(i):
+            if all([dp[j],s[j:i] in wds]):
+                dp[i] = True
+                break
+    
+    return dp[-1]
