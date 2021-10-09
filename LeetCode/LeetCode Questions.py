@@ -4219,3 +4219,37 @@ def maximalSquare(matrix):
     
 
     return ans
+
+#Date: October 9, 2021
+#https://leetcode.com/problems/maximum-number-of-ways-to-partition-an-array/
+
+from collections import Counter
+def waysToPartition(nums,k_):
+        
+        #An O(n) time solution; keep psa and frequency hashmaps for occurences of psa values on both left and right of partitions. This allows us to check for the maximum partitions both with and without using the k value change.
+        
+        #given a psa, number of partitions == freq[psa[-1]//2] if the total sum of the array % 2 == 0 in the first place
+        
+        ans = 0
+        psa = [nums[0]]
+        for n in nums[1:]:
+            psa += [psa[-1]+n]
+        r_freq,l_freq = Counter(psa),Counter()
+        
+        #no k usage
+        if psa[-1]%2==0: ans = r_freq[psa[-1]//2] - (1 if psa[-1]==psa[-1]//2 else 0)
+            
+        
+        #k usage
+        for i in range(len(psa)):
+            
+            diff = k-nums[i]
+
+            if (psa[-1]+diff)%2==0:
+                ans = max(ans,l_freq[(psa[-1]+diff)//2] + r_freq[((psa[-1]+diff)//2)-diff] - (1 if psa[-1]==((psa[-1]+diff)//2)-diff else 0)) 
+                
+            l_freq[psa[i]] += 1
+            r_freq[psa[i]] -= 1
+            
+        
+        return ans
