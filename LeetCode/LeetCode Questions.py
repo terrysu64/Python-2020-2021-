@@ -4193,4 +4193,29 @@ def copyRandomList(head):
             curr = curr.next
         
         return copy[head] 
+
+#October 8, 2021
+#https://leetcode.com/problems/maximal-square/submissions/
+
+def maximalSquare(matrix):
+
+    #An o(mn) time 2-d top down dynammic programming solution.
+    #we initialize the dp matrix with ones in row/column 0 and traverse the rest; while preforming this, and if we run into a case where matrix[i][j]==1, there are two cases:
+        
+        #1. it cannot build on an existing square:
+            #dp[i][j]==1
+        
+        #2. it can build onto an existing square:
+            #dp[i][j] must be wrapped from left to top with valid values in dp matrix and will build on the least of the three values
+        
+    ans = 0
+    dp = [[(1 if matrix[r][c]=='1' and (r==0 or c==0) else 0) for c in range(len(matrix[0]))] for r in range(len(matrix))]
     
+    for i in range(len(matrix)):
+        for j in range(len(matrix[0])):
+            if all([i,j]) and int(matrix[i][j]):
+                dp[i][j] = max(1,(min(dp[i-1][j],dp[i-1][j-1],dp[i][j-1])+1 if all([dp[i-1][j],dp[i-1][j-1],dp[i][j-1]]) else 0))
+            ans = max(ans,dp[i][j]**2)
+    
+
+    return ans
