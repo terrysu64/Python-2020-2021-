@@ -4283,3 +4283,31 @@ def subarrayBitwiseORs(arr):
         curr={n|x for x in curr}|{n}
         res |= curr
     return len(res)
+
+#October 11, 2021
+#https://leetcode.com/problems/linked-list-cycle/submissions/
+
+def hasCycle(head):
+        
+    #O(n) time and O(1) space solution; flag the value of each node we visited with 'N'. If we see 'N' twice before finishing the list traversal, there is a cycle
+    
+    while head:
+        if head.val=='N': return True
+        head.val = 'N'
+        head = head.next
+    return False
+
+#October 11, 2021:
+#https://leetcode.com/problems/linked-list-cycle-ii/submissions/
+
+def detectCycle(head):
+        
+    #O(n) time solution with hashmap, set will hold seen node
+    
+    i,seen = 0,set()
+    while head:
+        if head in seen: return head
+        seen.add(head)
+        head = head.next
+        i += 1
+    return None
