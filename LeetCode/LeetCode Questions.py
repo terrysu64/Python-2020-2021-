@@ -4311,3 +4311,24 @@ def detectCycle(head):
         head = head.next
         i += 1
     return None
+
+#October 11, 2021
+#https://leetcode.com/problems/longest-increasing-path-in-a-matrix/submissions/
+
+def longestIncreasingPath(matrix):
+        
+    #dfs + memoization. The key is to realize that the intuitive dfs holds numerous repeats in calculations. Given that the answer starting from a position i,j has already been calculated, the next time we manage to reach that respective position, we can simply chain onto it.
+    
+    def valid(i,j):
+        if 0<=i<len(matrix) and 0<=j<len(matrix[0]): return True
+        return False
+    
+    @cache
+    def dfs(i,j):
+        res = 1
+        for I,J in [[r,c] for r,c in [[i+1,j],[i-1,j],[i,j+1],[i,j-1]] if valid(r,c)]:
+            if matrix[I][J] > matrix[i][j]: res = max(res,1+dfs(I,J))
+        return res
+    
+    return max(dfs(i,j) for i in range(len(matrix)) for j in range(len(matrix[0])))
+                
