@@ -4348,4 +4348,33 @@ def maxProduct(nums):
         return res
     
     return max(traverse(0,len(nums),'r'),traverse(len(nums)-1,-1,'l'))
-            
+
+#October 15, 2021
+#https://leetcode.com/problems/maximum-length-of-subarray-with-positive-product/submissions/
+
+def getMaxLen(nums):
+        
+    #Same O(n) two-pass concept as previous solution except our curr holds more information as we traverse:
+    
+    #curr = [longest +ve product subarr,length of subarr on hold (cannot contribute to curr[0] yet) because there are an odd # of -ve numbers ,#of -ve numbers in current subarr]
+    
+    def trav(dirc):
+        ans,curr = 0,[0]*3 #[+,temp,-]
+        for n in nums[::dirc]:
+            if not n: 
+                curr=[0]*3
+                continue    
+            if n<0: 
+                curr[1] += 1
+                curr[2] += 1
+                if curr[2]==2: 
+                    curr[0] += curr[1]
+                    curr[1],curr[2] = 0,0
+            else:
+                if curr[2]%2==1: curr[1] += 1
+                else: curr[0] += 1
+            ans = max(ans,curr[0])
+        return ans
+    
+    return max(trav(1),trav(-1))
+        
