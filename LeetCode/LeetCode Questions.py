@@ -4331,4 +4331,21 @@ def longestIncreasingPath(matrix):
         return res
     
     return max(dfs(i,j) for i in range(len(matrix)) for j in range(len(matrix[0])))
-                
+
+#Date: October 14, 2021
+#https://leetcode.com/problems/maximum-product-subarray/
+
+def maxProduct(nums):
+        
+    #O(n) two-pass solution. Consider each subarray seperated by a 0 as seperate by nature. Within each of these subarrays, there may either contain an even or odd number of negative integers; the main point to realize is that if the count of negative integers is odd, the maximum sub-subarray would contain either all but the leftmost/rightmost negative integer.
+    
+    def traverse(s,e,dirc):
+        curr,res = 1,float('-inf')
+        for i in range(s,e,(1 if dirc=='r' else -1)):
+            curr *= nums[i]
+            res = max(res,curr)
+            if nums[i]==0: curr = 1
+        return res
+    
+    return max(traverse(0,len(nums),'r'),traverse(len(nums)-1,-1,'l'))
+            
