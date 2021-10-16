@@ -4377,4 +4377,24 @@ def getMaxLen(nums):
         return ans
     
     return max(trav(1),trav(-1))
+
+#Date: October 15, 2021
+#https://leetcode.com/problems/max-points-on-a-line/
+
+def maxPoints(points):
         
+    #An O(n^2) math solution; for each point, we take advantage of the small constraints and traverse all other points and group together all points with the same slope through a dictionary; we can then update our local answer to the global answer
+    
+    ans = 0 
+    for i in points:
+        curr,dup,lines = 0,0,{}
+        for j in points:
+            if i==j: 
+                dup += 1
+            else:
+                if i[0]==j[0]: m = float('inf') #vert
+                else: m = (j[1]-i[1])/(j[0]-i[0])
+                lines[m] = (lines[m] if m in lines else 0)+1
+                curr = max(curr,lines[m])
+        ans = max(ans,curr+dup)
+    return ans
