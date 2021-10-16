@@ -1,6 +1,6 @@
 #Name: Terry Su 
 #Date: Dec 28, 2020
-#Purpose: Python questions taken from LeetCode to try during the winter 2020-2021
+#Purpose: My leetcode journey
 
 #Date: Jan 7, 2021
 #Valid Sudoku
@@ -4398,3 +4398,39 @@ def maxPoints(points):
                 curr = max(curr,lines[m])
         ans = max(ans,curr+dup)
     return ans
+
+#Date: October 16, 2021
+#https://leetcode.com/problems/minimum-number-of-moves-to-seat-everyone/
+
+def minMovesToSeat(seats,students):
+     
+    #sort the seats and students and move each student to the seat closest in proximity
+        
+    seats.sort()
+    students.sort()
+    ans = 0
+    for i in range(len(seats)-1,-1,-1):
+        ans += abs(seats[i]-students[i])
+    return ans
+
+#Date: October 16, 2021
+#https://leetcode.com/problems/remove-colored-pieces-if-both-neighbors-are-the-same-color/
+
+def winnerOfGame(colors):
+        
+    #find 3 or more consecutive 'A's or 'B' to determine number of moves that can be made by both players
+    
+    a,b = 0,0
+    ca,cb = 0,0
+    for x in colors:
+        if x=='A': 
+            cb = 0
+            ca += 1
+            if ca >= 3: a += 1
+        else:
+            ca = 0
+            cb += 1
+            if cb >= 3: b += 1
+    if a>b: return True
+    return False
+
