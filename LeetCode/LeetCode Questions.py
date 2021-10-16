@@ -4434,3 +4434,17 @@ def winnerOfGame(colors):
     if a>b: return True
     return False
 
+#Date: October 16, 2021
+#https://leetcode.com/problems/container-with-most-water/submissions/
+
+def maxArea(height):
+        
+    #An O(n) time solution; essentially we need to find the largest area
+    #to do so, we will maintain two pointers two start at the maximum possible width. In order to accomodate for possible area increases due to height, we will either increment or decrement the left and right pointers respectively to attain potentially larger heights
+    
+    ans,l,r = 0,0,len(height)-1
+    while l<r:
+        ans = max(ans,(r-l)*min(height[l],height[r]))
+        if height[l]<height[r]: l+=1
+        else: r-=1
+    return ans
