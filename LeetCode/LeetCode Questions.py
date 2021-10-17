@@ -2475,22 +2475,12 @@ def isSymmetric(root):
     #a dfs traversal solution, starting from the children of the root node, we compare each set of symmetrical nodes by recursing with the outer pair and inner pair of the current node 
     #if all pairs have cleared the tree without having been falsified, we return True
     
-    if root == None:
-        return True
-    return Mirror(root.left, root.right)
-
-def Mirror(left, right):
-        
-    if left == None and right == None:
-        return True
-    if left == None or right == None:
-        return False
-
-    if left.val == right.val:
-        outPair = Mirror(left.left, right.right)
-        inPiar = Mirror(left.right, right.left)
-        return outPair and inPiar
-    return False
+    def trav(l,r):
+        if not any([l,r]): return True
+        if not all([l,r]) or l.val!=r.val: return False
+        return trav(l.left,r.right) and trav(l.right,r.left)
+    
+    return trav(root.left,root.right)
 
 #Date: August 16, 2021
 #Given the root of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).
@@ -4448,3 +4438,48 @@ def maxArea(height):
         if height[l]<height[r]: l+=1
         else: r-=1
     return ans
+
+#Date: October 17, 2021
+#https://leetcode.com/problems/word-break-ii/
+
+def wordBreak(s,wordDict):
+        
+    #Intuitive O(2^n) dfs. 
+    
+    def dfs(curr,rem,wds):
+        nonlocal ans
+        if not rem: 
+            ans += [curr[1:]]
+            return
+        for i in range(len(rem)):
+            if rem[:i+1] in wds: dfs(curr+' '+rem[:i+1],rem[i+1:],wds)
+    
+    ans = []
+    dfs('',s,set(wordDict))
+    return ans
+
+#Date: October 17, 2021
+#https://leetcode.com/problems/path-sum-iii/
+
+class Solution:
+    def pathSum(self, root, targetSum):
+        
+        #keep a prefix sum array (stored in hashmap) starting from each node (tip of a path) and dfs to find all paths that branch down from there. If psh[current sem - target] exists, then a valid path has been found.
+        
+        from collections import defaultdict
+        
+        self.res,self.psh = 0,defaultdict(int)
+        self.psh[0] = 1 #extra 0 because no nodes also counts as a possible path
+        
+        def dfs(node,curr):
+            if not node: return
+            curr += node.val
+            self.res += self.psh[curr-targetSum]
+            self.psh[curr] += 1
+            dfs(node.left,curr)
+            dfs(node.right,curr)
+            self.psh[curr] -= 1
+        
+        dfs(root,0)
+        return self.res
+        
