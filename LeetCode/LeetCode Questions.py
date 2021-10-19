@@ -4482,4 +4482,33 @@ class Solution:
         
         dfs(root,0)
         return self.res
-        
+
+#Date: October 18, 2021
+#https://leetcode.com/problems/lru-cache/submissions/
+
+class LRUCache:
+    
+    from collections import deque
+    
+    #We will use a deque to keep track of most recently used keys
+    
+    def __init__(self, capacity: int): #O(n)
+        self.cache, self.cap = {}, capacity
+        self.prevs = deque()
+
+    def get(self, key: int) -> int: #O(1)
+        if key in self.cache: 
+            self.prevs.remove(key)
+            self.prevs += [key]
+            return self.cache[key]
+        return -1
+
+    def put(self, key: int, value: int) -> None: #O(1)
+        if not self.cap: return
+        if key not in self.cache: 
+            self.prevs += [key]
+        else: 
+            self.prevs.remove(key)
+            self.prevs += [key]
+        self.cache[key] = value
+        if len(self.cache) > self.cap: self.cache.pop(self.prevs.popleft())
