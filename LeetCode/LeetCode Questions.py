@@ -4512,3 +4512,21 @@ class LRUCache:
             self.prevs += [key]
         self.cache[key] = value
         if len(self.cache) > self.cap: self.cache.pop(self.prevs.popleft())
+
+#Date: October 20, 2021
+#https://leetcode.com/problems/reverse-words-in-a-string/submissions/
+
+def reverseWords(s):
+        
+    #a one pass O(n) solution put words in queue and join together
+    
+    from collections import deque
+    ans,curr = deque(),''
+    for x in s:
+        if x==' ' and curr: 
+            ans.appendleft(curr)
+            curr = ''
+            continue
+        if x!=' ': curr += x
+    if curr: ans.appendleft(curr)
+    return ' '.join(ans)
