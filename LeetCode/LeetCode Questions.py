@@ -4530,3 +4530,31 @@ def reverseWords(s):
         if x!=' ': curr += x
     if curr: ans.appendleft(curr)
     return ' '.join(ans)
+
+#Date: October 20, 2021
+#https://docs.google.com/document/d/1SqwKqJAgzEPRT6zIDaM21DU5dzglY4BODkMKIR7u0IM/edit
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+class Solution:
+    def __init__(self):
+        self.ans = float('-inf')
+    
+    def maxPathSum(self, root) -> int:
+        
+        #an O(2^n) dfs + subtree dynammic programming solution. for each sub-root, the answer is equal to the maximum of the node itself, the node+left or right subtree, or the node + both subtrees. However, when passing the value up to calculate the answer for the parent nodes, we only take the max between the node and the node + left or right subtree as we must maintain the definition of a "path"
+        
+        def dfs(node):
+            if not node: return 0
+            l,r = dfs(node.left),dfs(node.right)
+            res = max(node.val,node.val+l,node.val+r,node.val+l+r) 
+            self.ans = max(self.ans,res)
+            return max(node.val,node.val+l,node.val+r)
+        
+        dfs(root)
+        return self.ans
