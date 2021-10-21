@@ -4589,3 +4589,22 @@ class RandomizedSet:
 # param_1 = obj.insert(val)
 # param_2 = obj.remove(val)
 # param_3 = obj.getRandom()
+
+#Date: October 21, 2021
+#https://leetcode.com/problems/sort-list/
+
+def sortList(head):
+        
+    #O(nlogn) array solution. Append all nodes then sort
+    
+    if not head: return None 
+    
+    arr = []
+    curr = head
+    while curr:
+        arr += [curr]
+        curr = curr.next
+    arr = sorted(arr, key=lambda x:x.val)
+    for i in range(len(arr)):
+        arr[i].next = (arr[i+1] if i!=len(arr)-1 else None)
+    return arr[0]
