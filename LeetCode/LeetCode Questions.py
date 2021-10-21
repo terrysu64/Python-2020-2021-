@@ -4558,3 +4558,34 @@ class Solution:
         
         dfs(root)
         return self.ans
+
+#Date: October 21, 2021
+#https://leetcode.com/problems/insert-delete-getrandom-o1/submissions/
+
+import random
+class RandomizedSet:
+    
+    #Intuitive O(1) solution with standard sets
+
+    def __init__(self):
+        self.rngs = set()
+
+    def insert(self, val: int) -> bool:
+        if val in self.rngs: return False
+        self.rngs.add(val)
+        return True
+
+    def remove(self, val: int) -> bool:
+        if val not in self.rngs: return False
+        self.rngs.remove(val)
+        return True
+
+    def getRandom(self) -> int:
+        return random.sample(self.rngs,1)[0]
+
+
+# Your RandomizedSet object will be instantiated and called as such:
+# obj = RandomizedSet()
+# param_1 = obj.insert(val)
+# param_2 = obj.remove(val)
+# param_3 = obj.getRandom()
