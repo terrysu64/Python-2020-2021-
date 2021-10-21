@@ -4608,3 +4608,18 @@ def sortList(head):
     for i in range(len(arr)):
         arr[i].next = (arr[i+1] if i!=len(arr)-1 else None)
     return arr[0]
+
+#October 21, 2021
+#https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
+
+def findMin(nums):
+        
+    #O(logn) intuitive binary search: if m > r --> pull left to mid (minimum value is between m and r), if m < r: pull right to mid (minimum value is between l and m because m to r is strictly increasing)
+    
+    l,r = 0,len(nums)-1    
+    while True:
+        if l==r: return nums[l]
+        if r-l==1 : return min(nums[l],nums[r]) #an edge case that defies the general algorithm
+        m = (l+r)//2
+        if nums[m]>nums[r]: l = m
+        else: r = m
