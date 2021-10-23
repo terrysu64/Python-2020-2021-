@@ -4670,3 +4670,16 @@ class MinStack:
 # obj.pop()
 # param_3 = obj.top()
 # param_4 = obj.getMin()
+
+#Date: October 23, 2021
+#https://leetcode.com/problems/best-sightseeing-pair/submissions/
+
+def maxScoreSightseeingPair(values):
+        
+    #O(n) dp solution; we can manipulate the formula vals[i]+vals[j]+i-j so that we continuously update a local max variable with the most idea vals[i]+i value. We can then use this to influence a global max that will be equal to local_max + vals[j] - j
+    
+    loc,ans = 0,0
+    for i,j in enumerate(values):
+        ans = max(ans,loc+j-i)
+        loc = max(loc,i+j)
+    return ans
