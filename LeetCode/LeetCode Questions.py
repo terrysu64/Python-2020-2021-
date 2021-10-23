@@ -4623,3 +4623,50 @@ def findMin(nums):
         m = (l+r)//2
         if nums[m]>nums[r]: l = m
         else: r = m
+
+#October 22, 2021
+#https://leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii/
+
+def findMin(nums):
+        
+    #same idea as "Find Minimum in Rotated Sorted Array" with an extra condition. Time complexity is O(n) in the worst case 
+    
+    l,r = 0, len(nums)-1
+    while l < r:
+        m = (l+r)//2
+        if nums[m] > nums[r]: #ans has to be between m+1 and r
+            l = m+1
+        elif nums[m]==nums[r]: #only case where this would happen is when nums[l] = nums[m] = nums[r], so we decrement and try and re-enter the binary search
+            r -= 1
+        else:
+            r = m #ans has to be between l and m
+    return nums[l]
+
+#October 22, 2021
+#https://leetcode.com/problems/min-stack/submissions/
+
+class MinStack:
+
+    def __init__(self): #O(1)
+        self.stack = [] #each node is (value,minimum up to value)
+
+    def push(self, val: int) -> None: #O(1)
+        if not self.stack: self.stack += [(val,val)]
+        else: self.stack += [(val,min(val,self.stack[-1][1]))]
+
+    def pop(self) -> None: #O(1)
+        self.stack.pop()
+
+    def top(self) -> int: #O(1)
+        return self.stack[-1][0]
+
+    def getMin(self) -> int: #optimize to O(1) using dp
+        return self.stack[-1][1]
+
+
+# Your MinStack object will be instantiated and called as such:
+# obj = MinStack()
+# obj.push(val)
+# obj.pop()
+# param_3 = obj.top()
+# param_4 = obj.getMin()
