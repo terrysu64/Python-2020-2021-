@@ -4651,4 +4651,26 @@ def searchMatrix(matrix,target):
         elif curr > target: r=m-1
         else: l=m+1
     return False
-        
+
+#Date: October 23, 2021
+#https://leetcode.com/problems/dungeon-game/
+
+def calculateMinimumHP(matrix):
+
+    #O(mn) time bottom-up dp, we can only move left or up from the algorithm's standpoint. 
+    
+    #similar concept as the top-down dp used for problems that require the shortest distance from top left corner to bottom right corner
+    
+    for i in range(-1,-(len(matrix)+1),-1):
+        for j in range(-1,-(len(matrix[0])+1),-1):
+            if all([i==-1,j==-1]): 
+                matrix[i][j] = (abs(matrix[i][j])+1 if matrix[i][j]<0 else 1) 
+                continue
+            if j!= -1:
+                prev = matrix[i][j]
+                matrix[i][j] = 1 if matrix[i][j+1]-matrix[i][j]<=0 else matrix[i][j+1]-matrix[i][j]
+            if i!= -1:
+                if j==-1: matrix[i][j] = 1 if matrix[i+1][j]-matrix[i][j]<=0 else matrix[i+1][j]-matrix[i][j]
+                else: matrix[i][j] = min(matrix[i][j], 1 if matrix[i+1][j]-prev<=0 else matrix[i+1][j]-prev) 
+    
+    return matrix[0][0]
