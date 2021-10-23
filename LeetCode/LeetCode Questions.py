@@ -1893,55 +1893,6 @@ def setZeroes(matrix):
                     column_cache[c] = True
     return
 
-#Date: July 29, 2021
-#Write an efficient algorithm that searches for a value in an m x n matrix. This matrix has the following properties:
-
-#1. Integers in each row are sorted from left to right.
-#2. The first integer of each row is greater than the last integer of the previous row.
-
-def searchMatrix(matrix):
-        
-    #An O(log n) divide and conquer solution
-    #by using an upper/lower range and assuming that target exists, divide and conquer on a 2D scale, then on a 1D scale once you've narrowed down one row the target is located in
-    #if at any point target gets caught right between the upper/lower range, return False
-        
-    while len(matrix) > 1:
-            
-        div = len(matrix) // 2 #divides the upper/lower range
-            
-        if target == matrix[div-1][-1] or target == matrix[div][0]:
-            return True
-              
-        elif target < matrix[div-1][-1]:
-            matrix = matrix[:div]
-            
-        elif target > matrix[div][0]:
-            matrix = matrix[div:]
-            
-        else:
-            return False
-        
-    matrix = matrix[0]
-    while len(matrix) > 1:
-            
-        div = len(matrix) // 2
-            
-        if target == matrix[div-1] or target == matrix[div]:
-            return True
-            
-        elif target < matrix[div-1]:
-            matrix = matrix[:div]
-            
-        elif target > matrix[div]:
-            matrix = matrix[div:]
-            
-        else:
-            return False
-        
-    if matrix[0] == target:
-        return True
-    return False
-
 #Date: July 31, 2021
 #Given an array nums with n objects colored red, white, or blue, sort them in-place so that objects of the same color are adjacent, with the colors in the order red, white, and blue.
 #We will use the integers 0, 1, and 2 to represent the color red, white, and blue, respectively.
@@ -4683,3 +4634,21 @@ def maxScoreSightseeingPair(values):
         ans = max(ans,loc+j-i)
         loc = max(loc,i+j)
     return ans
+
+#October 23, 2021
+#https://leetcode.com/problems/search-a-2d-matrix/submissions/
+
+def searchMatrix(matrix,target):
+        
+    #binary search in matrix; we will have a custom index from 0 to n*m - 1
+    #i,j = custom//cols, custom % cols
+    
+    l,r = 0,len(matrix)*(cols:=len(matrix[0]))-1
+    while l<=r:
+        m = (l+r)//2
+        i,j = m//cols, m%cols
+        if (curr:=matrix[i][j])==target: return True
+        elif curr > target: r=m-1
+        else: l=m+1
+    return False
+        
