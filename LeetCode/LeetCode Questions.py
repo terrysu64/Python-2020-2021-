@@ -4693,3 +4693,17 @@ class Solution:
             dfs(node.right)
         dfs(root)
         return self.ans
+
+#October 24, 2021
+#https://leetcode.com/problems/next-greater-element-i/submissions/
+
+def nextGreaterElement(nums1,nums2):
+        
+    #O(n^2) intuitive hashmap solution
+    
+    dic = {j:i for i,j in enumerate(nums2)}
+    ans = []
+    for n in nums1:
+        pos = [temp for x in dic if (x>n and (temp:=dic[x]-dic[n])>0)]
+        ans += [nums2[dic[n]+min(pos)] if pos else -1]
+    return ans
