@@ -30,3 +30,33 @@ q = int(input().split()[1])
 arr = [int(x) for x in input().split()]
 for _ in range(q):
     print(solve(arr))
+
+#Date: October 24, 2021
+#https://dmoj.ca/problem/ccc10j5
+
+#O(2^n) bfs with memoization optimization
+#row and col 1-8 cartesian
+
+op,ed = [int(x) for x in input().split()], [int(x) for x in input().split()]
+seen = set()
+mvs = [[1,2],[2,1],[2,-1],[1,-2],[-1,-2],[-2,-1],[-2,1],[-1,2]]
+spts = [op]
+
+ans = 0
+while spts:
+    temp = []
+    found = False
+    for sp in spts:
+        if sp==ed:
+            found = True
+            break
+        seen.add(tuple(sp))
+        for m in mvs:
+            pos=[sp[0]+m[0],sp[1]+m[1]]
+            if 1<=pos[0]<=8 and 1<=pos[1]<=8 and tuple(pos) not in seen:
+                temp += [pos]
+    if found: break
+    spts = temp
+    ans += 1
+
+print(ans)
