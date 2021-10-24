@@ -4674,3 +4674,22 @@ def calculateMinimumHP(matrix):
                 else: matrix[i][j] = min(matrix[i][j], 1 if matrix[i+1][j]-prev<=0 else matrix[i+1][j]-prev) 
     
     return matrix[0][0]
+
+#Date: October 23, 2021
+#https://leetcode.com/problems/count-complete-tree-nodes/
+
+class Solution:
+    def __init__(self):
+        self.ans = 0
+        
+    def countNodes(self, root) -> int:
+        
+        #intuitive solution
+        
+        def dfs(node):
+            if not node: return
+            self.ans += 1
+            dfs(node.left)
+            dfs(node.right)
+        dfs(root)
+        return self.ans
