@@ -60,3 +60,23 @@ while spts:
     ans += 1
 
 print(ans)
+
+#Date: October 24, 2021
+#https://dmoj.ca/problem/ccc14s2
+
+#an O(n) set/hashmap solution
+#couldnt use walrus operator because DMOJ pypy3 is based on python 3.7.3
+
+n = int(input())
+given = list(zip(input().split(),input().split()))
+pts = {}
+
+for g in given:
+    if (g[1],g[0]) in pts:
+        pts.pop((g[1],g[0]))
+        continue
+    pts[g] = True
+
+if pts: print('bad')
+else: print('good')
+    
