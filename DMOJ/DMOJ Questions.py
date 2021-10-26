@@ -92,4 +92,21 @@ n = int(input())
 marks = Counter(input().split())
 marks = [marks[x] for x in marks]
 maxi,rem = max(marks),sum(marks)-max(marks)
-print(min(maxi,rem+1)+rem)
+
+#Date: October 26, 2021
+#https://dmoj.ca/problem/ac19p2
+
+#intuitive O(n) hashmap solution
+
+__ = int(input())
+n = int(input())
+alph = 'abcdefghijklmnopqrstuvwxyz'
+hashmap = {j:alph[(i+n) % len(alph)] for i,j in enumerate(alph)}
+ans = ''
+_ = input()
+for s in _:
+    if s == ' ':
+        ans += s
+        continue
+    ans += hashmap[s]
+print(ans)
