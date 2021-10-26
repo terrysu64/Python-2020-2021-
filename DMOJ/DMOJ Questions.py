@@ -79,4 +79,17 @@ for g in given:
 
 if pts: print('bad')
 else: print('good')
-    
+
+#Date: October 25, 2021
+#https://dmoj.ca/problem/bfs17p2/resubmit/3982778
+
+#O(n) greedy solution
+#have intervals of maximum color, other colors, maximum color... until other colors run out
+#then try to fill in and padd in between other colors as much as possible
+
+from collections import Counter
+n = int(input())
+marks = Counter(input().split())
+marks = [marks[x] for x in marks]
+maxi,rem = max(marks),sum(marks)-max(marks)
+print(min(maxi,rem+1)+rem)
