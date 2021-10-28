@@ -110,3 +110,22 @@ for s in _:
         continue
     ans += hashmap[s]
 print(ans)
+
+#Date: October 28, 2021
+#https://dmoj.ca/problem/ac19p4
+
+#simple O(n^2) brute force
+
+n = int(input())
+pts = set([tuple(map(int,input().split())) for _ in range(n)])
+ans = 0
+
+for i in pts:
+    for j in pts:
+        if i==j: continue
+        c1,c2 = (i[0],j[1]),(j[0],i[1])
+        if all([c1 in pts,c2 in pts]):
+            ans = max(ans,abs(i[0]-j[0])*abs(i[1]-j[1]))
+
+print(ans)
+
