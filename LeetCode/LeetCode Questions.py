@@ -4707,3 +4707,20 @@ def nextGreaterElement(nums1,nums2):
         pos = [temp for x in dic if (x>n and (temp:=dic[x]-dic[n])>0)]
         ans += [nums2[dic[n]+min(pos)] if pos else -1]
     return ans
+
+#Date: October 28, 2021
+#https://leetcode.com/problems/sliding-window-maximum/submissions/
+
+def maxSlidingWindow(nums,k):
+        
+        #An O(n) deque/priority queue solution. We will keep a deque with indices (that is kept in reversed key=their value). On each window position, we will simply return deque[nums[0]]
+        
+        from collections import deque
+        dq = deque([])  
+        ans = []
+        for i in range(len(nums)):
+            while dq and nums[dq[-1]] <= nums[i]: dq.pop() #removing all smaller elements
+            dq += [i]
+            if i+1 >= k: ans += [nums[dq[0]]]
+            if i-dq[0]+1 >= k: dq.popleft() #if window moves out of range
+        return ans
