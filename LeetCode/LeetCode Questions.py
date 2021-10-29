@@ -4764,5 +4764,27 @@ def orangesRotting(grid):
         
         if not fr: return ans
         return -1
-            
+
+#Date: October 29, 2021
+#https://leetcode.com/problems/arithmetic-slices/submissions/
+
+def numberOfArithmeticSlices(nums):
+        
+    #O(n) top-down dp + basic math. An arithmetic array with length x (xEZ+, x>=3) has sigma i=3 to x {i-2} possible subarrays that can be derived. We will expand an arithmetic array for as long as possible as we traverse nums.
+    
+    ans = 0
+    curr,temp = [],0
+    for n in nums:
+        if len(curr)==1 or not curr: 
+            curr += [n]
+            continue
+        if n-curr[-1]==curr[-1]-curr[-2]:
+            curr += [n]
+            temp += len(curr)-2
+        else:
+            ans += temp
+            curr,temp = [curr[-1],n],0
+    ans += temp
+    return ans
+
         
