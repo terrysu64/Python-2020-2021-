@@ -4724,3 +4724,45 @@ def maxSlidingWindow(nums,k):
             if i+1 >= k: ans += [nums[dq[0]]]
             if i-dq[0]+1 >= k: dq.popleft() #if window moves out of range
         return ans
+
+#Date: October 28,2021
+#https://leetcode.com/problems/rotting-oranges/
+
+def orangesRotting(grid):
+        
+        #Intuitive O(2^n) BFS solution, keep searching until you've either rotted all the fresh oranges or till you've hit a limit (no more oranges you can contaminate)
+        
+        seen,fr = set(),set()
+        mvs = [[0,1],[0,-1],[1,0],[-1,0]]
+        qu = []
+        ans = 0
+        
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j]==1: 
+                    fr.add((i,j))
+                elif grid[i][j]:
+                    seen.add((i,j))
+                    qu += [(i,j)]
+
+        while qu and fr:
+            temp = []
+            done = False
+            for pos in qu:
+                if pos in fr: fr.remove(pos)
+                if not fr: 
+                    done = True
+                    break
+                seen.add(pos)
+                for r,c in mvs:
+                    R,C = pos[0]+r,pos[1]+c
+                    if all([0<=R<len(grid),0<=C<len(grid[0]),(R,C) not in seen]):
+                        if grid[R][C]: temp += [(R,C)]
+            if done: break
+            qu = temp   
+            ans += 1
+        
+        if not fr: return ans
+        return -1
+            
+        
