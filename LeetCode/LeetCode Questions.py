@@ -4787,4 +4787,22 @@ def numberOfArithmeticSlices(nums):
     ans += temp
     return ans
 
+#Date: October 30, 2021 (failed the contest unfortnately)
+#https://leetcode.com/problems/two-best-non-overlapping-events/submissions/
+
+def maxTwoEvents(events):
         
+    #An O(nlogn) dp + binary search solution. Same idea as weighted scheduling except if we choose to take two jobs, we take job profit + dp[previous none overlapping job profit]
+    
+    import bisect
+    
+    events.sort(key=lambda x:x[1])
+    ans = 0
+    bs,dp = [events[i][1] for i in range(len(events))], [events[0][2]]
+    for i in range(1,len(events)): dp += [max(dp[-1],events[i][2])]
+    
+    for i in range(len(events)):
+        prev = bisect.bisect_right(bs,events[i][0]-1)
+        ans = max(ans,events[i][2]+(dp[prev-1] if prev else 0))
+    
+    return ans
