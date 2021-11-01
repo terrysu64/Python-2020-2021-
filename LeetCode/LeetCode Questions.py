@@ -4806,3 +4806,75 @@ def maxTwoEvents(events):
         ans = max(ans,events[i][2]+(dp[prev-1] if prev else 0))
     
     return ans
+
+#Date: October 31, 2021 🎃
+#https://leetcode.com/problems/flatten-a-multilevel-doubly-linked-list/submissions/
+
+# class Node:
+#     def __init__(self, val, prev, next, child):
+#         self.val = val
+#         self.prev = prev
+#         self.next = next
+#         self.child = child
+        
+def flatten(head):
+        
+    #brute force dfs solution. For each node with a child, traverse till the end of both paths (current node and child node). If their final nodes are distinct (different layers) append the child's layer to the current node's.
+    
+    def helper(curr):
+        
+        childi,childf,curri,currf = curr.child,curr.child,curr,curr
+        while currf.next:
+            if currf!=curri and currf.child: helper(currf)
+            currf = currf.next
+        while childf.next:
+            if childf!= childi and childf.child: helper(childf)
+            childf = childf.next
+        
+        if currf != childf: #diff layers
+            curri.child = None
+            temp = curri.next
+            curri.next = childi
+            childi.prev = curri
+            childf.next = temp
+            if temp: temp.prev = childf
+            
+    curr = head
+    while curr:
+        if curr.child: helper(curr)
+        curr = curr.next
+    
+    return head
+
+#Date: October 31, 2021
+#https://leetcode.com/problems/plates-between-candles/
+
+from collections import deque
+class Solution:
+    def __init__(self):
+        self.ans = []
+    def platesBetweenCandles(self, string: str, queries: List[List[int]]) -> List[int]:
+        
+        #O(n) psa + dp solution, query = [psa[op+dpr[op]]-psa[ed-dpl[ed]]]
+        #psa = prefix sum array for plates up till a certain index
+        #dpl[i], dpr[i] = closest candle to left and right of an index respectively
+        #Note: everything is 1-indexed
+        
+        psa,dpl,dpr = [0],[None],deque([None])
+        
+        for i in range(len(string)):
+            dpri = -(i+1)
+            psa += [(psa[-1]+1 if string[i]=='*' else psa[-1])]
+            dpl += [0 if string[i]=='|' else (dpl[-1]+1 if type(dpl[-1])==int else None)]
+            dpr.appendleft(0 if string[dpri]=='|' else (dpr[0]+1 if type(dpr[0])==int else None))
+        dpr.appendleft(None)
+        dpr.pop()
+        
+        for q in queries:
+            op,ed = q[0]+1,q[1]+1
+            if op==ed or any([dpr[op]==None,dpl[ed]==None]): self.ans += [0]
+            else: 
+                temp = psa[ed-dpl[ed]]-psa[op+dpr[op]]
+                self.ans += [temp if temp>0 else 0]
+        
+        return self.ans
