@@ -4878,3 +4878,34 @@ class Solution:
                 self.ans += [temp if temp>0 else 0]
         
         return self.ans
+
+#Date: November 1, 2021
+#https://leetcode.com/problems/unique-paths-iii/submissions/
+
+class Solution:
+    def __init__(self):
+        self.ans = 0
+    def uniquePathsIII(self, grid: List[List[int]]) -> int:
+        
+        #O(2^n) brute force backtracking/dfs
+        
+        opr,opc,blocks = None,None,0
+        for i in range(len(grid)): 
+            for j in range(len(grid[0])):
+                if grid[i][j]<0: blocks += 1 
+                elif grid[i][j]==1: opr,opc = i,j
+                    
+        def dfs(seen,r,c):
+            seen.add((r,c))
+            if grid[r][c]==2:
+                if len(seen)==len(grid)*len(grid[0])-blocks: self.ans += 1
+                seen.remove((r,c))
+                return
+            for R,C in [(r+1,c),(r-1,c),(r,c+1),(r,c-1)]:
+                if all([(R,C) not in seen,0<=R<len(grid),0<=C<len(grid[0])]):
+                    if grid[R][C]!=-1: dfs(seen,R,C)
+            seen.remove((r,c))
+        
+        dfs(set(),opr,opc)
+        
+        return self.ans
