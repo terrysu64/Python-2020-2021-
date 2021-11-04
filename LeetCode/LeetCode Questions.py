@@ -4963,3 +4963,16 @@ class Solution:
             dfs(node.right)
         dfs(root)
         return self.ans
+
+#Date: November 4, 2021
+#https://leetcode.com/problems/wiggle-subsequence/submissions/
+
+def wiggleMaxLength(nums):
+        
+    #An O(n) dp solution. Remove all elements that generate continuouse + or - differences and then take len(new nums) - 1
+    
+    p,n = 1,1
+    for i in range(1,len(nums)):
+        if nums[i]-nums[i-1]>0: p=n+1
+        elif nums[i]-nums[i-1]<0: n=p+1
+    return max(p,n)
