@@ -4936,3 +4936,30 @@ class Solution:
         root.right = self.prev
         root.left = None
         self.prev = root 
+
+#Date: November 2, 2021
+#https://leetcode.com/problems/sum-of-left-leaves/
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def __init__(self):
+        self.ans = 0
+    def sumOfLeftLeaves(self, root: Optional[TreeNode]) -> int:
+        
+        #intuitive dfs
+        
+        def dfs(node,left=False):
+            if not node: return
+            if left and not any([node.left,node.right]):
+                print(node.val)
+                self.ans += node.val
+                return
+            dfs(node.left,True)
+            dfs(node.right)
+        dfs(root)
+        return self.ans
