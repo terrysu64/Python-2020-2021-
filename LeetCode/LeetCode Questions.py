@@ -4976,3 +4976,20 @@ def wiggleMaxLength(nums):
         if nums[i]-nums[i-1]>0: p=n+1
         elif nums[i]-nums[i-1]<0: n=p+1
     return max(p,n)
+
+#Date: November 4, 2021
+#https://leetcode.com/problems/arranging-coins/submissions/
+
+def arrangeCoins(sn):
+        
+    #O(1) arithmetic series solution, Sn = n((1+n)/2), 0 = n^2+n-2Sn (positive root = desired answer)
+    
+    import math
+    
+    def quad():
+        d = math.sqrt(1+8*sn)
+        res1 = (-1 + math.sqrt(1+4*2*sn))/(2)
+        res2 = (-1 - math.sqrt(1+4*2*sn))/(2)
+        return max(res1,res2)
+    
+    return int(quad())
