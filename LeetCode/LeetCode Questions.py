@@ -4993,3 +4993,55 @@ def arrangeCoins(sn):
         return max(res1,res2)
     
     return int(quad())
+
+#Date: November 5, 2021
+#https://leetcode.com/problems/intersection-of-two-linked-lists/submissions/
+
+def getIntersectionNode(headA,headB):
+        
+    #O(n) time cacheing solution
+    
+    seen = set()
+    while headA:
+        seen.add(headA)
+        headA = headA.next
+    
+    while headB:
+        if headB in seen: return headB
+        headB = headB.next
+
+#Date: November 5, 2021
+#https://leetcode.com/problems/find-the-minimum-and-maximum-number-of-nodes-between-critical-points/
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
+class Solution:
+    def nodesBetweenCriticalPoints(head):
+        
+        #O(n) solution; dp is the directional derivative of the linked list's node values. This allows us to determine all the stationary/critical nodes
+        
+        dp,prev = [], None
+        resmax,resmin = -1,-1
+        fcrit,rcrit = None,None
+        
+        while head:
+            if not prev or head.val==prev: dp += [0]
+            elif head.val>prev: dp += [1]
+            else: dp += [-1]
+            prev = head.val
+            head = head.next
+
+        for i in range(1,len(dp)):
+            if (dp[i]==1 and dp[i-1]==-1) or (dp[i]==-1 and dp[i-1]==1): #local min and max respectively
+                curr = i-1
+                if not fcrit: 
+                    fcrit,rcrit = curr,curr
+                    continue
+                resmax = curr-fcrit
+                resmin = min((resmin if resmin!=-1 else float('inf')),curr-rcrit)
+                rcrit = curr
+        return [resmin,resmax]
