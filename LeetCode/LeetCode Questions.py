@@ -5045,3 +5045,20 @@ class Solution:
                 resmin = min((resmin if resmin!=-1 else float('inf')),curr-rcrit)
                 rcrit = curr
         return [resmin,resmax]
+ 
+#Date: November 5, 2021
+#https://leetcode.com/problems/single-number-iii/
+
+def singleNumber(self, nums: List[int]) -> List[int]:
+        
+    #O(n) time and O(1) memory two-pass bitwise solution. Partition the numbers into two groups who have and dont have the rightmost binary 1 of the xor of the unique numbers respectively. All the repeating numbers should cancel out
+    
+    #This is the best explanation I've ever watched: https://www.youtube.com/watch?v=L-EaPf5tD5A
+    
+    ans,xor = [0,0],0
+    for n in nums: xor^=n
+    xor &= -xor
+    for n in nums:
+        if not xor&n: ans[0] ^= n
+        else: ans[1] ^= n 
+    return ans
