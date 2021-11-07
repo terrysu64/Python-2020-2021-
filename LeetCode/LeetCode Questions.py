@@ -5062,3 +5062,14 @@ def singleNumber(self, nums: List[int]) -> List[int]:
         if not xor&n: ans[0] ^= n
         else: ans[1] ^= n 
     return ans
+
+#Date: November 6, 2021
+#https://leetcode.com/problems/multiply-strings/submissions/
+
+def multiply(num1,num2):
+        
+        #O(n) solutiuon by converting each digit using unicode integers. '0' starts at 48
+        
+        res1 = sum([(ord(num1[i])-48)*10**(abs(i)-1) for i in range(-1,-(len(num1)+1),-1)])
+        res2 = sum([(ord(num2[i])-48)*10**(abs(i)-1) for i in range(-1,-(len(num2)+1),-1)])
+        return str(res1*res2)
