@@ -4853,7 +4853,7 @@ from collections import deque
 class Solution:
     def __init__(self):
         self.ans = []
-    def platesBetweenCandles(self, string: str, queries: List[List[int]]) -> List[int]:
+    def platesBetweenCandles(self, string,queries):
         
         #O(n) psa + dp solution, query = [psa[op+dpr[op]]-psa[ed-dpl[ed]]]
         #psa = prefix sum array for plates up till a certain index
@@ -4885,7 +4885,7 @@ class Solution:
 class Solution:
     def __init__(self):
         self.ans = 0
-    def uniquePathsIII(self, grid: List[List[int]]) -> int:
+    def uniquePathsIII(self, grid):
         
         #O(2^n) brute force backtracking/dfs
         
@@ -4949,7 +4949,7 @@ class Solution:
 class Solution:
     def __init__(self):
         self.ans = 0
-    def sumOfLeftLeaves(self, root: Optional[TreeNode]) -> int:
+    def sumOfLeftLeaves(self, root) -> int:
         
         #intuitive dfs
         
@@ -5049,7 +5049,7 @@ class Solution:
 #Date: November 5, 2021
 #https://leetcode.com/problems/single-number-iii/
 
-def singleNumber(self, nums: List[int]) -> List[int]:
+def singleNumber(self, nums):
         
     #O(n) time and O(1) memory two-pass bitwise solution. Partition the numbers into two groups who have and dont have the rightmost binary 1 of the xor of the unique numbers respectively. All the repeating numbers should cancel out
     
@@ -5073,3 +5073,46 @@ def multiply(num1,num2):
         res1 = sum([(ord(num1[i])-48)*10**(abs(i)-1) for i in range(-1,-(len(num1)+1),-1)])
         res2 = sum([(ord(num2[i])-48)*10**(abs(i)-1) for i in range(-1,-(len(num2)+1),-1)])
         return str(res1*res2)
+
+#Date: November 7, 2021
+#https://leetcode.com/problems/largest-rectangle-in-histogram/submissions/
+
+def largestRectangleArea(heights):
+        
+    #O(n) time index-based stack solution; the stack is always increasing (key=heights[index]). As we traverse "heights", we append an index to stack if it can increase the possible volume (i.e heigher height). Otherwise, we calculate + pop the stack with the indexes we have that are > current index
+    
+    #Note: for the popped heights, we must account for their left and rightbound limits
+    
+    stack,ans=[-1],0
+    heights += [0]
+    
+    for i in range(len(heights)):
+        if heights[i] >= heights[stack[-1]]: 
+            stack += [i]
+            continue
+        rb = stack[-1]
+        while stack and heights[stack[-1]]>heights[i]:
+            ans = max(ans,(rb-stack[-2])*heights[stack.pop()])
+        stack += [i]
+    
+    return ans
+
+#Date: November 7, 2021
+#https://leetcode.com/problems/unique-binary-search-trees/
+
+from cachetools import cached
+class Solution:
+    @cached
+    def numTrees(self, n: int) -> int:
+        if n in [0,1]: return 1
+        return sum([self.numTrees(n-i)*self.numTrees(i-1) for i in range(1,n+1)]) 
+
+    #A recursive approach with memoization dp
+    #Key point: n=0 or n=1 --> 1 tree (base case)
+    #Key point: given a particular node that we need to fill in (while n=some value):
+
+    #1. the number of nodes that can be filled in = n
+    #2. the number of nodes that can be potential left children  = i-1 (while 1<=i<=n)
+    #3. the number of nodes that can be potential right children = n-i
+
+    #Therefore, the number of valid BST that we can general from that node is equivalent to the sum of the products of trees we can generate to the left and right respectively for all possible 'i' values
