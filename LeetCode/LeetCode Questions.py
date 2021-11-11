@@ -5116,3 +5116,18 @@ class Solution:
     #3. the number of nodes that can be potential right children = n-i
 
     #Therefore, the number of valid BST that we can general from that node is equivalent to the sum of the products of trees we can generate to the left and right respectively for all possible 'i' values
+
+    #Date: November 10, 2021
+    #https://leetcode.com/problems/minimum-value-to-get-positive-step-by-step-sum/
+
+    def minStartValue(nums):
+        
+        #basic O(n) arithmetic + intuition solution; keep transient prefix sum as you traverse the array and if the ps ever drops to 0 or below, add the missing amount to ans and reset ps as if ans was updated from the start
+        
+        ans,curr = 0,0
+        for n in nums:
+            curr += n
+            if curr<=0: 
+                ans += abs(curr)+1
+                curr = 1
+        return (ans if ans else 1)
