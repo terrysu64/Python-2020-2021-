@@ -5131,3 +5131,27 @@ class Solution:
                 ans += abs(curr)+1
                 curr = 1
         return (ans if ans else 1)
+
+#Date: November 11, 2021 (I feel like my skill hit a plato)
+#https://leetcode.com/problems/remove-linked-list-elements/submissions/
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
+def removeElements(head,val):
+        
+    #Intuitive traversal solution
+    
+    curr,prev = head,None
+    while curr:
+        if curr.val==val:
+            if not prev: curr,head = [curr.next]*2
+            else: 
+                prev.next,curr = [curr.next]*2
+            continue
+        prev,curr = curr,curr.next
+    
+    return head
