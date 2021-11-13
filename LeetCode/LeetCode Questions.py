@@ -5170,3 +5170,41 @@ def dailyTemperatures(temperatrues):
             ans[curr] = i-curr
         stack += [i]
     return ans
+
+#Date: November 13, 2021
+#https://leetcode.com/problems/most-beautiful-item-for-each-query/
+
+def maximumBeauty(items,queries):
+        
+    #O(n) time and O(1) memory; sort items and queries (while keeping track of indices) by value and prices respectively. Then traverse over items and only increment if the item gets too expensive for its associated value (which should be the most beautiful for tht given price)
+    
+    ans = [0]*len(queries)
+    queries = sorted([[i,j] for i,j in enumerate(queries)], key=lambda x:x[1], reverse=True)
+    items.sort(key=lambda x:x[1], reverse=True)
+    i,broke = 0,False
+    for q in queries:
+        while items[i][0]>q[1]:
+            i += 1
+            if i>=len(items): 
+                broke = True
+                break
+        if broke: break
+        ans[q[0]] = items[i][1]
+    return ans
+
+#Date: November 13, 2021
+#https://leetcode.com/problems/check-whether-two-strings-are-almost-equivalent/
+
+def checkAlmostEquivalent(word1,word2):
+        
+    #Intuitive
+    
+    from collections import Counter
+    x,y = Counter(word1), Counter(word2)
+    
+    for n in x:
+        if abs(x[n]-y[n]) > 3: return False
+    for n in y:
+        if abs(x[n]-y[n]) > 3: return False
+    return True
+        
