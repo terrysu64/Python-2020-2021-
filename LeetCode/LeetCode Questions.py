@@ -5155,3 +5155,18 @@ def removeElements(head,val):
         prev,curr = curr,curr.next
     
     return head
+
+#Date: November 12, 2021
+#https://leetcode.com/problems/daily-temperatures/
+
+def dailyTemperatures(temperatrues):
+        
+    #O(n) index-based stack (where temperatures of those indices are kept in decreasing order), pop when theres a greater temeperature
+    
+    stack,ans = [],[0 for _ in range(len(temperatures))]
+    for i in range(len(temperatures)):
+        while stack and temperatures[i]>temperatures[stack[-1]]:
+            curr = stack.pop()
+            ans[curr] = i-curr
+        stack += [i]
+    return ans
