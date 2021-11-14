@@ -5207,4 +5207,23 @@ def checkAlmostEquivalent(word1,word2):
     for n in y:
         if abs(x[n]-y[n]) > 3: return False
     return True
+
+#Date: November 13, 2021
+#https://leetcode.com/problems/iterator-for-combination/submissions/
+
+from itertools import combinations
+class CombinationIterator:
+    
+    #intuitive full search solution using itertools
+    
+    def __init__(self, characters: str, combinationLength: int):
+        self.comb = list(combinations(sorted(characters),combinationLength))
+        self.i = -1
         
+    def next(self) -> str:
+        self.i += 1
+        return ''.join(self.comb[self.i])
+
+    def hasNext(self) -> bool:
+        if self.i >= len(self.comb)-1: return False
+        return True
