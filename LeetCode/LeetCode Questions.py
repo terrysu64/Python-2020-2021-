@@ -5227,3 +5227,28 @@ class CombinationIterator:
     def hasNext(self) -> bool:
         if self.i >= len(self.comb)-1: return False
         return True
+
+#Date: November 14, 2021
+#https://leetcode.com/problems/largest-divisible-subset/submissions/
+
+def largestDivisibleSubset(nums):
+        
+        #traditional O(n^2) dp approach. dp[i] will hold (index built upon, ans to sub-problem, current index) 
+        
+        nums.sort()
+        dp,ans = [[None,1] for _ in range(len(nums))],[]
+        
+        for i in range(len(nums)):
+            initi = dp[i][1]
+            for j in range(i):
+                if not nums[i]%nums[j] and (pot:=initi+dp[j][1])>dp[i][1]:
+                    dp[i][0],dp[i][1] = j,pot
+            dp[i] += [i]
+        
+        curr = max(dp,key=lambda x:x[1])
+        while True:
+            ans += [nums[curr[2]]]
+            if curr[0]==None: break
+            curr = dp[curr[0]]
+        
+        return ans
