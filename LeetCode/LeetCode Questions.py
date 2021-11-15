@@ -5252,3 +5252,31 @@ def largestDivisibleSubset(nums):
             curr = dp[curr[0]]
         
         return ans
+
+#Date: November 15, 2021
+#https://leetcode.com/problems/valid-number/submissions/
+
+def isNumber(s):
+        
+    #The question of a million edge cases. 
+    #An O(n) intuitive solution; lay out scneraios of validity for each potentially valid character
+    
+    newint,seenint,dec,e = True,False,False,False
+    for i,j in enumerate(s):
+        if newint and j in ['+','-']:
+            newint = False
+            continue
+        elif j.isnumeric():
+            if newint: newint = False
+            seenint = True
+            continue
+        elif j=='.' and (seenint or i==0 or s[i-1] in ['+','-']) and (not e) and not dec:
+            if not i: newint = False
+            dec = True
+            continue
+        elif j in ['e','E'] and (not e) and seenint:
+            e,newint,seenint = True,True,False
+            continue
+        return False
+    if not seenint: return False
+    return True
