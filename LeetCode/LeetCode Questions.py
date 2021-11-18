@@ -5289,3 +5289,20 @@ def findDisappearedNumbers(nums):
     #intuitive
     
     return {n for n in range(1,len(nums)+1)} - set(nums)
+
+#Date: November 18, 2021
+#https://leetcode.com/problems/kth-smallest-number-in-multiplication-table/
+
+def findKthNumber(m,n,k):
+        
+    #An O(nlogn) binary search solution. We want to narrow down to a value where it has k values that its greater than in the matrix. 
+    
+    #Something i'm still unsure about tbh: how to we prove that l,r will always narrow down to a value that exists on the matrix?
+    
+    l,r = 1,m*n
+    while l<r:
+        mid = (l+r)//2
+        count = sum([min(n,mid//i) for i in range(1,m+1)])
+        if count<k: l=mid+1 #mid+1 because we just proved it cant be mid
+        else: r=mid
+    return r
