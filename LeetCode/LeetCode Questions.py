@@ -5280,3 +5280,12 @@ def isNumber(s):
         return False
     if not seenint: return False
     return True
+
+#Date: November 17, 2021
+#https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/submissions/
+
+def findDisappearedNumbers(nums):
+        
+    #intuitive
+    
+    return {n for n in range(1,len(nums)+1)} - set(nums)
