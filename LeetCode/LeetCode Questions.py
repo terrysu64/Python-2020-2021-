@@ -5295,11 +5295,12 @@ def findDisappearedNumbers(nums):
 
 def findKthNumber(m,n,k):
         
-    #An O(nlogn) binary search solution. We want to narrow down to a value where it has k values that its greater than in the matrix. 
+    #An O(min(n,m)lognm) binary search solution. We want to narrow down to a value where it has k values that its greater than in the matrix. 
     
     #Something i'm still unsure about tbh: how to we prove that l,r will always narrow down to a value that exists on the matrix?
     
     l,r = 1,m*n
+    if n<m: n,m=m,n
     while l<r:
         mid = (l+r)//2
         count = sum([min(n,mid//i) for i in range(1,m+1)])
@@ -5332,3 +5333,31 @@ def singleNonDuplicate(nums):
             if (r-m)%2: l=m+1
             else: r=m-2
     return nums[l]
+
+#Date: November 20,2021
+#https://leetcode.com/problems/number-of-valid-words-for-each-puzzle/
+
+from collections import Counter
+class Solution:
+    def findNumOfValidWords(self, words,puzzles):
+        
+        #make bitmask for words (keep freq map of this too) and for puzzles. then, enumerate over each submask of each puzzle mask and see if it exists in the freq map (aka see if matches a word(s)) upon validation of the first condition by left shifting the first puzzle letter
+        
+        ans = []
+        bfrq = Counter(list(map(self.mask,words)))
+        
+        for p in puzzles:
+            p,first,res = self.mask(p),1<<(ord(p[0])-ord('a')),0
+            curr = p
+            while curr: #formula to generate all submasks
+                if (curr in bfrq) and (curr|first == curr): 
+                    res += bfrq[curr]
+                curr=(curr-1)&p
+            ans += [res]
+        return ans
+    
+    def mask(self,x):
+            mask = 0
+            for c in x:
+                mask |= 1<<(ord(c)-ord('a'))
+            return mask
