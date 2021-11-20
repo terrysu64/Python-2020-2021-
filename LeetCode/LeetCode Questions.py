@@ -5306,3 +5306,29 @@ def findKthNumber(m,n,k):
         if count<k: l=mid+1 #mid+1 because we just proved it cant be mid
         else: r=mid
     return r
+
+def hammingDistance(x,y):
+        
+    #inutive xor solution (the xor of two distinct bits is always 1)
+    
+    return sum([1 for b in str(bin(x^y))[2:] if int(b)])
+
+#Date: November 19, 2021
+#https://leetcode.com/problems/single-element-in-a-sorted-array/submissions/
+
+def singleNonDuplicate(nums):
+        
+    #binary search; we continuously narrow our search to subarray's with odd length subarrays
+    #odd length subarray = the target must be in there
+    
+    l,r=0,len(nums)-1
+    while l<r:
+        m=(l+r)//2
+        if all([nums[m]!=nums[m+1],nums[m]!=nums[m-1]]): return nums[m]
+        elif nums[m]==nums[m+1]:
+            if (m-l)%2: r=m-1
+            else: l=m+2
+        else:
+            if (r-m)%2: l=m+1
+            else: r=m-2
+    return nums[l]
