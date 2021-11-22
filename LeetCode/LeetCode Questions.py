@@ -5361,3 +5361,39 @@ class Solution:
             for c in x:
                 mask |= 1<<(ord(c)-ord('a'))
             return mask
+
+#Date: November 20, 2021
+#https://leetcode.com/problems/delete-node-in-a-bst/submissions/
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def deleteNode(self, root, key):
+        
+        #recursive approach with 3 conditions:
+        #1. if we have leaf, just delete it
+        #2. if we have one child, let child replace parent
+        #3. if we have 2 children, take the max of left subtree or min of right subtree nd recurse on min/max node
+
+        if not root: return root
+        elif key < root.val: root.left = self.deleteNode(root.left, key)
+        elif key > root.val: root.right = self.deleteNode(root.right, key)
+        else:
+            if all([not root.left,not root.right]): root = None
+            elif not root.left: root = root.right
+            elif not root.right: root = root.left
+            else:
+                rep = self.helpmax(root.left)
+                root.val = rep.val
+                root.left = self.deleteNode(root.left, rep.val)
+        return root
+
+    def helpmax(self, root):
+        curr = root
+        while curr.right:
+            curr = curr.right
+        return curr
