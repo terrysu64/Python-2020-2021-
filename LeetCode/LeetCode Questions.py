@@ -5397,3 +5397,17 @@ class Solution:
         while curr.right:
             curr = curr.right
         return curr
+
+#Date: November 22, 2021
+#https://leetcode.com/problems/count-primes/
+
+def countPrimes(n):
+        
+        #sieve of eratosthenes (lol i finally learned wht this is)
+        
+        dp,i=[True for i in range(n)],2
+        while i*i<=n: #this is the condition coz if u multiply by less than 'i', you've alrdy accounted for tht
+            if dp[i]:
+                for j in range(i*i,n,i): dp[j]=False
+            i+=1     
+        return sum([1 for i in range(2,n) if dp[i]])
