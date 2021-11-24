@@ -5411,3 +5411,19 @@ def countPrimes(n):
                 for j in range(i*i,n,i): dp[j]=False
             i+=1     
         return sum([1 for i in range(2,n) if dp[i]])
+
+#Date: November 24, 2021
+#https://leetcode.com/problems/interval-list-intersections/
+
+def intervalIntersection(arr1,arr2):
+        
+        #O(n) time two pointers approach (each pointer traverses arr1 and arr2 respectively). op,ed comparisons are intuitive and pointers are incremented based on which one ends first; since the intervals are disconjunct, if an interval ends, there will be nothing else that will be able to overlap it unless it overlaps the matching interval of the other arr as well (which is invalid)
+        
+        ans = []
+        i,j = 0,0
+        while i<len(arr1) and j<len(arr2):
+            op,ed = max(arr1[i][0],arr2[j][0]),min(arr1[i][1],arr2[j][1])
+            if op<=ed: ans += [[op,ed]]
+            if arr1[i][1]<arr2[j][1]: i+=1
+            else: j+=1
+        return ans
