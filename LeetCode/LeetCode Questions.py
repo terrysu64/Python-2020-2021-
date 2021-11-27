@@ -5427,3 +5427,24 @@ def intervalIntersection(arr1,arr2):
             if arr1[i][1]<arr2[j][1]: i+=1
             else: j+=1
         return ans
+
+#Date: November 26, 2021
+#https://leetcode.com/problems/product-of-array-except-self/
+
+def productExceptSelf(nums):
+        
+        #Intuitive soution (jus be careful of 0s)
+        
+        import numpy
+        ans = []
+        if (z:=nums.count(0)):
+            if z>1: return [0]*len(nums)
+            else: 
+                prod=1
+                for n in nums:
+                    if n: prod *= n
+                return [(0 if x else prod) for x in nums ]
+        prod = numpy.prod(nums)
+        for n in nums:
+            ans += [prod//n]
+        return ans
