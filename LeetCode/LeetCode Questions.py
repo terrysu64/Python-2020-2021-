@@ -5448,3 +5448,23 @@ def productExceptSelf(nums):
         for n in nums:
             ans += [prod//n]
         return ans
+
+#Date: November 27, 2021
+#https://leetcode.com/problems/all-paths-from-source-to-target/submissions/
+
+class Solution:
+    def allPathsSourceTarget(self,graph):
+            
+            #intuitive bfs
+            
+            from collections import deque
+            self.ans = []
+            ed,dq = len(graph)-1,deque([[0,[0],{0}]]) #[[curr,[traversed],{seen}],...]
+            while dq:
+                for _ in range(len(dq)):
+                    if dq[0][0]==ed: self.ans += [dq[0][1]]
+                    else:
+                        for possi in graph[dq[0][0]]:
+                            if possi not in dq[0][-1]: dq += [[possi,dq[0][1]+[possi],dq[0][-1]|{possi}]]
+                    dq.popleft()
+            return self.ans
