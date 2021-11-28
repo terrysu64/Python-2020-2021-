@@ -5501,3 +5501,40 @@ def minimumDeletions(nums):
     if not nums: return 0
     maxi,mini = nums.index(max(nums)),nums.index(min(nums))
     return min(max(maxi,mini)+1,len(nums)-min(maxi,mini),min(maxi,mini)+1+len(nums)-max(maxi,mini))
+
+#Date: November 28, 2021
+#https://leetcode.com/problems/largest-component-size-by-common-factor/submissions/
+
+class Solution:
+    def largestComponentSize(self, nums):
+         
+        #O(n^1.5) factorization and union-find solution with path compression to slightly optimize. 
+        #dsu[i] = next node or [end size]
+        
+        self.dsu = {n:[1] for n in nums}
+        self.ans = 1
+        facs = defaultdict(list)
+        
+        def find(val):
+            if type(self.dsu[val])==list: return val
+            self.dsu[val]=find(self.dsu[val])
+            return self.dsu[val]
+        
+        def union(ds1,ds2):
+            u1,u2 = find(ds1),find(ds2)
+            if u1!=u2: self.dsu[u1],self.dsu[u2] = u2,[self.dsu[u1][0]+self.dsu[u2][0]]
+            self.ans = max(self.ans,self.dsu[u2][0])
+            return
+        
+        for n in nums:
+            if n!=1: facs[n] += [n]
+            for fac in range(2,int(n**0.5)+1):
+                if not n%fac:
+                    facs[fac] += [n]
+                    if fac**2 != n: facs[n//fac] += [n]
+
+        for f in facs:
+            for i in range(1,len(facs[f])): 
+                union(facs[f][i],facs[f][0])
+        return self.ans
+        
