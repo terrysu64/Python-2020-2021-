@@ -5468,3 +5468,36 @@ class Solution:
                             if possi not in dq[0][-1]: dq += [[possi,dq[0][1]+[possi],dq[0][-1]|{possi}]]
                     dq.popleft()
             return self.ans
+
+#Date: November 28, 2021
+#https://leetcode.com/problems/k-radius-subarray-averages/
+
+def getAverages(nums,k):
+        
+    #intuitive prefix sum array O(n) solution
+    
+    def valid(i):
+        if 0<=i<len(nums): return True
+        return False
+    
+    psa = [0]
+    for n in nums: psa += [psa[-1]+n]
+    l,r = -k,k
+    ans = []
+    for i in range(len(nums)):
+        if all([valid(r),valid(l)]): ans += [(psa[r+1]-psa[l])//(2*k+1)]
+        else: ans += [-1]
+        l += 1
+        r += 1
+    return ans
+
+#Date: November 28, 2021
+#https://leetcode.com/problems/removing-minimum-and-maximum-from-array/
+
+def minimumDeletions(nums):
+        
+    #check from both sides, from left, and from right,
+    
+    if not nums: return 0
+    maxi,mini = nums.index(max(nums)),nums.index(min(nums))
+    return min(max(maxi,mini)+1,len(nums)-min(maxi,mini),min(maxi,mini)+1+len(nums)-max(maxi,mini))
