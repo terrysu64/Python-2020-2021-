@@ -5537,4 +5537,29 @@ class Solution:
             for i in range(1,len(facs[f])): 
                 union(facs[f][i],facs[f][0])
         return self.ans
+
+#Date: November 28, 2021
+#https://leetcode.com/problems/accounts-merge/
+
+def accountsMerge(accounts):
         
+    #Intuitive O(n^2) hashmap solution (like a simplified dsu union-find)
+    
+    from collections import defaultdict
+    accs,used = {},defaultdict(int)
+    for ems in accounts:
+        exi=False
+        possi=set(ems[1:])
+        for prev in list(accs):
+            if possi&accs[prev]:
+                if not exi:
+                    accs[prev]|=possi
+                    exi=True
+                    alr = prev
+                else:
+                    accs[alr]|=accs[prev]
+                    accs.pop(prev)
+        if not exi: 
+            accs[(ems[0],used[ems[0]])] = possi
+            used[ems[0]] += 1
+    return [[x[0]]+sorted(list(accs[x])) for x in accs]
