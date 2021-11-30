@@ -2060,39 +2060,6 @@ def exist(board,word):
     return ans
 
 #August 5, 2021
-#Given a rows x cols binary matrix filled with 0's and 1's, find the largest rectangle containing only 1's and return its area.
-
-def maximalRectangle(matrix):
-        
-    #we will traverse the matrix; for each '1' we encounter, we will initialize a rectangle with dimensions of 1x1 initially
-    #sequentially, we will push the width and height of the rectangle as far right/down as possible while possible. 
-    #this allows us to find the area of all rectangles in the matrix - from which we can then deduce the maximum area
-        
-    areas = [0]
-        
-    #push down
-    def push_down(start,end,curr_row,row,cols):
-        areas.append(cols*row)
-        if curr_row < len(matrix)-1 and all(n == '1' for n in matrix[curr_row+1][start:end+1]):
-            push_down(start,end,curr_row+1,row+1,cols)
-        
-    #push right
-    def push_right(i,j):
-        temp_j = j
-        cols = 1
-        while temp_j < len(matrix[0]) and matrix[i][temp_j] == '1':
-            push_down(j,temp_j,i,1,cols)
-            temp_j += 1
-            cols += 1
-        
-    for i in range(0,len(matrix)):
-        for j in range(0,len(matrix[0])):
-            if matrix[i][j] == '1':
-                push_right(i,j)
-        
-    return max(areas)
-
-#August 5, 2021
 #Given the head of a linked list and a value x, partition it such that all nodes less than x come before nodes greater than or equal to x.
 #You should preserve the original relative order of the nodes in each of the two partitions.
 
@@ -5563,3 +5530,31 @@ def accountsMerge(accounts):
             accs[(ems[0],used[ems[0]])] = possi
             used[ems[0]] += 1
     return [[x[0]]+sorted(list(accs[x])) for x in accs]
+
+#Date: November 29, 2021
+#https://leetcode.com/problems/maximal-rectangle/submissions/
+
+def maximalRectangle(matrix):
+        
+    #O(mn) time; dp through implement index-based stack solution from "largest rectangle" for each distinct row in the matrix 
+    
+    if not matrix: return 0
+    
+    #rmr to extend to max left and right bound 
+    def solve(arr):
+        res,stack = 0,[-1]
+        arr += [-1]
+        for i in range(len(arr)):
+            rb=stack[-1]
+            while arr[stack[-1]]>arr[i]:
+                temp = stack.pop()
+                res = max(res,arr[temp]*(rb-stack[-1]))
+            stack += [i]
+        return res
+    
+    for i in range(len(matrix)):
+        for j in range(len(matrix[0])):
+            matrix[i][j] = int(matrix[i][j])
+            if i and matrix[i][j]: matrix[i][j] += matrix[i-1][j]
+    
+    return max(solve(x) for x in matrix)
