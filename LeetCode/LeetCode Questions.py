@@ -5558,3 +5558,30 @@ def maximalRectangle(matrix):
             if i and matrix[i][j]: matrix[i][j] += matrix[i-1][j]
     
     return max(solve(x) for x in matrix)
+
+#Date: November 30, 2021
+#https://leetcode.com/problems/minimum-window-substring/submissions/
+
+def minWindow(s,t):
+        
+    #O(m+n) time sliding window + queue solution. Essentially, we want to prioritize gathering all the required characters from 't' first (the parallel action would be to expand our window rightwards). Otherwise, upon traversing a character that would create an excess of the reqired characters, we contract our left pointer on the condition that the required characters are still present (i.e have[s[dq[0]]]>base[s[dq[0]]])
+    
+    from collections import Counter,deque,defaultdict
+    have,base = defaultdict(int),Counter(t)
+    need,ans = len(base),[float('-inf'),float('inf')]
+    op,ed,dq = None,None,deque()
+    
+    for i in range(len(s)):
+        if s[i] not in base: continue
+        have[s[i]] += 1
+        if not dq: op=i
+        if need and have[s[i]]==base[s[i]]: need -= 1
+        while dq and have[s[dq[0]]]>base[s[dq[0]]]: have[s[dq.popleft()]] -= 1
+        dq += [i]
+        op = dq[0]
+        if not need: 
+            ed=i
+            ans = min(ans,[op,ed],key=lambda x:x[1]-x[0])
+            
+    if need: return ''
+    return s[ans[0]:ans[1]+1]
