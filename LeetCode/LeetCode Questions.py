@@ -5585,3 +5585,27 @@ def minWindow(s,t):
             
     if need: return ''
     return s[ans[0]:ans[1]+1]
+
+#Date: December 1, 2021
+#https://leetcode.com/problems/odd-even-linked-list/
+
+def oddEvenList(head):
+        
+    #Intuitive O(n) time and O(1) space solution; keep track of the most recent odd and even nodes respectively and attach them to the current node depending on if current node index is odd or even + update ro or re
+    
+    if (not head) or not head.next: return head
+
+    ro,re,se = head,head.next,head.next
+    curr,count = head.next.next,1
+    while curr:
+        if count%2:
+            ro.next = curr
+            ro = curr
+        else:
+            re.next = curr
+            re = curr
+        count += 1
+        curr = curr.next
+    re.next,ro.next = None,None #to avoid cycles coz re or ro might still be connected to an unmanipulated node
+    ro.next = se
+    return head
