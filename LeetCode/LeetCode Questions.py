@@ -5609,3 +5609,42 @@ def oddEvenList(head):
     re.next,ro.next = None,None #to avoid cycles coz re or ro might still be connected to an unmanipulated node
     ro.next = se
     return head
+
+#Date: December 3, 2021
+#https://leetcode.com/problems/stream-of-characters/submissions/
+
+class StreamChecker:
+    
+    #Implementation of trie (but words are reversed) solution
+    #Note: the suffix of stream gotta be a word in words
+    #Note: #cut off the branch if we're done with the word (i.e if u have 'xaa' and 'aa' for instance then the 'xaa' is pre much negligible coz the latter is a suffix of the former) 
+    
+    def __init__(self,words):
+        self.stream = ''
+        self.trie = TrieNode() #root
+        for w in words:
+            curr = self.trie
+            for i in range(len(w)):
+                if curr.children==None: break
+                if not w[~i] in curr.children: curr.children[w[~i]] = TrieNode(w[~i]) 
+                if i!=len(w)-1: curr = curr.children[w[~i]]
+                else: curr.children[w[~i]].children = None
+        
+    def query(self, letter: str) -> bool:
+        self.stream += letter
+        i,curr = 0,self.trie.children
+        while i<len(self.stream):
+            if self.stream[~i] not in curr: return False #no words are valid suffixes rip
+            if curr[self.stream[~i]].children==None: return True #reached end of word
+            curr = curr[self.stream[~i]].children
+            i+=1
+        return False #stream happens to be a suffix of the word instead
+            
+class TrieNode:
+    def __init__(self,value=None,):
+        self.val = value
+        self.children = {}
+    
+# Your StreamChecker object will be instantiated and called as such:
+# obj = StreamChecker(words)
+# param_1 = obj.query(letter)
