@@ -5672,3 +5672,18 @@ class Solution:
         dfs(root)
         
         return max(root.val)
+
+#Date: December 5, 2021
+#https://leetcode.com/problems/minimum-number-of-operations-to-make-array-continuous/
+
+def minOperations(nums):
+        
+        #An important thing to realize is tht the only type of array that ultimately fulfill both conditions is a strictly contiguous subarray. So now the idea is to take each number 'n' in nums and have it either act as the maximum of minimum of a potential subarray. We then wanna check how many distinct numbers fall under the range in question (either n+len(nums)-1 or n-len(nums)+1). with brute force this is O(n^2) but we can optimize to O(nlogn) by using binary search and comparing indices to figure out how many numbers are in the appropriate range.
+        
+        import bisect 
+        lorig = len(nums)
+        nums = sorted(set(nums))
+        res = float('inf')
+        for i in range(len(nums)):
+            res = min(res,lorig-i+bisect.bisect_left(nums,nums[i]-lorig+1)-1)
+        return res
