@@ -5648,3 +5648,27 @@ class TrieNode:
 # Your StreamChecker object will be instantiated and called as such:
 # obj = StreamChecker(words)
 # param_1 = obj.query(letter)
+
+#Date: December 4, 2021
+#https://leetcode.com/problems/house-robber-iii/
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+class Solution:
+    def rob(self,root):
+        
+        #bottom up O(n) dp+pairs; dp of node = (with node res, without node res)
+        
+        def dfs(node):
+            if not node: return (0,0) 
+            l,r = dfs(node.left),dfs(node.right)
+            node.val = (node.val+l[1]+r[1],max(l)+max(r))
+            return node.val
+        dfs(root)
+        
+        return max(root.val)
