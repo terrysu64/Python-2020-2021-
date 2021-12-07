@@ -5687,3 +5687,28 @@ def minOperations(nums):
         for i in range(len(nums)):
             res = min(res,lorig-i+bisect.bisect_left(nums,nums[i]-lorig+1)-1)
         return res
+
+#Date: December 5, 2021
+#https://leetcode.com/problems/minimum-cost-to-move-chips-to-the-same-position/submissions/
+
+def minCostToMoveChips(position):
+        
+        #O(n) even,odd intuitive solution
+        
+        from collections import Counter
+        frq = Counter(position)
+        e,o = sum([frq[x] for x in frq if not x%2]), sum([frq[x] for x in frq if x%2])
+        return min(e,o)
+
+#Date: December 6, 2021
+#https://leetcode.com/problems/maximum-number-of-vowels-in-a-substring-of-given-length/submissions/
+
+def maxVowels(s,k):
+        
+    #O(n) solution; intuitive psa (of how many vowels there have been up till now) + sliding window
+    
+    vwls = {'a','e','i','o','u'}
+    ans,psa = 0,[0]
+    for i in range(len(s)): psa += [(psa[i] if s[i] not in vwls else psa[i]+1)]
+    for i in range(k,len(psa)): ans = max(ans,psa[i]-psa[i-k])
+    return ans
