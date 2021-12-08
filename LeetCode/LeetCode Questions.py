@@ -5712,3 +5712,33 @@ def maxVowels(s,k):
     for i in range(len(s)): psa += [(psa[i] if s[i] not in vwls else psa[i]+1)]
     for i in range(k,len(psa)): ans = max(ans,psa[i]-psa[i-k])
     return ans
+
+#Date: December 7, 2021
+#https://leetcode.com/problems/binary-tree-tilt/
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+class Solution:
+    def findTilt(root):
+        
+        #2 dfs (first make reverse psa then operate of the tree directly)
+        
+        def dfs1(node):
+            if not node: return 0
+            node.val+=dfs1(node.left)+dfs1(node.right)
+            return node.val
+        
+        def dfs2(node):
+            if not node: return
+            self.ans += abs((node.left.val if node.left else 0)-(node.right.val if node.right else 0))
+            dfs2(node.left)
+            dfs2(node.right)
+        
+        self.ans = 0
+        dfs1(root);dfs2(root)
+        return self.ans
