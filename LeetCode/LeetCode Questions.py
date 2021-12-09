@@ -5742,3 +5742,21 @@ class Solution:
         self.ans = 0
         dfs1(root);dfs2(root)
         return self.ans
+
+#Date: December 8, 2021
+#https://leetcode.com/problems/jump-game-iii/submissions/
+
+def canReach(arr,start):
+        
+    #general O(n) brute force bfs
+    
+    from collections import deque
+    dq,seen=deque([start]),set()
+    while dq:
+        if arr[dq[0]]==0: return True
+        curr=dq.popleft()
+        pos=arr[curr]
+        seen.add(curr)
+        if curr+pos<len(arr) and curr+pos not in seen: dq += [curr+pos]
+        if curr-pos>=0 and curr-pos not in seen: dq += [curr-pos]
+    return False
