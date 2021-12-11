@@ -5777,3 +5777,18 @@ def maxSubsequence(nums,k):
             ans += [n]
             need[n] -= 1
     return ans
+
+def goodDaysToRobBank(security,time):
+        
+    #O(n) dp solution
+    #dpl and dpr will be prefix and sufix arrays that track the number of days to the left and right respectively where the number of guarads either stayed the same or increased.
+    #if dpl[i] and dpr[i] all >= time on a given day, that day is a "good day"
+    
+    ans = []
+    dpl,dpr = [0 for _ in range(len(security))], [0 for _ in range(len(security))]
+    for i in range(1,len(security)): 
+        dpl[i] = dpl[i-1]+1 if security[i-1]>=security[i] else 0
+        dpr[~i] = dpr[~(i-1)]+1 if security[~(i-1)]>=security[~i] else 0
+    for j in range(len(security)): 
+        if all([dpl[j]>=time,dpr[j]>=time]): ans+=[j]
+    return ans
