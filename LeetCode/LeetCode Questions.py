@@ -5760,3 +5760,20 @@ def canReach(arr,start):
         if curr+pos<len(arr) and curr+pos not in seen: dq += [curr+pos]
         if curr-pos>=0 and curr-pos not in seen: dq += [curr-pos]
     return False
+
+#Date: December 11, 2021
+#https://leetcode.com/contest/biweekly-contest-67/problems/find-subsequence-of-length-k-with-the-largest-sum/
+
+def maxSubsequence(nums,k):
+        
+    #greedy
+    
+    from collections import Counter
+    prev = sorted(nums)
+    need = Counter([prev[~i] for i in range(k)])
+    ans = []
+    for n in nums:
+        if need[n]: 
+            ans += [n]
+            need[n] -= 1
+    return ans
