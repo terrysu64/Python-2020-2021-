@@ -5837,3 +5837,17 @@ def nthMagicalNumber(n,a,b):
         else: r=m #because we arent doing r = m-1, we can guarantee we narrow down on the number itself
     return l%(10**9+7)
 
+#Date: December 12, 2021
+#https://leetcode.com/problems/domino-and-tromino-tiling/submissions/
+
+def numTilings(n):
+        
+    #O(n) dp solution
+    #dp = perfect fit
+    #dpm = perfect fit with piece missing either above or below (not distinctively tho)
+    
+    dp,dpm = [1,2]+[0]*(n-2), [0]+[1]*(n-1)
+    for i in range(2, n):
+        dp[i] = dp[i-1]+dp[i-2]+dpm[i-1]*2
+        dpm[i] = dp[i-2]+dpm[i-1]
+    return dp[n-1]%(10**9+7)
