@@ -5792,3 +5792,26 @@ def goodDaysToRobBank(security,time):
     for j in range(len(security)): 
         if all([dpl[j]>=time,dpr[j]>=time]): ans+=[j]
     return ans
+
+#Date: December 11, 2021
+#https://leetcode.com/problems/partition-equal-subset-sum/submissions/
+
+def canPartition(nums):
+        
+    #O(n^2) 1-D dp solution; if type(dp[i])==int then we can add up to tht total sum of 'i'
+    #Note: for each number in nums, increment the dp marking number so theres no overlap
+    #Note: only update dp[i] if it still == False
+    
+    tot=sum(nums)
+    targ=tot//2
+    dp=[0]+[False for _ in range(targ)]
+
+    if tot%2: return False
+    
+    count = 0
+    for n in nums:
+        count += 1
+        for i in range(len(dp)):
+            if all([type(dp[i])==int,dp[i]<count,i+n<len(dp),type(dp[i+n])==bool]): dp[i+n]=count
+
+    return (True if dp[-1] else False)
