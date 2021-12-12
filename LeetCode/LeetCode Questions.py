@@ -5815,3 +5815,25 @@ def canPartition(nums):
             if all([type(dp[i])==int,dp[i]<count,i+n<len(dp),type(dp[i+n])==bool]): dp[i+n]=count
 
     return (True if dp[-1] else False)
+
+#Date: December 12, 2021
+#https://leetcode.com/problems/nth-magical-number/submissions/
+
+def nthMagicalNumber(n,a,b):
+        
+    #case 1: if they divisible then its pre intuitive
+    if (not a%b) or not b%a: return (n*min(a,b))%(10**9+7)
+    
+    #case 2: if they arent then then we can binary search under this condition
+    
+    #let n = a number: it is the n//a=Ath multiple of a, it is the n//b=Bth multiple of b, it is the n//lcm(a,b)=Cth multiple that can be divided by both a and b. Thus it is the A+B-Cth magical number
+    
+    import math
+    lcm = a*b//math.gcd(a,b)
+    l,r = 1,min(a,b)*n
+    while l<r:
+        m=(l+r)//2
+        if m//a+m//b-m//lcm<n: l=m+1 #havent reached nth number yet
+        else: r=m #because we arent doing r = m-1, we can guarantee we narrow down on the number itself
+    return l%(10**9+7)
+
