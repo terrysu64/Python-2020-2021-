@@ -5851,3 +5851,71 @@ def numTilings(n):
         dp[i] = dp[i-1]+dp[i-2]+dpm[i-1]*2
         dpm[i] = dp[i-2]+dpm[i-1]
     return dp[n-1]%(10**9+7)
+
+#Date: December 14, 2021
+#https://leetcode.com/problems/insertion-sort-list/
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def insertionSortList(self, head):
+        
+        #intuitive solution in application of the diagram
+        #prev,con = the two nodes in between which we will possibly insert the current node we are finding a placement for
+        #pprev,curr = node before current node, current node we are operating on
+        
+        lllen = 0; curr=head
+        while curr:
+            lllen +=1
+            curr = curr.next
+        
+        for i in range(1,lllen):
+            prev,con=None,head
+            pprev,curr = None,head
+            for j in range(i): pprev,curr=curr,curr.next
+            while True:
+                if con==curr: break
+                if curr.val>con.val: 
+                    prev,con = con,con.next
+                    continue
+                pprev.next=(curr.next if curr.next else None)
+                if prev: prev.next=curr
+                curr.next=con
+                if not prev: head=curr
+                break
+        return head
+
+#Date: December 15, 2021
+#https://leetcode.com/problems/minimum-height-trees/
+
+def findMinHeightTrees(n,edges):
+        
+    #graph theory, cropping technique. If you remove leaves of minimum height tree, height -= 1 but the answer would stay the same. In that regard, we can just crop out all the leaves until the vertices are the leaves (the answers themselves).
+    #we can implement O(n) bfs for this
+    
+    from collections import deque
+    
+    edgs = {i:set() for i in range(n)}
+    for u,v in edges: edgs[u].add(v); edgs[v].add(u)
+    dq=deque([i for i in range(n) if len(edgs[i])==1])
+    
+    nodes=n
+    while nodes>2:
+        new=set()
+        for i in range(len(dq)):
+            temp=dq.popleft()
+            for pos in edgs[temp]:
+                if pos in new: continue
+                edgs[pos].remove(temp)
+                if len(edgs[pos])==1: dq += [pos]; new.add(pos)
+            edgs.pop(temp)
+            nodes-=1
+            
+    if not edges: return [0]
+    return list(dq)
+    
+    
+    
