@@ -5936,3 +5936,44 @@ def atMostNGivenDigitSet(digits,n):
         if i==len(str(n))-1: ans += 1 
             
     return ans
+
+#Date: December 18, 2021
+#https://leetcode.com/problems/making-a-large-island/submissions/
+
+class Solution:
+    def largestIsland(self,grid):
+        
+        #make dsu of existing islands then check possible connections between islands without modifying the dsu
+        
+        def find(pos):
+            if type(self.dsu[pos])==list: return pos
+            self.dsu[pos]=find(self.dsu[pos])
+            return self.dsu[pos]
+        
+        def union(pos1,pos2):
+            res1,res2 = find(pos1),find(pos2)
+            if res1!=res2: self.dsu[res1],self.dsu[res2]=res2,[self.dsu[res1][0]+self.dsu[res2][0]]
+        
+        def valid(i,j):
+            if all([0<=i<len(grid),0<=j<len(grid[0])]): return True
+            return False
+        
+        self.dsu={}
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if not grid[i][j]: continue
+                self.dsu[(i,j)]=[1] 
+                if valid(i-1,j) and grid[i-1][j]: union((i,j),(i-1,j))
+                if valid(i,j-1) and grid[i][j-1]: union((i,j),(i,j-1))
+        
+        if not self.dsu: return 1
+        ans,curr=max([(self.dsu[x][0] if type(self.dsu[x])==list else 0) for x in self.dsu]),0
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if not grid[i][j]:
+                    curr=1+sum([self.dsu[x][0] for x in {find((I,J)) for I,J in [(i-1,j),(i+1,j),(i,j-1),(i,j+1)] if (valid(I,J) and grid[I][J])}])
+                    ans = max(curr,ans)
+        
+        return ans
+                    
+        
