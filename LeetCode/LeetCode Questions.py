@@ -5917,5 +5917,22 @@ def findMinHeightTrees(n,edges):
     if not edges: return [0]
     return list(dq)
     
+#Date: December 17, 2021
+#https://leetcode.com/problems/numbers-at-most-n-given-digit-set/
+
+def atMostNGivenDigitSet(digits,n):
+        
+    #digit optimization + dp; first pre-compute all possibilities of number with a length less than n itself.
+    #then to compute possibilites that have length==n, at each digit of n (from left to right), lets call tht pos, find out how many digits are less than pos and add on possible combinations to the the global answer. In relation to tht, we must fufill the condition that there is a digit that is equal to pos in digits if we want to move to the next pos, otherwise it would be pointless because we've already considered all other possibilities
     
+    digits = set([int(x) for x in digits])
+    ans=sum([len(digits)**i for i in range(1,len(str(n)))])
     
+    for i,j in enumerate(str(n)):
+        j=int(j)
+        les = sum([1 for x in digits if x<j])
+        ans += les*len(digits)**(len(str(n))-i-1)
+        if j not in digits: break 
+        if i==len(str(n))-1: ans += 1 
+            
+    return ans
