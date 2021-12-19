@@ -5976,4 +5976,26 @@ class Solution:
         
         return ans
                     
+#Date: December 18, 2021
+#https://leetcode.com/problems/decode-string/
+
+def decodeString(s):
         
+    #O(n) double stack solution with conditions (ordering is pre important)
+    
+    ans=''
+    stk1,stk2 = [],[]
+    num=''
+    for c in s:
+        if c.isnumeric(): num+=c
+        elif c=='[' and num: 
+            stk1+=[int(num)]
+            if len(stk1)-2==len(stk2): stk2 += [''] #must be nested bracket without string in the first layer of nesting
+            num=''
+        elif c==']' and stk1:
+            if len(stk1)>1: stk2[-2] += stk2[-1]*stk1.pop(); stk2.pop() 
+            else: ans += stk1.pop()*stk2.pop()
+        elif not stk1: ans += c
+        elif len(stk1)>len(stk2): stk2 += [c]
+        elif len(stk1)==len(stk2): stk2[-1] += c
+    return ans
