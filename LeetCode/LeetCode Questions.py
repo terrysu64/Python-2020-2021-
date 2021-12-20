@@ -5999,3 +5999,18 @@ def decodeString(s):
         elif len(stk1)>len(stk2): stk2 += [c]
         elif len(stk1)==len(stk2): stk2[-1] += c
     return ans
+
+def numDistinct(self, s: str, t: str) -> int:
+        
+        #interval dp (easy implementation but tricky thought process tbh)
+        
+        #each dp[i][j] gotta be at least dp[i-1][j] coz its assuming we cut the current char
+        #nd if the chars are the same we also add dp[i-1][j-1] (these are the new possibilities/number of subsequences without this requirement that add on the prexsisting ways of getting 'x' subsequences)
+        #dp[i-1][j] for a case where characters are the same would be equivalent to previous ways of fufilling this requirement
+        
+        dp = [[1]+[0 for _ in range(len(t))] for __ in range(len(s)+1)]
+        for i in range(1,len(dp)):
+            for j in range(1,len(dp[0])):
+                if s[i-1]!=t[j-1]: dp[i][j] = dp[i-1][j]
+                else: dp[i][j] = dp[i-1][j]+dp[i-1][j-1]
+        return dp[-1][-1]

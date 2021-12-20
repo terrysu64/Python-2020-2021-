@@ -41,6 +41,6 @@ test2 = [[0, 4, 0, 0, 0, 0, 0, 8, 0],
         [0, 0, 2, 0, 0, 0, 6, 7, 0]
         ]
 
-#solve(test1,0)
+solve(test1,0)
 #solve(test1,1)
 #solve(test2,0)
