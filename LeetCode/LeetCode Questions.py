@@ -6000,6 +6000,9 @@ def decodeString(s):
         elif len(stk1)==len(stk2): stk2[-1] += c
     return ans
 
+#Date: December 20, 2021
+#https://leetcode.com/submissions/detail/604688325/
+
 def numDistinct(self, s: str, t: str) -> int:
         
         #interval dp (easy implementation but tricky thought process tbh)
@@ -6011,6 +6014,17 @@ def numDistinct(self, s: str, t: str) -> int:
         dp = [[1]+[0 for _ in range(len(t))] for __ in range(len(s)+1)]
         for i in range(1,len(dp)):
             for j in range(1,len(dp[0])):
-                if s[i-1]!=t[j-1]: dp[i][j] = dp[i-1][j]
-                else: dp[i][j] = dp[i-1][j]+dp[i-1][j-1]
+                dp[i][j] = dp[i-1][j]
+                if s[i-1]==t[j-1]: dp[i][j] += dp[i-1][j-1]
         return dp[-1][-1]
+
+#Date: December 20, 2021
+#https://leetcode.com/problems/power-of-two/submissions/
+
+def isPowerOfTwo(self, n: int) -> bool:
+        
+    #intuitive O(31) bit-manipulation
+    
+    from collections import Counter
+    if n>0 and Counter(bin(n))['1']==1: return True
+    return False
