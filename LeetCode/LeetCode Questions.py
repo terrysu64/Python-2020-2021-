@@ -6028,3 +6028,24 @@ def isPowerOfTwo(self, n: int) -> bool:
     from collections import Counter
     if n>0 and Counter(bin(n))['1']==1: return True
     return False
+
+#Date: December 21, 2021
+#https://leetcode.com/problems/reorder-list/
+
+def reorderList(head):
+        
+        #Intuitive O(n) time and space solution
+        #prev-->left, left-->right, right-->None, prev=right
+        
+        nodes=[]
+        curr=head
+        while curr: nodes+=[curr]; curr=curr.next
+        
+        l,r,prev=0,len(nodes)-1,None
+        while l<=r:
+            if prev!=None: prev.next=nodes[l]
+            nodes[l].next=nodes[r]; nodes[r].next=None
+            prev=nodes[r]
+            l+=1; r-=1
+        
+        return nodes[0]
