@@ -6077,3 +6077,23 @@ def findOrder(numCourses, prereq):
         if cyc: return []
     
     return ans
+
+#Date: December 24, 2021
+#https://leetcode.com/contest/biweekly-contest-48/problems/maximum-number-of-consecutive-values-you-can-make/
+
+def getMaximumConsecutive(coins):
+        
+        #intuitive greedy
+        
+        coins.sort()
+        curr=1
+        for x in coins:
+            if x>curr: break
+            curr += x
+        return curr
+            
+         #ex: 1,1,1,3
+         #u can make 0-3 with the first 3 1s, then since you can alrdy make 3 with previous digits, then u can now make a maximum of 6
+         
+         #counter-ex: 1,1,1,5
+         #u can make 0-3 with the first 3 1s, but bcuz 5>4 (the next number u want to make) 4 is thus impossible to make
