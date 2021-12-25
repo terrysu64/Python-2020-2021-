@@ -6097,3 +6097,41 @@ def getMaximumConsecutive(coins):
          
          #counter-ex: 1,1,1,5
          #u can make 0-3 with the first 3 1s, but bcuz 5>4 (the next number u want to make) 4 is thus impossible to make
+
+#Date: December 24, 2021
+#https://leetcode.com/problems/basic-calculator-ii/
+
+def calculate(s):
+        
+        #O(3n) bemas intuition with linked list (deque used to simulate); prolly could be faster tho
+        
+        from collections import deque
+        
+        curr=''
+        op,num = deque(),deque()
+        m,d = 0,0
+        for i,c in enumerate(s):
+            if c.isnumeric():
+                curr += c
+            elif c in ['/','+','-','*']: #python cant detect empty char in string for sum reason
+                if c=='*' : m += 1
+                elif c=='/': d += 1
+                op += [c]; num += [int(curr)]
+                curr = ''
+        if curr: num += [int(curr)]
+        
+        for i in range(1,len(num)):
+            if op[i-1]=='*': 
+                num[i] *= num[i-1]; num[i-1]=''
+            elif op[i-1]=='/': num[i]=num[i-1]//num[i]; num[i-1]=''
+
+        for _ in range(m+d): num.remove('')
+        for _ in range(m): op.remove('*')
+        for _ in range(d): op.remove('/')
+        
+        for i in range(1,len(num)):
+            if op[i-1]=='+': num[i]+=num[i-1]
+            else: num[i]=num[i-1]-num[i]
+        
+        return num[-1]
+    
