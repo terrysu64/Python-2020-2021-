@@ -6206,3 +6206,34 @@ def findComplement(num):
         
         import math
         return num^sum([2**i for i in range(int(math.log(num,2))+1)])
+
+#Date: December 27, 2021
+#https://leetcode.com/problems/check-if-a-parentheses-string-can-be-valid/submissions/
+
+def canBeValid(s,locked):
+        
+        #O(n) two pass solution (pre slick problem tbh)
+        
+        #first u wanna balance the locked ')' by any means possible while making sure its valid lol
+        
+        if len(s)%2: return False
+        bal, start = 0,None
+        for i in range(len(s)):
+            bal += (-1 if (s[i]==')' and int(locked[i])) else 1)
+            if bal==1: start=i 
+            if bal<0: return False
+        
+        #now that all locked ')' are balanced, all tht should be left are locked '(' and unlocked brackets
+        #if there are and odd number of those things, the answer should be false
+        
+        if bal%2: return False
+        
+        #now if the remainder is even we jus traverse (but reverse this time) again with same motive as first traversal up till the point where bal begins tipping positive then we check if the remaining unlocked are odd or even
+
+        bal=0
+        for i in range(len(s)-1,start-1,-1):
+            bal += (-1 if (s[i]=='(' and int(locked[i])) else 1)
+            if bal<0: return False
+        
+        if bal%2: return False
+        return True
