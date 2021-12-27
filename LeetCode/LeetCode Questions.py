@@ -6135,3 +6135,74 @@ def calculate(s):
         
         return num[-1]
     
+#Date: December 25, 2021
+#https://leetcode.com/contest/biweekly-contest-68/problems/find-all-possible-recipes-from-given-supplies/
+
+def findAllRecipes(recipes, ingredients, supplies):
+        
+        #topological sort the nodes then iterate through everything to check valid meals
+        
+        from collections import defaultdict,deque
+        supplies = set(supplies)
+        adj = defaultdict(list)
+        unvis=supplies|set(recipes)
+        
+        fin = {x[0]:x[1] for x in zip(recipes,ingredients)}
+        
+        for i in range(len(ingredients)):
+            for j in ingredients[i]:
+                adj[j] += [recipes[i]]
+        
+        def dfs(node,pars):
+            nonlocal unvis,adj,fin
+            if node in adj:
+                for pos in adj[node]:
+                    if pos in pars: #cycle found
+                        fin[pos]=False; fin[node]=False
+                        continue
+                    if pos in unvis: 
+                        unvis.remove(pos); dfs(pos,pars|{pos})
+            ans.appendleft(node)
+            
+        ans = deque()
+        while unvis:
+            curr=unvis.pop()
+            dfs(curr,{curr})
+        
+        res = []
+        for x in ans:
+            if x not in fin: continue
+            if type(fin[x])==bool: continue
+            if all([(y in supplies) or (y in fin and fin[y]==True) for y in fin[x]]):
+                res += [x]
+                fin[x]=True
+            else:
+                fin[x]=False
+        
+        return res
+
+#Date: December 26, 2021
+#https://leetcode.com/problems/candy/submissions/
+
+def candy(ratings):
+        
+        #Intuitive O(n) two-pass; first pass = satisfies condition of only being greater than left neighbor if needed and second pass = satisfies condition of being greater than right neighbor as well when necessary
+        
+        ans=[1 for _ in range(len(ratings))]
+        
+        for i in range(1,len(ratings)):
+            if ratings[i]>ratings[i-1]: ans[i] = 1+ans[i-1]
+        for i in range(len(ratings)-2,-1,-1):
+            if ratings[i]>ratings[i+1]: ans[i] = max(ans[i],1+ans[i+1])
+                
+        return sum(ans)
+
+#Date: December 26, 2021
+#https://leetcode.com/problems/number-complement/submissions/
+
+def findComplement(num):
+        
+        #find log2(num) and then use xor on tht
+        
+        import math
+        return num^sum([2**i for i in range(int(math.log(num,2))+1)])
