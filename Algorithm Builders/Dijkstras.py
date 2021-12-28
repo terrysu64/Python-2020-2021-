@@ -2,25 +2,61 @@
 #Author: Terry Su
 #Purpose: My own implementation of Dijkstra's Shortest Path Algorithm from scratch
 
-import heapq
 
-#Time complexity: O(v^2 + vlogv)
+#Time complexity: O(v + vlogv) with priority queue template
 #Space complexity: O(v)
 #where v is the number of vertices in the graph
+
+import collections
+import heapq
+import itertools
+
+#lower value = higher priority
+
+class PriorityQueue(collections.UserDict):
+    def __init__(self):
+        super().__init__(self)
+        self.heap = []
+        self.counter = itertools.count()
+
+    def pq_add(self, task, priority):
+        if task in self: self.pq_remove(task)
+        record = [priority, next(self.counter), task]
+        self[task] = record
+        heapq.heappush(self.heap, record)
+
+    def pq_remove(self, task):
+        if task in self:
+            record = self.pop(task)
+            record[-1] = None
+
+    def pq_pop(self):
+        while self.heap:
+            priority, _, task = heapq.heappop(self.heap)
+            if task != None:
+                del self[task]
+                return [task,priority]
+        else:
+            raise RuntimeError('Heap is empty.')
+
+    def info(self,task):
+        if task not in self: return False
+        return self[task]
 
 def solve(adj,stt): #solve for shortest path from a starting node based on adjacency matrix of a weighted graph
 
     if not adj or len(adj)==1: return 0
     unvis = {i for i in range(len(adj))}
-    tab = {i:float('inf') for i in range(len(adj))}
-    tab[stt] = 0
+    pq = PriorityQueue()
+    pq.pq_add(stt,0)
+    for i in range(1,len(adj)): pq.pq_add(i,float('inf'))
 
     while unvis:
-        curr = sorted(unvis,key=lambda x:tab[x])[0]
+        curr,dis = pq.pq_pop()
         for i in range(len(adj[curr])):
-            if i in unvis and adj[curr][i]: tab[i] = min(tab[i],tab[curr]+adj[curr][i])
+            if i in unvis and adj[curr][i] and pq.info(i)[0] > dis+adj[curr][i]: pq.pq_add(i,dis+adj[curr][i])
         unvis.remove(curr)
-        print(curr, tab[curr]) #destination, shortest path
+        print(curr,dis) #destination, shortest path
     
 
 #Nodes are A,B,C,D,E (indices 0,1...)
@@ -41,6 +77,6 @@ test2 = [[0, 4, 0, 0, 0, 0, 0, 8, 0],
         [0, 0, 2, 0, 0, 0, 6, 7, 0]
         ]
 
-solve(test1,0)
+#solve(test1,0)
 #solve(test1,1)
-#solve(test2,0)
+solve(test2,0)
