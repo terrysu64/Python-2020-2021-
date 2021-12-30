@@ -6320,3 +6320,40 @@ def countDigitOne(n):
         elif lo <= pot < hi: 
             ans += pot - lo + 1
     return ans
+
+#Date: December 30, 2021
+#https://leetcode.com/problems/min-cost-to-connect-all-points/submissions/
+
+def minCostConnectPoints(coords):
+        
+    #Kruskal's algo; in this case since we wanna choose V-1 E out of approx. coords^2 E the solution should have a general complexity of O(n^2)
+    #we'll use a DSU to detect cycles
+    
+    def find(x,dsu):
+        if dsu[x]==-1: return x
+        dsu[x] = find(dsu[x],dsu)
+        return dsu[x]
+    
+    def union(x,y,dsu):
+        res1,res2 = find(x,dsu),find(y,dsu)
+        if res1==res2: return False #cycle 
+        dsu[res1] = res2
+        return True
+    
+    if len(coords)==1: return 0
+    
+    dis,dsu = {},{}
+    for i in range(len(coords)):
+        dsu[tuple(coords[i])] = -1
+        for j in range(i+1,len(coords)): 
+            dis[(tuple(coords[i]),tuple(coords[j]))] = abs(coords[i][0]-coords[j][0])+abs(coords[i][1]-coords[j][1])
+    
+
+    count,ans = 0,0
+    for pair in sorted(dis,key=lambda _:dis[_]):
+        if not union(pair[0],pair[1],dsu): continue
+        ans += dis[pair]; count += 1
+        if count==len(coords)-1: return ans
+    
+    
+    
