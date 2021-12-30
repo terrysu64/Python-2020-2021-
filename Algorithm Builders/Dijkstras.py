@@ -48,9 +48,9 @@ def solve(adj,stt): #solve for shortest path from a starting node based on adjac
     if not adj or len(adj)==1: return 0
     unvis = {i for i in range(len(adj))}
     pq = PriorityQueue()
+    for i in range(len(adj)): pq.pq_add(i,float('inf'))
     pq.pq_add(stt,0)
-    for i in range(1,len(adj)): pq.pq_add(i,float('inf'))
-
+    
     while unvis:
         curr,dis = pq.pq_pop()
         for i in range(len(adj[curr])):
@@ -77,6 +77,6 @@ test2 = [[0, 4, 0, 0, 0, 0, 0, 8, 0],
         [0, 0, 2, 0, 0, 0, 6, 7, 0]
         ]
 
-#solve(test1,0)
+solve(test1,0)
 #solve(test1,1)
 solve(test2,0)

@@ -6237,3 +6237,86 @@ def canBeValid(s,locked):
         
         if bal%2: return False
         return True
+
+#Date: December 28, 2021
+#https://leetcode.com/problems/network-delay-time/submissions/
+
+import collections
+import heapq
+import itertools
+class PriorityQueue(collections.UserDict):
+        
+    def __init__(self):
+        super().__init__(self)
+        self.heap = []
+        self.counter = itertools.count()
+
+    def pq_add(self, task, priority):
+        if task in self: self.pq_remove(task)
+        record = [priority, next(self.counter), task]
+        self[task] = record
+        heapq.heappush(self.heap, record)
+
+    def pq_remove(self, task):
+        if task in self:
+            record = self.pop(task)
+            record[-1] = None
+
+    def pq_pop(self):
+        while self.heap:
+            priority, _, task = heapq.heappop(self.heap)
+            if task != None:
+                del self[task]
+                return [task,priority]
+        else:
+            raise RuntimeError('Heap is empty.')
+
+    def info(self,task):
+        if task not in self: return False
+        return self[task]
+            
+class Solution:
+    def networkDelayTime(self, times, n: int, k: int) -> int:
+        
+        #dijkstra implementation 
+
+        def solve(adj,stt): 
+
+            if not adj or len(adj)==1: return 0
+            unvis = {i for i in range(len(adj))}
+            pq = PriorityQueue()
+            for i in range(len(adj)): pq.pq_add(i,float('inf'))
+            pq.pq_add(stt,0)
+
+            while unvis:
+                curr,dis = pq.pq_pop()
+                for i in range(len(adj[curr])):
+                    if i in unvis and adj[curr][i]!=None and pq.info(i)[0] > dis+adj[curr][i]: pq.pq_add(i,dis+adj[curr][i])
+                unvis.remove(curr)
+                if type(dis)==float: return -1
+                if not unvis: return dis
+        
+        adj = [[None for _ in range(n)] for  __ in range(n)]
+        for v in times: adj[v[0]-1][v[1]-1] = v[2]
+        return solve(adj,k-1)
+
+#Date: December 29, 2021
+#https://leetcode.com/problems/number-of-digit-one/
+
+def countDigitOne(n):
+        
+    #O(logn) mathematical solution
+    #intervals of new 1s: 0-9, 10-99, 100-999, 1000,9999... 
+        #each interval yields 1,10,100,etc. new '1's respectively
+    #conditions for FULL yield when %upper bound+1: 1 <=, 19 <=, 199 <=...
+    #conditions for PARTIAL yielf when %upper bound+1: None, 10 <= < 19,  100 <= < 199, 1000 <= < 1999 ... 
+    
+    ans = 0
+    for i in range(len(str(n))):
+        curr = 10**(i+1)
+        hi,lo = int('1'+'9'*i), int('1'+'0'*i)
+        ans += (n//curr) * 10**i
+        if (pot:=n%curr) >= hi: ans += 10**i
+        elif lo <= pot < hi: 
+            ans += pot - lo + 1
+    return ans
