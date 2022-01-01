@@ -6354,6 +6354,26 @@ def minCostConnectPoints(coords):
         if not union(pair[0],pair[1],dsu): continue
         ans += dis[pair]; count += 1
         if count==len(coords)-1: return ans
+
+#Date: January 1, 2022
+#https://leetcode.com/problems/burst-balloons/
+
+def maxCoins(nums):
+        
+    #an O(n^3) bottom up approach (focus on which balloon we should burst last) + interval dp 
+    #dp[i][j] = ans for interval of i -> j where i,j are indices
+    #Note: dp[i][j] is evaluated relative to the left and right boundaries (i.e l,r in the code)
     
+    n = len(nums); nums += [1]
+    dp = [[0 for _ in range(n)] for __ in range(n)]
+
+    for count in range(n):
+        for i in range(n):
+            j=i+count
+            if j>=n: break
+            l,r = nums[i-1], nums[j+1]
+            dp[i][j]= max(l*r*nums[x] + (dp[i][x-1] if x>i else 0) + (dp[x+1][j] if x<j else 0) for x in range(i,j+1))
     
-    
+    return dp[0][-1]
+
+
