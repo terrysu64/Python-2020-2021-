@@ -6376,4 +6376,15 @@ def maxCoins(nums):
     
     return dp[0][-1]
 
+#Date: January 1, 2022
+#https://leetcode.com/problems/uncrossed-lines/submissions/
 
+def maxUncrossedLines(nums1,nums2):
+        
+    #Longest common subsequence dp; using LCS ensures tht lines acc never cross coz each line would be ahead of one another
+    
+    dp = [[0 for _ in range(len(nums1)+1)] for __ in range(len(nums2)+1)]
+    for i in range(1,len(dp)):
+        for j in range(1,len(dp[0])):
+            dp[i][j] = max(dp[i-1][j],dp[i][j-1],dp[i-1][j-1]+1 if nums1[j-1]==nums2[i-1] else 0)
+    return dp[-1][-1]
