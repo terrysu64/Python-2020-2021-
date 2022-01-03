@@ -6388,3 +6388,86 @@ def maxUncrossedLines(nums1,nums2):
         for j in range(1,len(dp[0])):
             dp[i][j] = max(dp[i-1][j],dp[i][j-1],dp[i-1][j-1]+1 if nums1[j-1]==nums2[i-1] else 0)
     return dp[-1][-1]
+
+#Date: January 1, 2022
+#https://leetcode.com/problems/pairs-of-songs-with-total-durations-divisible-by-60/
+
+def numPairsDivisibleBy60(time):
+        
+        #Intuitive O(n) solution
+        
+        from collections import defaultdict
+        ans = 0
+        ot = defaultdict(int)
+        for t in time: ot[t%60] += 1
+        for t in time: 
+            comp = 60-t%60
+            ot[t%60] -= 1
+            ans += ot[comp if comp!=60 else 0]
+        return ans
+
+#Date: January 2, 2021
+#https://leetcode.com/problems/nearest-exit-from-entrance-in-maze/submissions/
+
+def nearestExit(maze,entrance):
+        
+    #intuitive O(mn) BFS
+    
+    from collections import deque
+    seen,dq = set(), deque([tuple(entrance)])
+    ans = 0 
+
+    def valid(i,j):
+        if 0<=i<len(maze) and 0<=j<len(maze[0]) and maze[i][j]=='.': return True
+        return False
+    
+    def end(i,j):
+        if i==0 or i==len(maze)-1 or j==0 or j==len(maze[0])-1: return True
+        return False
+
+    while dq:
+        for x in range(len(dq)):
+            curr=dq.popleft()
+            seen.add(curr)
+            i,j = curr[0],curr[1]
+            if curr!=tuple(entrance) and end(i,j): return ans
+            for I,J in [[i+1,j],[i-1,j],[i,j+1],[i,j-1]]:
+                if valid(I,J) and (I,J) not in seen: seen.add((I,J)); dq += [(I,J)]
+        ans += 1
+    
+    return -1
+ 
+ #Date: January 2, 2021
+ #https://leetcode.com/problems/minimum-cost-to-reach-destination-in-time/
+
+def minCost(maxt,edges,fees):
+        
+    #a O(mn) 2D dp approach, the general thought is: after travelling a distance 'x' what is the minimum cost to reach node 'y'?
+    
+    n=len(fees)
+    dp = [[float('inf')]*n for __ in range(maxt+1)]; dp[0][0] = fees[0]
+    ans = float('inf')
+    
+    for i in range(1,maxt+1):
+        for op,ed,dis in edges: 
+            if dis<=i:
+                dp[i][op] = min(dp[i][op], dp[i-dis][ed]+fees[op])
+                dp[i][ed] = min(dp[i][ed], dp[i-dis][op]+fees[ed])
+        ans=min(ans,dp[i][n-1])
+        
+    return (ans if type(ans)==int else -1)
+
+#Date: January 2, 2021
+#https://leetcode.com/problems/find-the-town-judge/submissions/
+
+def findJudge(n,trust):
+        
+    #trivial intutition
+    
+    trst = {i:[0,0] for i in range(1,n+1)} #trusted, trusts
+    for x,y in trust:
+        trst[y][0] += 1; trst[x][1] += 1
+    
+    for pos in trst: 
+        if trst[pos][0]==n-1 and not trst[pos][1]: return pos
+    return -1
