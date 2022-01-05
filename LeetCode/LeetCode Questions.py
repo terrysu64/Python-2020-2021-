@@ -6471,3 +6471,21 @@ def findJudge(n,trust):
     for pos in trst: 
         if trst[pos][0]==n-1 and not trst[pos][1]: return pos
     return -1
+
+#Date: January 5, 2021
+#https://leetcode.com/problems/ugly-number-ii/
+
+def nthUglyNumber(n):
+        
+    #intuitive O(nlogn) time and O(n) space heap solution
+    
+    import heapq
+    seen={1}
+    pq = [1]; heapq.heapify(pq)
+    for _ in range(n-1):
+        curr=heapq.heappop(pq)
+        for x in [2,3,5]:
+            if x*curr not in seen:
+                heapq.heappush(pq,x*curr)
+                seen.add(x*curr)
+    return heapq.heappop(pq)
