@@ -6489,3 +6489,23 @@ def nthUglyNumber(n):
                 heapq.heappush(pq,x*curr)
                 seen.add(x*curr)
     return heapq.heappop(pq)
+
+#Date: Jnauary 5,2021
+#https://leetcode.com/problems/car-pooling/submissions/
+
+def carPooling(trips,n):
+        
+    #sort by start time and append end time + ppl into pq, check at each significant point of time if it exceeds max 
+    #if it does then jus return false
+    
+    import heapq
+    trips.sort(key=lambda x:x[1])
+    pq=[]
+    curr=0
+    for ppl,op,ed in trips:
+        while pq and pq[0][0] <= op: 
+            curr -= heapq.heappop(pq)[1]
+        curr += ppl
+        if curr>n: return False
+        heapq.heappush(pq,(ed,ppl))
+    return True
