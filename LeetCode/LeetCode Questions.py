@@ -6406,7 +6406,7 @@ def numPairsDivisibleBy60(time):
             ans += ot[comp if comp!=60 else 0]
         return ans
 
-#Date: January 2, 2021
+#Date: January 2, 2022
 #https://leetcode.com/problems/nearest-exit-from-entrance-in-maze/submissions/
 
 def nearestExit(maze,entrance):
@@ -6437,7 +6437,7 @@ def nearestExit(maze,entrance):
     
     return -1
  
- #Date: January 2, 2021
+ #Date: January 2, 2022
  #https://leetcode.com/problems/minimum-cost-to-reach-destination-in-time/
 
 def minCost(maxt,edges,fees):
@@ -6457,7 +6457,7 @@ def minCost(maxt,edges,fees):
         
     return (ans if type(ans)==int else -1)
 
-#Date: January 2, 2021
+#Date: January 2, 2022
 #https://leetcode.com/problems/find-the-town-judge/submissions/
 
 def findJudge(n,trust):
@@ -6472,7 +6472,7 @@ def findJudge(n,trust):
         if trst[pos][0]==n-1 and not trst[pos][1]: return pos
     return -1
 
-#Date: January 5, 2021
+#Date: January 5, 2022
 #https://leetcode.com/problems/ugly-number-ii/
 
 def nthUglyNumber(n):
@@ -6490,7 +6490,7 @@ def nthUglyNumber(n):
                 seen.add(x*curr)
     return heapq.heappop(pq)
 
-#Date: Jnauary 5,2021
+#Date: Jnauary 5,2022
 #https://leetcode.com/problems/car-pooling/submissions/
 
 def carPooling(trips,n):
@@ -6509,3 +6509,54 @@ def carPooling(trips,n):
         if curr>n: return False
         heapq.heappush(pq,(ed,ppl))
     return True
+
+#Date: January 6, 2022
+#https://leetcode.com/problems/count-of-smaller-numbers-after-self/
+
+def countSmaller(nums):
+    
+    #basic binary search (could be worse case O(n^2) tho)
+    #essentially we traverse backwords and build a sorted array of previously traversed elements then we BS to find how many elements the current one is greater than
+    
+    import bisect
+    ins = []
+    res = [0 for _ in range(len(nums))]
+    for i in range(len(nums)-1,-1,-1):
+        res[i] = bisect.bisect_left(ins,nums[i])
+        bisect.insort(ins,nums[i])
+    return res
+
+#Date: January 6, 2022
+#https://leetcode.com/problems/frog-jump/
+
+def canCross(stones):
+        
+    #simple brute force dfs+memo
+    
+    def dfs(curr,jump):
+        if curr==self.targ: return True
+        if (curr,jump) in self.seen: return False
+        self.seen.add((curr,jump))
+        return (dfs(curr+jump+1,jump+1) if curr+jump+1 in self.stones else False) or (dfs(curr+jump-1,jump-1) if curr+jump-1 in self.stones and curr+jump-1 else False) or (dfs(curr+jump,jump) if curr+jump in self.stones else False)
+    
+    self.seen,self.stones,self.targ = set(),set(stones), stones[-1]
+    return dfs(0,0)
+
+#Date: January 7, 2022
+#https://leetcode.com/problems/cherry-pickup-ii/submissions/
+
+def cherryPickup(grid):
+
+    #typical dfs + memo approach
+    
+    def valid(j):
+        if 0<=j<len(grid[0]): return True
+        return False 
+    
+    @cache
+    def dfs(i,j1,j2):
+        if not valid(j1) or not valid(j2): return 0
+        res = grid[i][j1]+grid[i][j2] // (2 if j1==j2 else 1)
+        if i!=len(grid)-1: res += max(dfs(i+1,J,JJ) for J in [j1,j1+1,j1-1] for JJ in [j2,j2+1,j2-1])
+        return res
+    return dfs(0, 0, len(grid[0]) - 1)
