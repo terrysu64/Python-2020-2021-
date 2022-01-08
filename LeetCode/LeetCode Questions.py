@@ -6560,3 +6560,59 @@ def cherryPickup(grid):
         if i!=len(grid)-1: res += max(dfs(i+1,J,JJ) for J in [j1,j1+1,j1-1] for JJ in [j2,j2+1,j2-1])
         return res
     return dfs(0, 0, len(grid[0]) - 1)
+
+#Date: January 7, 2022
+#https://leetcode.com/problems/capitalize-the-title/
+
+def capitalizeTitle(title):
+        
+    title = title.lower()
+    
+    arr = title.split()
+    for i in range(len(arr)):
+        if len(arr[i])<=2: continue
+        arr[i] = arr[i][0].upper() + arr[i][1:]
+    
+    return ' '.join(arr)
+
+#https://leetcode.com/problems/maximum-twin-sum-of-a-linked-list/
+def pairSum(head):
+        
+    if not head: return 0
+    
+    curr=head
+    arr=[]
+    ans = float('-inf')
+    while curr:
+        arr += [curr.val]
+        curr = curr.next
+    
+    l,r = 0,len(arr)-1
+    while l<r:
+        ans = max(ans,arr[l]+arr[r])
+        l+=1; r-=1
+    ans = max(ans,arr[l]+arr[r])
+    
+    return ans
+
+#https://leetcode.com/problems/longest-palindrome-by-concatenating-two-letter-words/
+def longestPalindrome(words)
+
+        #you could iterate everything and try to find its complement
+        
+        #gotta be O(n)
+        
+        from collections import Counter
+        ans=0
+        pos=0
+        comp = Counter(words)
+        it = [x for x in comp]
+        for x in it:
+            co = x[1]+x[0]
+            if co==x: 
+                if comp[x] >= 2: ans += (comp[x]//2)*4
+                if comp[x]%2: pos=2
+                continue
+            ans += min(comp[x],comp[co])*4
+            comp[x],comp[co] = 0,0
+        return ans+pos
