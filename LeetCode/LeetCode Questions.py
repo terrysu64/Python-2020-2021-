@@ -6616,3 +6616,20 @@ def longestPalindrome(words)
             ans += min(comp[x],comp[co])*4
             comp[x],comp[co] = 0,0
         return ans+pos
+
+#https://leetcode.com/problems/robot-bounded-in-circle/submissions/
+def isRobotBounded(instructions):
+        
+    #intutive solution; find net mouvement after each maximum circle instruction (4 directions)
+    
+    curr,pos=0,[0,0]
+    mvs={0:(0,1),1:(1,0),2:(0,-1),3:(-1,0),-1:(-1,0),-2:(0,-1),-3:(1,0)}
+    for x in instructions*4:
+        if x=='L': curr += 1
+        elif x=='R': curr -= 1
+        else:
+            if curr>=4 or curr<=-4: curr%=4
+            i,j=mvs[curr]
+            pos[0] += i; pos[1] += j
+    if pos==[0,0]: return True
+    return False
