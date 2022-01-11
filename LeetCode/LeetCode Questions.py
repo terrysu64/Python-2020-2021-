@@ -6633,3 +6633,24 @@ def isRobotBounded(instructions):
             pos[0] += i; pos[1] += j
     if pos==[0,0]: return True
     return False
+
+def numDecodings(s):
+
+    #seems like a typical O(N) memo problem, for each s --> however many s[1:] and s[2:] possibilities. Edge cases to be dealt seperately once it becomes len(s) in [1,2]
+    
+    self.memo={}
+    def valid(s):
+        if len(s)==2 and s[0]=='0': return False
+        if 0<int(s)<27: return 1
+        return 0
+    
+    def solve(s):
+        if s in self.memo: return self.memo[s]
+        if len(s)==1:
+            if int(s): return 1
+            return 0
+        if len(s)==2: return valid(s) + (valid(s[0])&valid(s[1]))
+        self.memo[s] = (solve(s[1:]) if valid(s[0]) else 0) + (solve(s[2:]) if valid(s[:2]) else 0)
+        return self.memo[s]
+    
+    return solve(s)
