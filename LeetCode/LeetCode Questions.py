@@ -6654,3 +6654,18 @@ def numDecodings(s):
         return self.memo[s]
     
     return solve(s)
+
+#https://leetcode.com/problems/insert-into-a-binary-search-tree/submissions/
+
+def insertIntoBST(root,val):
+        
+    curr=root
+    if not root: return TreeNode(val)
+    while True:
+        if val<curr.val:
+            if not curr.left: curr.left=TreeNode(val); break
+            else: curr=curr.left
+        elif val>curr.val:
+            if not curr.right: curr.right=TreeNode(val); break
+            else: curr=curr.right
+    return root
