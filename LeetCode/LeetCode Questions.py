@@ -6669,3 +6669,34 @@ def insertIntoBST(root,val):
             if not curr.right: curr.right=TreeNode(val); break
             else: curr=curr.right
     return root
+
+#https://leetcode.com/problems/coin-change/
+
+def coinChange(coin,amount):
+        
+    #it appears to be typical O(n^2) 1-D dp. we only need to calculate up to the desired amount and we always attempt to minimize # of coins that form components that form "amount"
+    
+    dp=[0]+[float('inf') for _ in range(amount)]
+    for n in coins:
+        for i in range(len(dp)):
+            if type(dp[i])==int and i+n<len(dp): dp[i+n]=min(dp[i+n],dp[i]+1)
+    return dp[-1] if type(dp[-1])==int else -1
+
+#https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/submissions/
+def findMinArrowShots(points):
+        
+        #seems like a greedy problem where u shoot in priority of overlaps, should be nlogn or n 
+        #ok so looks like we were right; when we take out a balloon, just take out as many as u can along with it
+        
+        import bisect
+        
+        points.sort(key=lambda x:x[0])
+        pp=[x[0] for x in points]
+        
+        i,ans = 0,0
+        while i<len(points):
+            mined=points[i][1]
+            while i<len(points) and points[i][0]<=mined:
+                mined=min(mined,points[i][1]); i+=1
+            ans+=1
+        return ans
