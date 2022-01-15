@@ -6700,3 +6700,28 @@ def findMinArrowShots(points):
                 mined=min(mined,points[i][1]); i+=1
             ans+=1
         return ans
+
+#https://leetcode.com/problems/jump-game-iv/submissions/
+def minJumps(arr):
+        
+        #a simple graph bfs
+        
+        from collections import deque
+        
+        conc=defaultdict(list)
+        for i,j in enumerate(arr): conc[j] += [i]
+        
+        def valid(i):
+            if 0<=i<len(arr): return True
+            return False
+        
+        ans=0
+        dq,seen=deque([0]),{0}
+        while dq:
+            for i in range(len(dq)):
+                curr=dq.popleft(); seen.add(curr)
+                if curr==len(arr)-1: return ans
+                dq += [x for x in [curr+1 if valid(curr+1) else None,curr-1 if valid(curr-1) else None]+conc[arr[curr]] if x!=None and x not in seen]
+                conc[arr[curr]]=[]
+            ans+=1
+        return ans
