@@ -6596,7 +6596,7 @@ def pairSum(head):
     return ans
 
 #https://leetcode.com/problems/longest-palindrome-by-concatenating-two-letter-words/
-def longestPalindrome(words)
+def longestPalindrome(words):
 
         #you could iterate everything and try to find its complement
         
@@ -6725,3 +6725,31 @@ def minJumps(arr):
                 conc[arr[curr]]=[]
             ans+=1
         return ans
+
+#https://leetcode.com/problems/interleaving-string/submissions/
+def isInterleave(s1,s2,s3):
+
+        #this seems like a brute force + dp memo question coz u can interleave a certain substring of s3 and have the same remaining substrings of s1 and s2 left.
+        #so yea lol
+        
+        if len(s1)+len(s2)!=len(s3): return False
+        
+        @cache
+        def dfs(curr,rem1,rem2):
+            if len(curr)==len(s3): return True
+            return (dfs(curr+rem1[0],rem1[1:],rem2) if (rem1 and rem1[0]==s3[len(curr)]) else False) or (dfs(curr+rem2[0],rem1,rem2[1:]) if (rem2 and rem2[0]==s3[len(curr)]) else False)
+        
+        return dfs('',s1,s2) 
+
+#https://leetcode.com/problems/russian-doll-envelopes/submissions/
+def maxEnvelopes(envs):
+        
+    #just apply LIS and pay attention to avoid collisions with cases between equal widths but height1<height2
+    
+    import bisect
+    arr=[x[1] for x in sorted(envs,key=lambda x:(x[0],-x[1]))] 
+    stack=[]
+    for x in arr:
+        if stack and (i:=bisect.bisect_left(stack,x))<len(stack): stack[i]=x
+        else: stack += [x]
+    return len(stack)
