@@ -6753,3 +6753,40 @@ def maxEnvelopes(envs):
         if stack and (i:=bisect.bisect_left(stack,x))<len(stack): stack[i]=x
         else: stack += [x]
     return len(stack)
+
+#https://leetcode.com/problems/maximize-distance-to-closest-person/submissions/
+def maxDistToClosest(seats):
+        
+    #O(n) dpl dpr typa problem
+    
+    dpl,dpr=[float('inf') for _ in range(len(seats))],[float('inf') for _ in range(len(seats))]
+    for i in range(len(seats)):
+        if seats[i]: dpl[i]=0
+        elif i: dpl[i]=dpl[i-1]+1
+    for i in range(len(seats)-1,-1,-1):
+        if seats[i]: dpr[i]=0
+        elif i<len(seats)-1: dpr[i]=dpr[i+1]+1
+    return max(min(i,j) for i,j in zip(dpl,dpr))
+
+#https://leetcode.com/problems/minimum-falling-path-sum-ii/
+def minFallingPathSum(grid):
+        
+        #O(mn) top-down dp, looks like its jus dp[i][j] += dp[i-1][j], and then we sweep the row to see find out the real dp[i][j]
+    
+        if all([len(grid)==1,len(grid[0])==1]): return grid[0][0]
+    
+        def helper(i):
+            psl,psr=[grid[i][0]],[0]*(len(grid[0])-1)+[grid[i][-1]]
+            for j in range(1,len(grid[0])):
+                psl += [min(grid[i][j],psl[-1])]
+            for j in range(len(grid[0])-2,-1,-1):
+                psr[j] = min(grid[i][j],psr[j+1])
+            for j in range(len(grid[0])):
+                grid[i][j] = min(psl[j-1] if j-1>=0 else float('inf'),psr[j+1] if j+1<len(grid[0]) else float('inf'))
+            
+        for i in range(len(grid)):
+            if not i: helper(i); continue
+            for j in range(len(grid[0])):
+                grid[i][j] += grid[i-1][j]
+            helper(i)
+        return min(grid[-1])
