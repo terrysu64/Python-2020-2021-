@@ -6790,3 +6790,30 @@ def minFallingPathSum(grid):
                 grid[i][j] += grid[i-1][j]
             helper(i)
         return min(grid[-1])
+
+#https://leetcode.com/problems/solving-questions-with-brainpower/submissions/
+def mostPoints(questions):
+        
+    #points, brainpower
+    #should be O(n) memo (this happens to be over tle by a lil bit)
+    
+    #you can take or skip
+    #if u iterate backawards u can find max when time is up by 1-d dp
+    
+    dp = [0 for _ in range(len(questions))]
+    for i in range(len(questions)-1,-1,-1):
+        dp[i] = max(dp[i+1] if i+1<len(questions) else 0, questions[i][0]+(dp[1+i+questions[i][1]] if 1+i+questions[i][1]<len(questions) else 0))
+    return dp[0]
+
+#https://leetcode.com/problems/range-sum-query-2d-immutable/submissions/
+class NumMatrix:
+
+    def __init__(self, matrix):
+        self.lookup = defaultdict(int)
+        
+        for i in range(len(matrix)):
+            for j in range(len(matrix[0])):
+                self.lookup[(i, j)] = self.lookup[(i-1, j)] + self.lookup[(i, j-1)] - self.lookup[(i-1, j-1)] + matrix[i][j]
+
+    def sumRegion(self, row1: int, col1: int, row2: int, col2: int) -> int:
+        return self.lookup[(row2, col2)] - self.lookup[(row1-1, col2)] - self.lookup[(row2, col1-1)] + self.lookup[(row1-1, col1-1)]
