@@ -6817,3 +6817,17 @@ class NumMatrix:
 
     def sumRegion(self, row1: int, col1: int, row2: int, col2: int) -> int:
         return self.lookup[(row2, col2)] - self.lookup[(row1-1, col2)] - self.lookup[(row2, col1-1)] + self.lookup[(row1-1, col1-1)]
+
+#https://leetcode.com/problems/koko-eating-bananas/submissions/
+def minEatingSpeed(piles,h):
+        
+        #BS O(nlogn) solution
+        
+        import math
+        l,r=1,max(piles)
+        while l<r:
+            m=(l+r)//2; tot=sum(math.ceil(p/m) for p in piles)
+            if tot>h: l=m+1
+            else: r=m
+        return l
+        
