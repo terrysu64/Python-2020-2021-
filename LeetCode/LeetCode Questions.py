@@ -6848,3 +6848,107 @@ def winnerSquareGame(n):
             if i-s<0: break
             elif not dp[i-s]: dp[i]=True; break
     return dp[-1]
+
+#https://leetcode.com/problems/minimum-cost-of-buying-candies-with-discount/
+def minimumCost(cost):
+        
+    #greedy
+    
+    cost.sort(reverse=True)
+    ans=0
+    for i in range(len(cost)):
+        if not (i+1)%3: continue
+        ans += cost[i]
+    return ans
+
+#https://leetcode.com/problems/count-the-hidden-sequences/
+def numberOfArrays(differences, lower: int, upper: int) -> int:
+        
+    #if min max dont work: no possibilities
+    
+    arr=[0]
+    mini,maxi = 0,0
+    for x in differences: 
+        arr += [arr[-1]+x]
+        mini = min(mini,arr[-1]); maxi = max(maxi,arr[-1])
+    
+    diff= lower-mini
+    
+    if maxi+diff>upper: return 0
+
+    return 1+upper-(maxi+diff)
+
+#https://leetcode.com/problems/k-highest-ranked-items-within-a-price-range/
+def highestRankedKItems(grid, pricing, start: List[int], k: int):
+        
+    #typical bfs
+    
+    from collections import deque
+    ans = []
+    dq= deque([tuple(start)])
+    seen = {tuple(start)}
+    lo,hi = pricing
+    
+    def valid(i,j):
+        if 0<=i<len(grid) and 0<=j<len(grid[0]): return True
+        return False
+    
+    while dq and len(ans)<k:
+        temp = []
+        for _ in range(len(dq)):
+            i,j=dq.popleft()
+            if lo<=grid[i][j]<=hi: temp += [[i,j]]
+            for I,J in [(i-1,j),(i+1,j),(i,j+1),(i,j-1)]:
+                if valid(I,J) and grid[i][j] and (I,J) not in seen:
+                    dq += [(I,J)]; seen.add((I,J))
+
+        ans += sorted(temp, key=lambda x:(grid[x[0]][x[1]], x[0],x[1]))
+    
+    return ans[:k]
+     
+#https://leetcode.com/problems/number-of-ways-to-divide-a-long-corridor/
+def numberOfWays(cor):
+        
+    #Bruhhh I chocked so hard on the contest
+    #the solution itself is acc very intuitive. jus divide 2 by 2 literally and multiply possibilities.  
+    
+    arr = [i for i,j in enumerate(cor) if j=='S']
+    if not len(arr) or len(arr)%2: return 0
+    ans = 1
+    for i in range(1,len(arr)-1,2):
+        ans *= arr[i+1]-arr[i]
+    return ans % (10**9+7)    
+
+#https://leetcode.com/problems/stamping-the-grid/
+def possibleToStamp(grid,h,w):
+        
+    #O(mn) time/space
+    #2-d psa the whole grid to see which positions are stampable first
+    #then use 2-d difference array (acc more like defaultdict) to check if theres any unstamped positions 
+    
+    from collections import defaultdict
+    dp=defaultdict(int)
+    stmp = []
+    for i in range(len(grid)):
+        for j in range(len(grid[0])):
+            if not grid[i][j]: grid[i][j]=1
+            else: grid[i][j]=0
+            dp[(i,j)] = grid[i][j]+dp[(i-1,j)]+dp[(i,j-1)]-dp[(i-1,j-1)]
+            if dp[(i,j)]-dp[(i,j-w)]-dp[(i-h,j)]+dp[(i-h,j-w)]==h*w: stmp += [[i,j]]
+
+    da = defaultdict(int)
+    for i,j in stmp:
+        if dp[(i,j)]:
+            da[(i+1,j+1)] += 1
+            da[(i-h+1,j-w+1)] += 1
+            da[(i+1,j-w+1)] -= 1
+            da[(i-h+1,j+1)] -= 1
+    
+    for i in range(len(grid)):
+        for j in range(len(grid[0])):
+            if not grid[i][j]: continue
+            grid[i][j] = (grid[i-1][j] if i>0 else 0) + (grid[i][j-1] if j>0 else 0) - (grid[i-1][j-1] if i>0 and j>0 else 0) + da[(i,j)]
+            if not grid[i][j]: return False
+    
+    return True
+     
