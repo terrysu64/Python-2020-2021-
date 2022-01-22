@@ -6830,4 +6830,21 @@ def minEatingSpeed(piles,h):
             if tot>h: l=m+1
             else: r=m
         return l
+
+#https://leetcode.com/problems/stone-game-iv/
+def winnerSquareGame(n):
         
+    #A nice O(n^1.5) time dp solution
+    #dp[i] = if current player can force the opponent into a losing state
+    #this is pre much jus a top-down intuitive approach
+    
+    #e.g if I got 2 left, I can take 2 and force a win. Therefore if someone can force me into 2, I'll lose...
+    #the key point is "assuming both players play optimally". ^^thts wht it means
+    
+    sqr=[i**2 for i in range(1,int(n**0.5)+1)]
+    dp=[False for _ in range(n+1)]
+    for i in range(1,n+1):
+        for s in sqr:
+            if i-s<0: break
+            elif not dp[i-s]: dp[i]=True; break
+    return dp[-1]
