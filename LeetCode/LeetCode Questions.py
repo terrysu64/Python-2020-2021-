@@ -6951,4 +6951,18 @@ def possibleToStamp(grid,h,w):
             if not grid[i][j]: return False
     
     return True
-     
+
+#https://leetcode.com/problems/sequential-digits/submissions/
+def sequentialDigits(low,high):
+        
+    #intuitive O(1) solution
+    
+    self.ans = []
+    
+    def dfs(curr,n):
+        if low<=curr<=high: self.ans += [curr]
+        if curr>high or n==10: return
+        dfs(curr*10+n,n+1)
+    
+    for i in range(1,10): dfs(i,i+1)
+    return sorted(self.ans)     
