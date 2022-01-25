@@ -6984,3 +6984,51 @@ def gardenNoAdj(n,paths):
         while flw in used: flw += 1
         ans[i] = flw
     return ans
+
+#https://leetcode.com/problems/couples-holding-hands/
+def minSwapsCouples(row):
+        
+    #O(n) time/space dsu solution
+    #if considering 2 chairs at a time, you can either make a full swap with another couple or a partial swap
+    #full swap = get rid of two pairs in one swap
+    #partial swap = need 2+ swaps for 3+ pairs
+    
+    #Therefore... 
+    #size 2 dsu = done
+    #size 4 dsu = 1 swap
+    #everything else:
+        #you will have at least 6 people to deal with (this would be 2 swaps), 8 would be 3 ...
+        #so building off of this you'll need to swap (numnber of chairs-1 in question) times. 
+        
+    #constraints are loose so rebuilding the dsu after each swap is also possible tho its tedious
+    
+    
+    self.dsu = {n:[1] for n in range(len(row))}
+    
+    def find(x):
+        if type(self.dsu[x])==list: return x
+        self.dsu[x] = find(self.dsu[x])
+        return self.dsu[x]
+    
+    def union(x,y):
+        res1,res2 = find(x), find(y)
+        if res1!=res2: 
+            self.dsu[res2][0] += self.dsu[res1][0]
+            self.dsu[res1] = res2
+            
+    comp = {}
+    for i in range(len(row)):
+        comp[row[i]+1 if not row[i]%2 else row[i]-1] = i
+    
+    for i in range(len(row)):
+        if not i%2: union(i,i+1)
+        union(i,comp[row[i]])
+    
+    ans = 0
+    for x in self.dsu:
+        if self.dsu[x]==[4]: ans += 1
+        elif type(self.dsu[x])==list and self.dsu[x][0]>4: ans += (self.dsu[x][0]//2)-1
+
+    return ans
+
+ 
