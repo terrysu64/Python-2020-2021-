@@ -6966,3 +6966,21 @@ def sequentialDigits(low,high):
     
     for i in range(1,10): dfs(i,i+1)
     return sorted(self.ans)     
+
+#https://leetcode.com/problems/flower-planting-with-no-adjacent/submissions/
+def gardenNoAdj(n,paths):
+        
+    #It's just O(n) greedy coz of the fact that each vertice only has 3 edges so there will always be an open spot
+    
+    from collections import defaultdict
+    ans = [None for _ in range(n)]
+    edges = defaultdict(list)
+    for x,y in paths: 
+        x -= 1; y -= 1
+        edges[x] += [y]; edges[y] += [x]
+    for i in range(n):
+        used = {ans[j] for j in edges[i]}
+        flw = 1
+        while flw in used: flw += 1
+        ans[i] = flw
+    return ans
