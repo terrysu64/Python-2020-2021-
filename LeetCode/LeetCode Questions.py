@@ -7031,4 +7031,39 @@ def minSwapsCouples(row):
 
     return ans
 
+#https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/submissions/
+class Solution:
+    def findMaximumXOR(self,nums):
+        
+        #O(n) greedy + bitwise trie
+        
+        root = node()
+        for n in nums:
+            temp=bin(n)[2:]
+            curr=root
+            for x in ('0'*(32-len(temp))+temp):
+                x=int(x)
+                if not curr.next[x]: curr.next[x] = node(x)
+                curr = curr.next[x]
+
+        ans=0
+        for n in nums:
+            temp=bin(n)[2:]
+            bitn = ('0'*(32-len(temp))+temp)
+            res = '0b'
+            curr=root
+            for i in range(32): 
+                comp = (int(bitn[i])+1)%2
+                curr = curr.next[comp] if curr.next[comp] else curr.next[int(bitn[i])]
+                res += str(curr.val)
+            ans = max(ans,n^int(res,2))
+        return ans
+        
+class node:
+    def __init__(self,val=None):
+        self.val = val
+        self.next = [0,0]
+        
+        
+
  
