@@ -18,7 +18,7 @@ class BIT:
             i += i&-i
         return
 
-    def sum(left,right):
+    def sum(self,left,right):
         def prefix_sum(i):
             res = 0
             while i>0:
@@ -26,3 +26,6 @@ class BIT:
                 i -= i&-i
             return res
         return prefix_sum(right+1) - prefix_sum(left)
+
+x = BIT([1,2,3,4,5,6,7])
+print(x.sum(2,2))
