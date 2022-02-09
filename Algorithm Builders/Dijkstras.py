@@ -79,4 +79,4 @@ test2 = [[0, 4, 0, 0, 0, 0, 0, 8, 0],
 
 solve(test1,0)
 #solve(test1,1)
-solve(test2,0)
+#solve(test2,0)
