@@ -4,16 +4,16 @@ class seg:
         self.n = len(arr)
         self.tree = [0] * (2 * N)        
         for i in range(self.n) :
-            self.tree[self.n + i] = arr[i];
+            self.tree[self.n + i] = arr[i]
         for i in range(self.n - 1, 0, -1) :
             self.tree[i] = self.tree[i << 1] + self.tree[i << 1 | 1]
      
     def update(self,idx, val) :
-        self.tree[idx + self.n] = val;
+        self.tree[idx + self.n] = val
         idx += self.n
         i = idx;
         while i > 1:
-            self.tree[i >> 1] = self.tree[i] + self.tree[i ^ 1];
+            self.tree[i >> 1] = self.tree[i] + self.tree[i ^ 1]
             i >>= 1
      
     def query(self,l, r):

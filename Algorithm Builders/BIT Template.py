@@ -28,4 +28,4 @@ class BIT:
         return prefix_sum(right+1) - prefix_sum(left)
 
 x = BIT([1,2,3,4,5,6,7])
-print(x.sum(2,2))
+print(x.sum(1,2))
