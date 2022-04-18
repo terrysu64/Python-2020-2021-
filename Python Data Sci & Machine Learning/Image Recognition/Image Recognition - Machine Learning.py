@@ -22,7 +22,7 @@ for eachPrediction, eachProbability in zip(predictions, probabilities):
     print(eachPrediction , " : " , f'%{eachProbability}')
 print()
 
-predictions, probabilities = prediction.classifyImage(os.path.join(execution_path, 'giraffe.jpg'), result_count = 10 ) #producing 10 predictions for house.jpg
+predictions, probabilities = prediction.classifyImage('https://imageai.readthedocs.io/en/latest/_images/image21.jpg'), result_count = 10 ) #producing 10 predictions for house.jpg
 for eachPrediction, eachProbability in zip(predictions, probabilities):
     print(eachPrediction , " : " , f'%{eachProbability}')
 print()
