@@ -2,81 +2,55 @@
 #Author: Terry Su
 #Purpose: My own implementation of Dijkstra's Shortest Path Algorithm from scratch
 
+from queue import PriorityQueue
 
-#Time complexity: O(v + vlogv) with priority queue template
-#Space complexity: O(v)
-#where v is the number of vertices in the graph
+class Graph:
+    def __init__(self, num_of_vertices):
+        self.v = num_of_vertices
+        self.edges = [[-1 for i in range(num_of_vertices)] for j in range(num_of_vertices)]
+        self.visited = []
 
-import collections
-import heapq
-import itertools
+    def add_edge(self, u, v, weight):
+        self.edges[u][v] = weight
+        self.edges[v][u] = weight
 
-#lower value = higher priority
-
-class PriorityQueue(collections.UserDict):
-    def __init__(self):
-        super().__init__(self)
-        self.heap = []
-        self.counter = itertools.count()
-
-    def pq_add(self, task, priority):
-        if task in self: self.pq_remove(task)
-        record = [priority, next(self.counter), task]
-        self[task] = record
-        heapq.heappush(self.heap, record)
-
-    def pq_remove(self, task):
-        if task in self:
-            record = self.pop(task)
-            record[-1] = None
-
-    def pq_pop(self):
-        while self.heap:
-            priority, _, task = heapq.heappop(self.heap)
-            if task != None:
-                del self[task]
-                return [task,priority]
-        else:
-            raise RuntimeError('Heap is empty.')
-
-    def info(self,task):
-        if task not in self: return False
-        return self[task]
-
-def solve(adj,stt): #solve for shortest path from a starting node based on adjacency matrix of a weighted graph
-
-    if not adj or len(adj)==1: return 0
-    unvis = {i for i in range(len(adj))}
-    pq = PriorityQueue()
-    for i in range(len(adj)): pq.pq_add(i,float('inf'))
-    pq.pq_add(stt,0)
+    def dijkstra(self, start_vertex):
+        D = {v:float('inf') for v in range(self.v)}
+        D[start_vertex] = 0
     
-    while unvis:
-        curr,dis = pq.pq_pop()
-        for i in range(len(adj[curr])):
-            if i in unvis and adj[curr][i] and pq.info(i)[0] > dis+adj[curr][i]: pq.pq_add(i,dis+adj[curr][i])
-        unvis.remove(curr)
-        print(curr,dis) #destination, shortest path
+        pq = PriorityQueue()
+        pq.put((0, start_vertex))
     
+        while not pq.empty():
+            (dist, current_vertex) = pq.get()
+            self.visited.append(current_vertex)
+    
+            for neighbor in range(self.v):
+                if self.edges[current_vertex][neighbor] != -1:
+                    distance = self.edges[current_vertex][neighbor]
+                    if neighbor not in self.visited:
+                        old_cost = D[neighbor]
+                        new_cost = D[current_vertex] + distance
+                        if new_cost < old_cost:
+                            pq.put((new_cost, neighbor))
+                            D[neighbor] = new_cost
+        return D
 
-#Nodes are A,B,C,D,E (indices 0,1...)
-test1 = [[0,6,None,1,None],
-         [6,0,5,2,2],
-         [None,5,0,None,5],
-         [1,2,None,0,1],
-         [None,2,5,1,0]]
-
-test2 = [[0, 4, 0, 0, 0, 0, 0, 8, 0],
-        [4, 0, 8, 0, 0, 0, 0, 11, 0],
-        [0, 8, 0, 7, 0, 4, 0, 0, 2],
-        [0, 0, 7, 0, 9, 14, 0, 0, 0],
-        [0, 0, 0, 9, 0, 10, 0, 0, 0],
-        [0, 0, 4, 14, 10, 0, 2, 0, 0],
-        [0, 0, 0, 0, 0, 2, 0, 1, 6],
-        [8, 11, 0, 0, 0, 0, 1, 0, 7],
-        [0, 0, 2, 0, 0, 0, 6, 7, 0]
-        ]
-
-solve(test1,0)
-#solve(test1,1)
-#solve(test2,0)
+g = Graph(9)
+g.add_edge(0, 1, 4)
+g.add_edge(0, 6, 7)
+g.add_edge(1, 6, 11)
+g.add_edge(1, 7, 20)
+g.add_edge(1, 2, 9)
+g.add_edge(2, 3, 6)
+g.add_edge(2, 4, 2)
+g.add_edge(3, 4, 10)
+g.add_edge(3, 5, 5)
+g.add_edge(4, 5, 15)
+g.add_edge(4, 7, 1)
+g.add_edge(4, 8, 5)
+g.add_edge(5, 8, 12)
+g.add_edge(6, 7, 1)
+g.add_edge(7, 8, 3)
+D = g.dijkstra(0)
+print(D)
