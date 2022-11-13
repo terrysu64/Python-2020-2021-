@@ -11,4 +11,9 @@ def manachers(S):
             Z[i] += 1
         if i + Z[i] > right:
             center, right = i, i + Z[i]
-    return Z[2:-2:2]
+    return Z
+
+
+res = manachers(s)
+odd = res[2:-2:2]
+even = res[1:-2:2]
