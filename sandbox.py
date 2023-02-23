@@ -13,7 +13,7 @@ def reverse(s):
 def reverse2(s):
     return s[::-1]
 
-def bubble_sort(arr): #bubble up largest values one by one
+def bubble_sort(arr): #bubble up largest testues one by one
     
     count = len(arr) - 1
     
@@ -27,18 +27,18 @@ def bubble_sort(arr): #bubble up largest values one by one
 
     return arr
 
-def selection_sort(arr): #find minimum values one by one and place them at front of array
+def selection_sort(arr): #find minimum testues one by one and place them at front of array
 
     count = 0
 
     while count < len(arr):
 
-        min_val = arr[count]
+        min_test = arr[count]
 
         for i in range(count,len(arr)):
-            min_val = min(arr[i],min_val)
+            min_test = min(arr[i],min_test)
 
-        min_index = arr.index(min_val)
+        min_index = arr.index(min_test)
         arr[count], arr[min_index] = arr[min_index],arr[count]
 
         count += 1
@@ -184,7 +184,7 @@ def args_test(*args, **kwargs):
 def error_test(arr):
     try:
         print(int(arr[0]))
-    except (IndexError, ValueError):
+    except (IndexError, testueError):
         print('error')
     else:
         print('all good')

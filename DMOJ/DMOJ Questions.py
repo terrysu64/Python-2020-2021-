@@ -84,7 +84,7 @@ else: print('good')
 #https://dmoj.ca/problem/bfs17p2/resubmit/3982778
 
 #O(n) greedy solution
-#have intervals of maximum color, other colors, maximum color... until other colors run out
+#have intertests of maximum color, other colors, maximum color... until other colors run out
 #then try to fill in and padd in between other colors as much as possible
 
 from collections import Counter

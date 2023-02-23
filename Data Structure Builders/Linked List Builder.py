@@ -6,14 +6,14 @@
 #head --> node --> node -->... --> tail
 MyLinkedList = {
     'head': {
-        'value': 10,
+        'testue': 10,
         'next_node': {
-            'value': 5,
+            'testue': 5,
             'next_node': {
-                'value': 16,
+                'testue': 16,
                 'next_node' : 'done'}}}} #done = null in this case
  
-print(MyLinkedList['head']['next_node']['next_node']['value'], '\n') #3 values into the linked list
+print(MyLinkedList['head']['next_node']['next_node']['testue'], '\n') #3 testues into the linked list
     
 #A single node of a singly linked list
 class Node:
@@ -84,14 +84,14 @@ class LinkedList:
 
         return current
 
-    def insert(self,index,value): #assuming valid index that <= max existing index
+    def insert(self,index,testue): #assuming testid index that <= max existing index
 
         #diagram:
         # * - *  =>  *    * (on hold)  => *    * => *-*-*
         #   *         \                    \  /
         #               *                    *
 
-        new_node = Node(value)
+        new_node = Node(testue)
         
         leader = self.lookup2(index-1) #need to specify self in params bcuz its a nested function
         hold = leader.next

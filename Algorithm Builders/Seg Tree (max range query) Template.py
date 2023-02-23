@@ -8,8 +8,8 @@ class seg:
         for i in range(self.n - 1, 0, -1) :
             self.tree[i] = max(self.tree[i << 1],self.tree[i << 1 | 1])
      
-    def update(self,idx, val) :
-        self.tree[idx + self.n] = val
+    def update(self,idx, test) :
+        self.tree[idx + self.n] = test
         idx += self.n
         i = idx;
         while i > 1:

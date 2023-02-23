@@ -3,19 +3,19 @@
 #Purpose: My leetcode journey
 
 #Date: Jan 7, 2021
-#Valid Sudoku
-#Determine if a 9 x 9 Sudoku board is valid. Only the filled cells need to be validated according to the following rules:
+#testid Sudoku
+#Determine if a 9 x 9 Sudoku board is testid. Only the filled cells need to be testidated according to the following rules:
 
 #Each row must contain the digits 1-9 without repetition.
 #Each column must contain the digits 1-9 without repetition.
 #Each of the nine 3 x 3 sub-boxes of the grid must contain the digits 1-9 without repetition.
 #Note:
 
-#A Sudoku board (partially filled) could be valid but is not necessarily solvable.
-#Only the filled cells need to be validated according to the mentioned rules.
+#A Sudoku board (partially filled) could be testid but is not necessarily solvable.
+#Only the filled cells need to be testidated according to the mentioned rules.
 
 class Solution:
-    def isValidSudoku(self,board):
+    def istestidSudoku(self,board):
 
         false_count = 0
 
@@ -204,7 +204,7 @@ def reverse(x):
 
 def generateParenthesis(n):
     #choices: ( or )
-    #constraints: must start with ( and end with )
+    #constestts: must start with ( and end with )
     #goal: to end up generateing with ocount and ccount == 0 (no more characters to use)
 
     res = []
@@ -250,13 +250,13 @@ def isPalindrome(x):
     
 #Date: March 4, 2021
 
-#Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
-#An input string is valid if:
+#Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is testid.
+#An input string is testid if:
 
 #1.Open brackets must be closed by the same type of brackets.
 #2.Open brackets must be closed in the correct order.
 
-def isValid(s):
+def istestid(s):
     #strategy: remove all the  () [] and {}, if theres still something left after, then its false
 
     while True:
@@ -289,7 +289,7 @@ def isValid(s):
     
 #Alternative through stacking: check for 'first in first out' (better time complexity)
 
-def isValid2(s):
+def istestid2(s):
     dic = {'(':')', '[':']', '{':'}'}
     current = []
 
@@ -300,13 +300,13 @@ def isValid2(s):
 
         else: #if its a closed bracket
 
-            if len(current) == 0: #if it matches nothing at all, string is invalid
+            if len(current) == 0: #if it matches nothing at all, string is intestid
                 return False
 
             elif s[y:y+1] == dic[current[-1]]: #if it matches most recent open bracket
                 current.pop()
 
-            else: #if it doesnt match most recent open bracket, string is invalid
+            else: #if it doesnt match most recent open bracket, string is intestid
                 return False
 
     if len(current) == 0:
@@ -314,13 +314,13 @@ def isValid2(s):
 
 #Date: March 6, 2021
 
-#Given an array 'nums' and a value 'val',
-#remove all instances of that value in-place and return the new length.
+#Given an array 'nums' and a testue 'test',
+#remove all instances of that testue in-place and return the new length.
         
-def removeElement(nums,val):
+def removeElement(nums,test):
     
-    while nums.count(val) != 0: #track how many elements in nums still = val
-        nums.remove(val) #remove the elements that = val
+    while nums.count(test) != 0: #track how many elements in nums still = test
+        nums.remove(test) #remove the elements that = test
 
     return len(nums)
 
@@ -377,7 +377,7 @@ def lengthOfLongestSubstring(s):
 #Given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of the two sorted arrays.
 
 def findMedianSortedArrays(nums1,nums2):
-    #join the two arrays together then keep removing min and max values till we acheive the median
+    #join the two arrays together then keep removing min and max testues till we acheive the median
 
     nums1 += nums2
 
@@ -428,7 +428,7 @@ def longestPalindrome(s):
                 
     return ans
 
-def expand(s,left,right): #function to call on, expands outwards from given index(s) while the substring is a valid palindrome
+def expand(s,left,right): #function to call on, expands outwards from given index(s) while the substring is a testid palindrome
 
     curr = ''
 
@@ -463,7 +463,7 @@ def expand(s,left,right): #function to call on, expands outwards from given inde
 #6. Return the integer as the final result.
 
 def myAtoi(s):
-    sign = True #sign value of integer (True = +ve, False = -ve)
+    sign = True #sign testue of integer (True = +ve, False = -ve)
     ints = ['0','1','2','3','4','5','6','7','8','9']
     start = 0
     end = 0
@@ -562,20 +562,20 @@ def letterCombinations(digits):
     return res
 
 #Date: May 7, 2021
-#Given an array of integers nums sorted in ascending order, find the starting and ending position (inclusive) of a given target value.
+#Given an array of integers nums sorted in ascending order, find the starting and ending position (inclusive) of a given target testue.
 #If target is not found in the array, return [-1, -1].
 
 def searchRange(nums,target):
     try:
         start = nums.index(target) #aquire starting index of target
             
-    except ValueError: #if the target doesnt exist (question solved)**
+    except testueError: #if the target doesnt exist (question solved)**
         return [-1,-1]
         
     end = start #set default ending index to be equal to start
     curr = target
         
-    while curr == target: #Increment index by one and stop when the value in the array no longer = the target
+    while curr == target: #Increment index by one and stop when the testue in the array no longer = the target
             
         end += 1
             
@@ -585,21 +585,21 @@ def searchRange(nums,target):
         except IndexError: #if the array ends, then break the loop as well
             break
         
-    return [start, end-1] #because we increment, THEN CHECK, the final end value will be one more than expected
+    return [start, end-1] #because we increment, THEN CHECK, the final end testue will be one more than expected
 
 #Date: May 25, 2021:
-#Given a string containing just the characters '(' and ')', find the length of the longest valid (well-formed) parentheses substring.
+#Given a string containing just the characters '(' and ')', find the length of the longest testid (well-formed) parentheses substring.
 
-def longestValidParentheses(s):
-    #use stack where we always have a BASE INDEX (could be at [0] or higher) and acts as index of most recent '(' - 1 or index of ')' that rendered the current sub-parenthesis' invalid and acts as new start
+def longesttestidParentheses(s):
+    #use stack where we always have a BASE INDEX (could be at [0] or higher) and acts as index of most recent '(' - 1 or index of ')' that rendered the current sub-parenthesis' intestid and acts as new start
     #(except for initial state of -1)
         
     #when theres '(' we push the index onto the stack, 
     #and when it gets matched we:
         # 1. pop the '(' index it matches with
-        # 2. find max valid current sub-parenthesis' length by doing current index - base index
+        # 2. find max testid current sub-parenthesis' length by doing current index - base index
         
-    #we can encouter 2 issues that render the sub-parenthesis' invalid:
+    #we can encouter 2 issues that render the sub-parenthesis' intestid:
         # a. more ')' than '('
             #solution: since after the pop() the stack will be empty, we simply ignore 2. and set the ')' index as new BASE INDEX
         # b. extra '('s that arent getting matched
@@ -652,7 +652,7 @@ def combinationSum(candidates,target):
             return
             
         for num in candidates: #looping over every candidate and substract from how far we are to acheiving the target
-                                                #we keep track of used candidates, and how far we are from current value
+                                                #we keep track of used candidates, and how far we are from current testue
             scan(ans+[num],target-num)
         
     scan([],target)
@@ -671,7 +671,7 @@ def combinationSum(candidates,target):
 
 #A DFS solution
 
-def possible(board,value,r,c): #r = row, c = column
+def possible(board,testue,r,c): #r = row, c = column
 
     box_coor = [[(0,0),(0,1),(0,2),(1,0),(1,1),(1,2),(2,0),(2,1),(2,2)], #box coordinates by row
                 [(0,3),(0,4),(0,5),(1,3),(1,4),(1,5),(2,3),(2,4),(2,5)],
@@ -684,17 +684,17 @@ def possible(board,value,r,c): #r = row, c = column
                 [(6,6),(6,7),(6,8),(7,6),(7,7),(7,8),(8,6),(8,7),(8,8)]]
         
     #check row
-    if value in board[r]:
+    if testue in board[r]:
         return False
 
     #check column
-    if value in [x[c] for x in board]:
+    if testue in [x[c] for x in board]:
         return False
 
     #check box
     for box in box_coor:
         if (r,c) in box:
-            if value in [board[spot[0]][spot[1]] for spot in box]:
+            if testue in [board[spot[0]][spot[1]] for spot in box]:
                 return False
         
     return True
@@ -717,9 +717,9 @@ def solveSudoku_oneAns(board):
 
         r,c = None,None
             
-        for r_index, r_value in enumerate(board):
-            if '.' in r_value:
-                r,c = r_index, r_value.index('.')
+        for r_index, r_testue in enumerate(board):
+            if '.' in r_testue:
+                r,c = r_index, r_testue.index('.')
                 break
             
         if r != None:
@@ -746,9 +746,9 @@ def solveSudoku_allAns(board):
 
     r,c = None,None
             
-    for r_index, r_value in enumerate(board):
-        if '' in r_value:
-            r,c = r_index, r_value.index('.')
+    for r_index, r_testue in enumerate(board):
+        if '' in r_testue:
+            r,c = r_index, r_testue.index('.')
             break
             
     if r != None:
@@ -772,7 +772,7 @@ def combinationSum2(candidates,target):
         
     res = []
         
-    def push(used,left,needed,count): #needed is value needed to acheive target
+    def push(used,left,needed,count): #needed is testue needed to acheive target
         if needed < 0:
             return
             
@@ -782,8 +782,8 @@ def combinationSum2(candidates,target):
             return
         
         else:
-            for index,value in enumerate(left):
-                push(used+[value],[j for i,j in enumerate(left) if i != index],needed-value,count+1)
+            for index,testue in enumerate(left):
+                push(used+[testue],[j for i,j in enumerate(left) if i != index],needed-testue,count+1)
         
     push([],candidates,target,0)
        
@@ -798,8 +798,8 @@ def combinationSum2(candidates,target):
 
 # Definition for singly-linked list.
 # class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
+#     def __init__(self, test=0, next=None):
+#         self.test = test
 #         self.next = next
 
 def convert(arr): #convert array to Linked List 
@@ -810,9 +810,9 @@ def convert(arr): #convert array to Linked List
             curr = res
             while curr.next:
                 curr = curr.next
-            curr.val = element
+            curr.test = element
 
-            if index != len(arr) - 1: #exception for last value in array (we dont want an extra empty node)
+            if index != len(arr) - 1: #exception for last testue in array (we dont want an extra empty node)
                 curr.next = ListNode()
 
     return res
@@ -820,22 +820,22 @@ def convert(arr): #convert array to Linked List
 def addTwoNumbers(l1,l2): 
     
     curr1,curr2 = l1,l2
-    val1 = []
-    val2 = []
+    test1 = []
+    test2 = []
         
         
     while curr1 != None: #reverse digits in linked lists and store as array
             
-        val1.insert(0, str(curr1.val))
+        test1.insert(0, str(curr1.test))
         curr1 = curr1.next
         
     while curr2 != None:
             
-        val2.insert(0, str(curr2.val))
+        test2.insert(0, str(curr2.test))
         curr2 = curr2.next
         
 
-    target = [int(x) for x in list(str(int(''.join(val1)) + int(''.join(val2))))] #add two integers once reversed
+    target = [int(x) for x in list(str(int(''.join(test1)) + int(''.join(test2))))] #add two integers once reversed
     target.reverse() #reverse the result 
         
     res = convert(target)
@@ -849,8 +849,8 @@ def addTwoNumbers(l1,l2):
 
 # Definition for singly-linked list.
 # class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
+#     def __init__(self, test=0, next=None):
+#         self.test = test
 #         self.next = next
 
 def addTwoNumbers2(l1,l2):
@@ -861,15 +861,15 @@ def addTwoNumbers2(l1,l2):
     while l1 or l2 or carry: #checking if 'carry' exists is for the last digit's carryover
                  # 0 or None -> False in most languages
         if l1:
-            carry += l1.val
+            carry += l1.test
             l1 = l1.next
                 
         if l2:
-            carry += l2.val #do the addition without the carryover digit first
+            carry += l2.test #do the addition without the carryover digit first
             l2 = l2.next
             
-        carry, val = divmod(carry, 10) #divmod returns quotient,remainder
-        n.next = n = ListNode(val) #n is shallow copy of n.next so we can traverse the linked list
+        carry, test = divmod(carry, 10) #divmod returns quotient,remainder
+        n.next = n = ListNode(test) #n is shallow copy of n.next so we can traverse the linked list
             
     return res.next
 
@@ -879,8 +879,8 @@ def addTwoNumbers2(l1,l2):
 
 # Definition for singly-linked list.
 # class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
+#     def __init__(self, test=0, next=None):
+#         self.test = test
 #         self.next = next
 
 def mergeTwoLists(l1,l2):
@@ -891,12 +891,12 @@ def mergeTwoLists(l1,l2):
     curr1, curr2 = l1, l2
     conv = []
         
-    while curr1: #all values in both linked-lists are appended to a single array
-        conv.append(curr1.val) 
+    while curr1: #all testues in both linked-lists are appended to a single array
+        conv.append(curr1.test) 
         curr1 = curr1.next
         
     while curr2:
-        conv.append(curr2.val)
+        conv.append(curr2.test)
         curr2 = curr2.next
         
     conv.sort() #the array is sorted
@@ -906,7 +906,7 @@ def mergeTwoLists(l1,l2):
     ans = curr = ListNode()
     for i,x in enumerate(conv):
             
-        curr.val = x
+        curr.test = x
             
         if i != len(conv)-1:
             curr.next = curr = ListNode()
@@ -923,7 +923,7 @@ def firstMissingPositive(self, nums):
     ans = 1
         
     while ans in store: #prevents O(n^2) as sets have lookup of O(1)
-                        #a set is implemented as values in a hash table
+                        #a set is implemented as testues in a hash table
         ans += 1
             
     return ans
@@ -931,7 +931,7 @@ def firstMissingPositive(self, nums):
 #Date: June 17, 2021
 #Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.
 
-#Symbol       Value
+#Symbol       testue
 
 #I             1
 #V             5
@@ -958,9 +958,9 @@ def romanToInt(s):
     roman = {'M': 1000,'D': 500 ,'C': 100,'L': 50,'X': 10,'V': 5,'I': 1}
     ans = 0
 
-    #Ideally, we can iterate through the string and sum up corresponding values to the symbols one by one
-    #The only exception is in scenarios where there is a sub-string with the value of 4 * 10^x (x = 0 or xEZ+)
-        #to solve this we can check if value of very next index > value at current index and substract value at current index if true
+    #Ideally, we can iterate through the string and sum up corresponding testues to the symbols one by one
+    #The only exception is in scenarios where there is a sub-string with the testue of 4 * 10^x (x = 0 or xEZ+)
+        #to solve this we can check if testue of very next index > testue at current index and substract testue at current index if true
     
     for i in range(0, len(s) - 1):
             
@@ -973,7 +973,7 @@ def romanToInt(s):
     return ans + roman[s[-1]] #for the last index of string so we dont encounter IndexError
 
 #Date: June 18, 2021
-#Given a sorted array of distinct integers and a target value, return the index if the target is found.
+#Given a sorted array of distinct integers and a target testue, return the index if the target is found.
 #If not, return the index where it would be if it were inserted in order.
 #You must write an algorithm with O(log n) runtime complexity.
 
@@ -985,7 +985,7 @@ def searchInsert(nums,target):
     if len(nums) == 0: #nums is empty
         return 0
         
-    if len(nums) == 1: #nums only has one value
+    if len(nums) == 1: #nums only has one testue
         if target <= nums[0]:
                 return 0
             
@@ -1029,8 +1029,8 @@ def searchInsert(nums,target):
 
 # Definition for singly-linked list.
 # class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
+#     def __init__(self, test=0, next=None):
+#         self.test = test
 #         self.next = next
 
 def removeNthFromEnd(head):
@@ -1063,32 +1063,32 @@ def len_linked_list(linked_list = None):
     return count
 
 #Date: June 22, 2021 
-#Given the root of a binary tree, determine if it is a valid binary search tree (BST).
-#A valid BST is defined as follows:
+#Given the root of a binary tree, determine if it is a testid binary search tree (BST).
+#A testid BST is defined as follows:
 #The left subtree of a node contains only nodes with keys less than the node's key.
 #The right subtree of a node contains only nodes with keys greater than the node's key.
 #Both the left and right subtrees must also be binary search trees.
 
-def isValidBST(root):
+def istestidBST(root):
         
     #a preorder DFS method; if any node ever fails to meet definition of BST in its sub-tree, we return false
-    #Note: float('inf') and float('-inf') are indefinely large and small float values
+    #Note: float('inf') and float('-inf') are indefinely large and small float testues
         
     if root == None: #reached bottom of a branch
         return True 
         
-    if root.val <= largerThan or root.val >= lessThan:
+    if root.test <= largerThan or root.test >= lessThan:
         return False
         
-    return isValidBST(root.left, root.val, largerThan) and \
-           isValidBST(root.right, lessThan, root.val)
+    return istestidBST(root.left, root.test, largerThan) and \
+           istestidBST(root.right, lessThan, root.test)
            #if we proceed left, all children nodes must <= current node from now and on
            #if we proceed right, all children nodes must >= current node from now and on
 
 #Date: June 25, 2021 
 #You are a professional robber planning to rob houses along a street.
 #Each house has a certain amount of money stashed,
-#the only constraint stopping you from robbing each of them is that adjacent houses have security systems connected
+#the only constestt stopping you from robbing each of them is that adjacent houses have security systems connected
 #and it will automatically contact the police if two adjacent houses were broken into on the same night.
 #Given an integer array nums representing the amount of money of each house, return the maximum amount of money you can rob tonight without alerting the police.
 
@@ -1200,7 +1200,7 @@ def climbStairs(n):
         
     dp = [1,2]
     for step in range(2,n):
-        dp[0], dp[1] = dp[1], dp[0] + dp[1] #we replace the values instead of appending to end of array to avoid O(n) worst scenario
+        dp[0], dp[1] = dp[1], dp[0] + dp[1] #we replace the testues instead of appending to end of array to avoid O(n) worst scenario
         
     return dp[-1]
 
@@ -1273,7 +1273,7 @@ def permute(nums):
             ans.append(curr)
             return
           
-        for i, next_elem in enumerate(remaining): #add each possible "next value" to the current permutation and recurse
+        for i, next_elem in enumerate(remaining): #add each possible "next testue" to the current permutation and recurse
             helper(curr + [next_elem], remaining[:i] + remaining[i+1:])
           
         
@@ -1318,7 +1318,7 @@ def permuteUnique(nums):
 def groupAnagrams(strs):
         
     #to approach this we must note that all anagrams will produce the same string if sorted
-    #with that in noted, we can group anagrams together with a hash table when traversing 'strs'; the key will be the sorted anagram and the value will the anagrams
+    #with that in noted, we can group anagrams together with a hash table when traversing 'strs'; the key will be the sorted anagram and the testue will the anagrams
         
     res = {}
         
@@ -1330,7 +1330,7 @@ def groupAnagrams(strs):
             
         res[temp].append(word)
         
-    return res.values()
+    return res.testues()
 
 #Date: July 10, 2021
 #Given an integer array nums, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.
@@ -1338,13 +1338,13 @@ def groupAnagrams(strs):
 def maxSubArray(nums):
     #an iterative dynamic programming approach O(n)
         
-    #we initialize a current subarray to start at nums[0], for every next index we may either choose to keep its value in our current subarray,
-    #or choose to start a new subarray at that value.
-    #if we choose to keep the value (if value + current sum of subarray > value), we add the value to the sum of our current subarray
+    #we initialize a current subarray to start at nums[0], for every next index we may either choose to keep its testue in our current subarray,
+    #or choose to start a new subarray at that testue.
+    #if we choose to keep the testue (if testue + current sum of subarray > testue), we add the testue to the sum of our current subarray
     #otherwise, we will start a new subarray at nums[i]
         
     #to actually solve the question however, it is important to note,that we will keep track of our desired answer (contiguous subarray with largest sum)
-    #by comparing the current sum of each subarray at every index and keeping track of the max value. 
+    #by comparing the current sum of each subarray at every index and keeping track of the max testue. 
         
     sub_array_sum = nums[0] #sum of current subarray, from a particular start index to another index (both currently 0)
     res = nums[0]
@@ -1416,12 +1416,12 @@ def spiralOrder(matrix):
 
 #Date: July 13, 2021
 #Given a linked list, swap every two adjacent nodes and return its head.
-#You must solve the problem without modifying the values in the list's nodes (i.e., only nodes themselves may be changed.)
+#You must solve the problem without modifying the testues in the list's nodes (i.e., only nodes themselves may be changed.)
 
 # Definition for singly-linked list.
 # class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
+#     def __init__(self, test=0, next=None):
+#         self.test = test
 #         self.next = next
 
 def swapPairs(self):
@@ -1473,28 +1473,28 @@ def canJump(nums):
     return True
 
 #Date: July 18, 2021
-#Given an array of intervals where intervals[i] = [starti, endi],
-#merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.
+#Given an array of intertests where intertests[i] = [starti, endi],
+#merge all overlapping intertests, and return an array of the non-overlapping intertests that cover all the intertests in the input.
 
-def merge(intervals):
+def merge(intertests):
         
     #an O(n^2*log n) solution
-    #Assuming starting point of intervals are increasing... we will start with one initial (current) interval to focus on,
-    #and traverse the remaining intervals while checking the following:
+    #Assuming starting point of intertests are increasing... we will start with one initial (current) intertest to focus on,
+    #and traverse the remaining intertests while checking the following:
         
-    #1. if start > current end --> add new interval
+    #1. if start > current end --> add new intertest
     #2. if start <= current end and end > current end --> current end = end
         
-    intervals = sorted(intervals, key=lambda x: x[0])
-    ans = [intervals[0]]
+    intertests = sorted(intertests, key=lambda x: x[0])
+    ans = [intertests[0]]
         
-    for i in range(1, len(intervals)):
+    for i in range(1, len(intertests)):
             
-        if intervals[i][0] > ans[-1][1]:
-            ans.append(intervals[i])
+        if intertests[i][0] > ans[-1][1]:
+            ans.append(intertests[i])
             
-        elif intervals[i][1] > ans[-1][1]:
-            ans[-1][1] = intervals[i][1]
+        elif intertests[i][1] > ans[-1][1]:
+            ans[-1][1] = intertests[i][1]
         
     return ans
 
@@ -1535,7 +1535,7 @@ def mergeKLists(lists):
     def ll_to_arr(head):
         curr = head
         while curr:
-            temp.append(curr.val)
+            temp.append(curr.test)
             curr = curr.next
         
     def arr_to_ll(arr):
@@ -1824,7 +1824,7 @@ def addBinary(a,b):
 def mySqrt(x):
         
     #An O(log n) time divide and conquer solution
-    #we have a transient range of numbers for which the answer could be in, and continuously evaluate the average of the range (num) to be the potential solution
+    #we have a transient range of numbers for which the answer could be in, and continuously etestuate the average of the range (num) to be the potential solution
     #if it occurs that num is too large, we cut the range down to the smaller half; and vice versa if num is too small
         
     frame = [0,(x//2)+2]
@@ -1975,15 +1975,15 @@ def subsets(nums):
 
 # Definition for singly-linked list.
 # class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
+#     def __init__(self, test=0, next=None):
+#         self.test = test
 #         self.next = next
 
 def deleteDuplicates(head):
         
     #An O(n) traversal solution
-    #We keep track of all seen values in a hash table 
-    #if we come across a value that has already be seen, we remove it
+    #We keep track of all seen testues in a hash table 
+    #if we come across a testue that has already be seen, we remove it
         
     seen = {}
     prev = None
@@ -1991,8 +1991,8 @@ def deleteDuplicates(head):
         
     while curr:
             
-        if not seen.get(curr.val):
-            seen[curr.val] = True
+        if not seen.get(curr.test):
+            seen[curr.test] = True
             prev = curr
             curr = curr.next
             
@@ -2060,19 +2060,19 @@ def exist(board,word):
     return ans
 
 #August 5, 2021
-#Given the head of a linked list and a value x, partition it such that all nodes less than x come before nodes greater than or equal to x.
+#Given the head of a linked list and a testue x, partition it such that all nodes less than x come before nodes greater than or equal to x.
 #You should preserve the original relative order of the nodes in each of the two partitions.
 
 # Definition for singly-linked list.
 # class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
+#     def __init__(self, test=0, next=None):
+#         self.test = test
 #         self.next = next
 
 def partition(head,x):
         
     #An O(n) traversal solution using dummy nodes and external memory
-    #we group together all node values < x in one linked list, and all other nodes in another linked list while preserving their "relative positions"
+    #we group together all node testues < x in one linked list, and all other nodes in another linked list while preserving their "relative positions"
     #ultimately, we will join together the two lists in their respective order (smaller nodes --> other nodes)
         
     curr_o = others = ListNode()
@@ -2081,12 +2081,12 @@ def partition(head,x):
         
     while curr:
             
-        if curr.val < x:
-            curr_s.next = ListNode(curr.val)
+        if curr.test < x:
+            curr_s.next = ListNode(curr.test)
             curr_s = curr_s.next
             
         else:
-            curr_o.next = ListNode(curr.val)
+            curr_o.next = ListNode(curr.test)
             curr_o = curr_o.next
                 
         curr = curr.next
@@ -2117,8 +2117,8 @@ def merge(nums1,n,nums2,m):
 
 # Definition for singly-linked list.
 # class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
+#     def __init__(self, test=0, next=None):
+#         self.test = test
 #         self.next = next
 
 def reverseBetween(head):
@@ -2137,15 +2137,15 @@ def reverseBetween(head):
     while curr:
             
         if node < left:
-            l_trav.next = ListNode(curr.val)
+            l_trav.next = ListNode(curr.test)
             l_trav = l_trav.next
                 
         elif node > right:
-            r_trav.next = ListNode(curr.val)
+            r_trav.next = ListNode(curr.test)
             r_trav = r_trav.next
             
         else:
-            sec, sec.next= ListNode(curr.val), sec
+            sec, sec.next= ListNode(curr.test), sec
 
             if node == left:
                 hold = sec
@@ -2159,19 +2159,19 @@ def reverseBetween(head):
     return l.next
 
 #Date: August 8, 2021
-#Given a string s containing only digits, return all possible valid IP addresses that can be obtained from s. You can return them in any order.
-#A valid IP address consists of exactly four integers, each integer is between 0 and 255, separated by single dots and cannot have leading zeros.
-#For example, "0.1.2.201" and "192.168.1.1" are valid IP addresses and "0.011.255.245", "192.168.1.312" and "192.168@1.1" are invalid IP addresses. 
+#Given a string s containing only digits, return all possible testid IP addresses that can be obtained from s. You can return them in any order.
+#A testid IP address consists of exactly four integers, each integer is between 0 and 255, separated by single dots and cannot have leading zeros.
+#For example, "0.1.2.201" and "192.168.1.1" are testid IP addresses and "0.011.255.245", "192.168.1.312" and "192.168@1.1" are intestid IP addresses. 
 
 def restoreIpAddresses(s):
         
     #a dfs solution
-    #we seek to insert the dots in the given string one at a time to form a potentially valid adress
+    #we seek to insert the dots in the given string one at a time to form a potentially testid adress
     #we able to insert a dot at a given index under the following coditions:
         #1. there will be enough characters remaining to insert the remaining dots (e.g we can only insert the first dot if there at a minimum of 3 characters that will follow the dot)
         #2. the integer that comes before the dot must have a maximum of 3 characters between 0 and 255
         #3. the integer in question must to start with a 0
-    #Once, we've inserted 3 valid dots, we append our current possibility to an array of solutions
+    #Once, we've inserted 3 testid dots, we append our current possibility to an array of solutions
                 
     ans = []
         
@@ -2194,12 +2194,12 @@ def restoreIpAddresses(s):
     return ans
 
 #Date: August 9, 2021
-#Given the root of a binary tree, return the postorder traversal of its nodes' values.
+#Given the root of a binary tree, return the postorder traversal of its nodes' testues.
 
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
+#     def __init__(self, test=0, left=None, right=None):
+#         self.test = test
 #         self.left = left
 #         self.right = right
 
@@ -2214,18 +2214,18 @@ def postorderTraversal(root):
         if node:
             dfs(node.left)
             dfs(node.right)
-            ans += [node.val]
+            ans += [node.test]
                 
     dfs(root)
     return ans
 
 #Date: August 9, 2021
-#Given the root of a binary tree, return the inorder traversal of its nodes' values.
+#Given the root of a binary tree, return the inorder traversal of its nodes' testues.
 
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
+#     def __init__(self, test=0, left=None, right=None):
+#         self.test = test
 #         self.left = left
 #         self.right = right
 
@@ -2239,19 +2239,19 @@ def inorderTraversal(root):
             
         if node:
             dfs(node.left)
-            ans += [node.val]
+            ans += [node.test]
             dfs(node.right)
                   
     dfs(root)
     return ans
 
 #Date: August 9, 2021
-#Given the root of a binary tree, return the preorder traversal of its nodes' values.
+#Given the root of a binary tree, return the preorder traversal of its nodes' testues.
 
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
+#     def __init__(self, test=0, left=None, right=None):
+#         self.test = test
 #         self.left = left
 #         self.right = right
 
@@ -2264,7 +2264,7 @@ def preorderTraversal(root):
         nonlocal ans
             
         if node:
-            ans += [node.val]
+            ans += [node.test]
             dfs(node.left)
             dfs(node.right)
                   
@@ -2273,12 +2273,12 @@ def preorderTraversal(root):
 
 #August 10, 2021
 #Given the roots of two binary trees p and q, write a function to check if they are the same or not.
-#Two binary trees are considered the same if they are structurally identical, and the nodes have the same value.
+#Two binary trees are considered the same if they are structurally identical, and the nodes have the same testue.
 
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
+#     def __init__(self, test=0, left=None, right=None):
+#         self.test = test
 #         self.left = left
 #         self.right = right
 
@@ -2287,7 +2287,7 @@ def isSameTree(p,q):
     #a bfs solution
     #we check both trees simultaneously - one layer at a time
     #if at any point, the layers do not match up, the answer is falsified
-    #if both layers comprise only of None valued nodes (meaning we cleared the whole tree), we return true
+    #if both layers comprise only of None testued nodes (meaning we cleared the whole tree), we return true
         
     if p == None:
         p = TreeNode(None)
@@ -2298,7 +2298,7 @@ def isSameTree(p,q):
             
         for i in range(0,len(layer)):
                 
-            if type(layer[i].val) == int:
+            if type(layer[i].test) == int:
                 if layer[i].left:
                     layer += [layer[i].left]
                 else:
@@ -2315,9 +2315,9 @@ def isSameTree(p,q):
 
     def bfs(p_layer, q_layer):
             
-        if any(p_layer[i].val != q_layer[i].val for i in range(0,len(p_layer))):
+        if any(p_layer[i].test != q_layer[i].test for i in range(0,len(p_layer))):
             return False
-        elif all(node.val == None for node in p_layer + q_layer):
+        elif all(node.test == None for node in p_layer + q_layer):
             return True
             
         prev = len(p_layer)
@@ -2334,8 +2334,8 @@ def isSameTree(p,q):
 
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
+#     def __init__(self, test=0, left=None, right=None):
+#         self.test = test
 #         self.left = left
 #         self.right = right
 
@@ -2346,7 +2346,7 @@ def recoverTree(root):
     """
         
     #inorder dfs solution; we will exploit the fact that the an INORDER dfs traversal for a binary tree will always return
-    #the node values in increasing order due to its nature
+    #the node testues in increasing order due to its nature
     #thus, given the two nodes we will need to swap, 
     #[1] the first node will always be greater then its next node, 
     #and [2] the second node will always be smaller than its previous node. 
@@ -2363,10 +2363,10 @@ def recoverTree(root):
         if node:
             dfs(node.left)
                 
-            if not node1 and prev.val >= node.val: #[1]
+            if not node1 and prev.test >= node.test: #[1]
                 node1 = prev
                 
-            if prev.val >= node.val: #[2]
+            if prev.test >= node.test: #[2]
                 node2 = node
                 
             prev = node
@@ -2375,7 +2375,7 @@ def recoverTree(root):
         return
         
     dfs(root)
-    node1.val,node2.val = node2.val,node1.val
+    node1.test,node2.test = node2.test,node1.test
     return
 
 #Date August 13, 2021
@@ -2383,8 +2383,8 @@ def recoverTree(root):
 
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
+#     def __init__(self, test=0, left=None, right=None):
+#         self.test = test
 #         self.left = left
 #         self.right = right
 
@@ -2395,18 +2395,18 @@ def isSymmetric(root):
     
     def trav(l,r):
         if not any([l,r]): return True
-        if not all([l,r]) or l.val!=r.val: return False
+        if not all([l,r]) or l.test!=r.test: return False
         return trav(l.left,r.right) and trav(l.right,r.left)
     
     return trav(root.left,root.right)
 
 #Date: August 16, 2021
-#Given the root of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).
+#Given the root of a binary tree, return the level order traversal of its nodes' testues. (i.e., from left to right, level by level).
 
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
+#     def __init__(self, test=0, left=None, right=None):
+#         self.test = test
 #         self.left = left
 #         self.right = right
 
@@ -2425,7 +2425,7 @@ def levelOrder(root):
         if layer == []:
             return
             
-        res.append([n.val for n in layer])
+        res.append([n.test for n in layer])
             
         for i in range(0,prev := len(layer)):
                 
@@ -2440,13 +2440,13 @@ def levelOrder(root):
     return res
 
 #Date: August 17, 2021
-#Given the root of a binary tree, return the zigzag level order traversal of its nodes' values.
+#Given the root of a binary tree, return the zigzag level order traversal of its nodes' testues.
 #(i.e., from left to right, then right to left for the next level and alternate between).
 
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
+#     def __init__(self, test=0, left=None, right=None):
+#         self.test = test
 #         self.left = left
 #         self.right = right
 
@@ -2477,7 +2477,7 @@ def zigzagLevelOrder(root):
         if len(layer) == 0:
             return
             
-        res.append([node.val for node in layer])
+        res.append([node.test for node in layer])
             
         temp = []
         for i in range(-1,-((len(layer))+1),-1):
@@ -2533,8 +2533,8 @@ def isThree(n):
 
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
+#     def __init__(self, test=0, left=None, right=None):
+#         self.test = test
 #         self.left = left
 #         self.right = right
 
@@ -2569,14 +2569,14 @@ def maxDepth(root):
 
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
+#     def __init__(self, test=0, left=None, right=None):
+#         self.test = test
 #         self.left = left
 #         self.right = right
 
 def sortedArrayToBST(nums):
         
-    #divide and conquer + recursion; for each recursive call, we assign the lower half of values to the left sub-tree and the other half to the right
+    #divide and conquer + recursion; for each recursive call, we assign the lower half of testues to the left sub-tree and the other half to the right
         
     if not nums:
         return 
@@ -2589,30 +2589,30 @@ def sortedArrayToBST(nums):
     return root
 
 #Date August 22, 2021
-#Given a binary tree root, a node X in the tree is named good if in the path from root to X there are no nodes with a value greater than X.
+#Given a binary tree root, a node X in the tree is named good if in the path from root to X there are no nodes with a testue greater than X.
 #Return the number of good nodes in the binary tree.
 
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
+#     def __init__(self, test=0, left=None, right=None):
+#         self.test = test
 #         self.left = left
 #         self.right = right
 
 def goodNodes(root):
         
-    #preorder dfs + keeping track of max_value on each path 
+    #preorder dfs + keeping track of max_testue on each path 
     
-    def helper(node,max_val):
+    def helper(node,max_test):
         
         nonlocal good
         
         if node:
-            if node.val >= max_val:
+            if node.test >= max_test:
                 good += 1
 
-            helper(node.left,max(node.val,max_val))
-            helper(node.right,max(node.val,max_val))        
+            helper(node.left,max(node.test,max_test))
+            helper(node.right,max(node.test,max_test))        
         return 
     
     good = 0
@@ -2624,8 +2624,8 @@ def goodNodes(root):
 
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
+#     def __init__(self, test=0, left=None, right=None):
+#         self.test = test
 #         self.left = left
 #         self.right = right
 
@@ -2654,8 +2654,8 @@ def invertTree(root):
 
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
+#     def __init__(self, test=0, left=None, right=None):
+#         self.test = test
 #         self.left = left
 #         self.right = right
 
@@ -2679,13 +2679,13 @@ def minDepth(root):
 
 #Date: August 22, 2021
 #Given the root of a binary tree and an integer targetSum, return true if the tree has a root-to-leaf path such that
-#adding up all the values along the path equals targetSum.
+#adding up all the testues along the path equals targetSum.
 #A leaf is a node with no children.
 
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
+#     def __init__(self, test=0, left=None, right=None):
+#         self.test = test
 #         self.left = left
 #         self.right = right
 
@@ -2703,24 +2703,24 @@ def hasPathSum(root,targetSum):
                 return
             
             if node.left:
-                dfs(node.left,curr+node.left.val)
+                dfs(node.left,curr+node.left.test)
             
             if node.right:
-                dfs(node.right,curr+node.right.val)
+                dfs(node.right,curr+node.right.test)
     
     ans = False
     if not root: return False
-    dfs(root,root.val)
+    dfs(root,root.test)
     return ans
 
 #Date: August 23, 2021
-#Given the root of a binary tree and an integer targetSum, return all root-to-leaf paths where the sum of the node values in the path equals targetSum. Each path should be returned as a list of the node values, not node references.
+#Given the root of a binary tree and an integer targetSum, return all root-to-leaf paths where the sum of the node testues in the path equals targetSum. Each path should be returned as a list of the node testues, not node references.
 #A root-to-leaf path is a path starting from the root and ending at any leaf node. A leaf is a node with no children.
 
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
+#     def __init__(self, test=0, left=None, right=None):
+#         self.test = test
 #         self.left = left
 #         self.right = right
 
@@ -2735,16 +2735,16 @@ def pathSum(root,targetSum):
             ans += [used]
 
         if node.left:
-            dfs(node.left, curr + node.left.val, used + [node.left.val])
+            dfs(node.left, curr + node.left.test, used + [node.left.test])
 
         if node.right:
-            dfs(node.right, curr + node.right.val, used +[node.right.val])
+            dfs(node.right, curr + node.right.test, used +[node.right.test])
         
         return
     
     ans = []
     if not root: return []
-    dfs(root,root.val,[root.val])
+    dfs(root,root.test,[root.test])
     return ans
                     
 #Date: August 23, 2021
@@ -2776,25 +2776,25 @@ def twoSum(numbers,target):
 
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
+#     def __init__(self, test=0, left=None, right=None):
+#         self.test = test
 #         self.left = left
 #         self.right = right
 
 def findTarget(root,k):
 
-    #dfs and keep track of seen node values, if value needed to aquire sum of k when added with current node value has been traversed -> return true
+    #dfs and keep track of seen node testues, if testue needed to aquire sum of k when added with current node testue has been traversed -> return true
         
     def dfs(node,curr,seen):
         
         if node:
             
-            rem = k-node.val
+            rem = k-node.test
             if rem in seen:
                 return True
-            seen[node.val] = True
+            seen[node.test] = True
             
-            return dfs(node.left,curr+node.val,seen) or dfs(node.right,curr+node.val,seen)
+            return dfs(node.left,curr+node.test,seen) or dfs(node.right,curr+node.test,seen)
         return False
 
     return dfs(root,0,{})
@@ -2836,7 +2836,7 @@ def maxMatrixSum(matrix):
     #There are two scenarios that fufill this claim:
 
     #1. if the number of -ves + 0s are even, we can make them all positives by moving the negative signs across the matrix until each one finds a pair
-    #2. if the number of -ves + 0s are even, the same applies, except we can choose to leave out the value of smallest magnitude to be a -ve at the end 
+    #2. if the number of -ves + 0s are even, the same applies, except we can choose to leave out the testue of smallest magnitude to be a -ve at the end 
     #   (which doesnt necessarily need to be an initial -ve)
         
     negs, ans,smol = 0, 0, float('inf')
@@ -2861,8 +2861,8 @@ def maxMatrixSum(matrix):
 
 # Definition for a Node.
 # class Node:
-#     def __init__(self, val: int = 0, left: 'Node' = None, right: 'Node' = None, next: 'Node' = None):
-#         self.val = val
+#     def __init__(self, test: int = 0, left: 'Node' = None, right: 'Node' = None, next: 'Node' = None):
+#         self.test = test
 #         self.left = left
 #         self.right = right
 #         self.next = next
@@ -2968,7 +2968,7 @@ def findLUSlength(strs):
 
 def generate(numRows):
         
-    #an intuitive iterative solution; each row starting from the 2nd is formulated by 1,sequence of sums derived from upper row (the length of which is equivalent to one less than the upper row),and another 1 
+    #an intuitive iterative solution; each row starting from the 2nd is formulated by 1,sequence of sums derived from upper row (the length of which is equitestent to one less than the upper row),and another 1 
     
     ans = [[1]]
     
@@ -2983,7 +2983,7 @@ def generate(numRows):
 
 def getRow(rowIndex):
         
-    #clever O(n) solution using the zip() to generate row; essentially, to form a subsequent row, we generate two copies of the current row and shift one by an index forward. Then, we add each corresponding index. This works beause it allows each value of the current row to be sumed with the value to its left (in the row) while including the two additional 1s on the edge. 
+    #clever O(n) solution using the zip() to generate row; essentially, to form a subsequent row, we generate two copies of the current row and shift one by an index forward. Then, we add each corresponding index. This works beause it allows each testue of the current row to be sumed with the testue to its left (in the row) while including the two additional 1s on the edge. 
     
     #e.g (to forming the 5th row):
     
@@ -3044,12 +3044,12 @@ def threeSum(nums):
         
     #intuitive O(n^2) time solution; for each index (a potential starting point for a triplet), run the 2sum algorithm on all the other subsequent indexes.
     
-    def helper(val, arr):
+    def helper(test, arr):
         nonlocal ans
         seen = {}
         for n in arr:
-            if 0-val-n in seen:
-                if (temp := sorted([val,n,0-val-n])) not in ans:
+            if 0-test-n in seen:
+                if (temp := sorted([test,n,0-test-n])) not in ans:
                     ans += [temp]
             seen[n] = True
         return
@@ -3127,7 +3127,7 @@ def isMatch(s,p):
 
 def longestConsecutive(nums):
         
-    #solution using sets (O(1) lookup time); for each value in nums, check if it could be the smallest of a consequtive sequence and keep extending the sequence for as long as possible
+    #solution using sets (O(1) lookup time); for each testue in nums, check if it could be the smallest of a consequtive sequence and keep extending the sequence for as long as possible
     
     nums, ans = set(nums), 0
     
@@ -3171,8 +3171,8 @@ def maxProfit(prices):
 
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
+#     def __init__(self, test=0, left=None, right=None):
+#         self.test = test
 #         self.left = left
 #         self.right = right
 
@@ -3185,12 +3185,12 @@ def sumNumbers(root):
         if not (node.left or node.right): 
             ans += int(curr)
             return
-        if node.left: dfs(node.left, curr+str(node.left.val))
-        if node.right: dfs(node.right, curr+str(node.right.val))
+        if node.left: dfs(node.left, curr+str(node.left.test))
+        if node.right: dfs(node.right, curr+str(node.right.test))
         return
     
     ans = 0
-    dfs(root,str(root.val))
+    dfs(root,str(root.test))
     return ans
 
 #September 4, 2021 (Bi-weekly contest 60)
@@ -3299,9 +3299,9 @@ def solve(board):
 
 def maxProfit(prices) -> int:
         
-    #O(n) solution; b1,s1,b2,s2 represent our maximum net profit after the first purchase, first sale, second purchase, and second sell respectively. This is valid since s1,b2, and s2 are dependant on the previous transactions. 
+    #O(n) solution; b1,s1,b2,s2 represent our maximum net profit after the first purchase, first sale, second purchase, and second sell respectively. This is testid since s1,b2, and s2 are dependant on the previous transactions. 
     
-    #Additionally, changes in s1 (i.e better selling price for first purchase that would theoretically change the transaction b1 b2 s2 s1) won't follow through all the way to s2 as the final b2,s2 values are based on earlier b1,s1 values
+    #Additionally, changes in s1 (i.e better selling price for first purchase that would theoretically change the transaction b1 b2 s2 s1) won't follow through all the way to s2 as the final b2,s2 testues are based on earlier b1,s1 testues
     
     b1,s1,b2,s2 = -prices[0], float('-inf'), float('-inf'), float('-inf')
     
@@ -3375,7 +3375,7 @@ def minCut(s):
         
     #O(n^2) 1-D dynammic programming solution
     #dp[i] ultimately represents the solution to s[:i+1]
-    #Essentially, for each substring within s, if the substring is a valid palindrome, we attempt to minimize the total cuts up to the end of the substring by checking if we can reduce dp[end of substring] by overriding it with dp[start of substring-1]+1 (becuase we will only require one more cut given that dp[:start of substring] is not a palindrome). 
+    #Essentially, for each substring within s, if the substring is a testid palindrome, we attempt to minimize the total cuts up to the end of the substring by checking if we can reduce dp[end of substring] by overriding it with dp[start of substring-1]+1 (becuase we will only require one more cut given that dp[:start of substring] is not a palindrome). 
     #It may not always be the case, however, that dp[end of substring] gets overrided as it may already by the minimum solution
     
     leng = len(s)
@@ -3448,11 +3448,11 @@ class NumArray:
 
 #Date: September 8, 2021
 # Given an integer array nums, handle multiple queries of the following types:
-# Update the value of an element in nums.
+# Update the testue of an element in nums.
 # Calculate the sum of the elements of nums between indices left and right inclusive where left <= right.
 # Implement the NumArray class:
 # NumArray(int[] nums) Initializes the object with the integer array nums.
-# void update(int index, int val) Updates the value of nums[index] to be val.
+# void update(int index, int test) Updates the testue of nums[index] to be test.
 # int sumRange(int left, int right) Returns the sum of the elements of nums between indices left and right inclusive (i.e. nums[left] + nums[left + 1] + ... + nums[right]).
 
 class NumArray:
@@ -3467,9 +3467,9 @@ class NumArray:
                 self.bit[j] += self.bit[i]
         return
         
-    def update(self, index, val) -> None:
-        i,diff = index+1,val-self.nums[index]
-        self.nums[index] = val
+    def update(self, index, test) -> None:
+        i,diff = index+1,test-self.nums[index]
+        self.nums[index] = test
         while i < len(self.bit):
             self.bit[i] += diff
             i += i&-i
@@ -3487,7 +3487,7 @@ class NumArray:
         return prefix_sum(right+1) - prefix_sum(left)
 
 #Date: September 9, 2021
-# You are given an integer n. You have an n x n binary grid grid with all values initially 1's except for some indices given in the array mines. The ith element of the array mines is defined as mines[i] = [xi, yi] where grid[xi][yi] == 0.
+# You are given an integer n. You have an n x n binary grid grid with all testues initially 1's except for some indices given in the array mines. The ith element of the array mines is defined as mines[i] = [xi, yi] where grid[xi][yi] == 0.
 # Return the order of the largest axis-aligned plus sign of 1's contained in grid. If there is none, return 0.
 # An axis-aligned plus sign of 1's of order k has some center grid[r][c] == 1 along with four arms of length k - 1 going up, down, left, and right, and made of 1's. Note that there could be 0's or 1's beyond the arms of the plus sign, only the relevant area of the plus sign is checked for 1's.
 
@@ -3570,7 +3570,7 @@ def bfs(self,grid,pos):
 
 def removeStones(stones):
         
-    #A disjoint set solution. Each stone is considered its own disjoint set initially; everytime we run into a neighbor stone (a stone in the same column/row as a stone in another disjoint set), we will unify the two sets. The maximum # of stones we'll ultimately be able to remove is equivalent to #of stones - #of disjoint sets that remain
+    #A disjoint set solution. Each stone is considered its own disjoint set initially; everytime we run into a neighbor stone (a stone in the same column/row as a stone in another disjoint set), we will unify the two sets. The maximum # of stones we'll ultimately be able to remove is equitestent to #of stones - #of disjoint sets that remain
     
     def find(parent, i):
         if parent[i]==-1:
@@ -3614,8 +3614,8 @@ def rob(nums):
 """
 # Definition for a Node.
 class Node:
-    def __init__(self, val = 0, neighbors = None):
-        self.val = val
+    def __init__(self, test = 0, neighbors = None):
+        self.test = test
         self.neighbors = neighbors if neighbors is not None else []
 """
 def cloneGraph(node): 
@@ -3625,12 +3625,12 @@ def cloneGraph(node):
     def dfs(seen,node):
         for adj in node.neighbors:
             if adj not in seen:
-                seen[adj] = Node(adj.val)
+                seen[adj] = Node(adj.test)
                 dfs(seen,adj)
             seen[node].neighbors += [seen[adj]]
     
     if not node: return
-    seen = {node: Node(node.val)}
+    seen = {node: Node(node.test)}
     dfs(seen,node)
     return seen[node]
 
@@ -3748,7 +3748,7 @@ def findLongestChain(pairs):
 
 def trap(height):
         
-    #a stack approach. We keep track of the highest elevation we've encountered so far; for every smaller elevation, we will append their values to a stack. Given such there are two possible calculations we can make:
+    #a stack approach. We keep track of the highest elevation we've encountered so far; for every smaller elevation, we will append their testues to a stack. Given such there are two possible calculations we can make:
     
     #1. we encounter an elevation that < tallest but can still trap water:
         
@@ -4049,14 +4049,14 @@ def islandPerimeter(grid):
         
     #intuitive O(mn) solution, for each piece of land, check if any sides are exposed to water (consist of the perimeter)
     
-    def valid(r,c):
+    def testid(r,c):
         if 0<=r<len(grid) and 0<=c<len(grid[0]) and grid[r][c]: return False
         return True
     
     ans = 0
     for i in range(len(grid)):
         for j in range(len(grid[0])):
-            if grid[i][j]: ans += sum((1 if valid(I,J) else 0) for I,J in [[i+1,j],[i-1,j],[i,j+1],[i,j-1]])
+            if grid[i][j]: ans += sum((1 if testid(I,J) else 0) for I,J in [[i+1,j],[i-1,j],[i,j+1],[i,j-1]])
     return ans
 
 #Date: October 4, 2021
@@ -4090,7 +4090,7 @@ def copyRandomList(head):
         #1. 
         curr = head
         while curr:
-            copy[curr] = Node(curr.val)
+            copy[curr] = Node(curr.test)
             curr = curr.next
 
         #2.
@@ -4114,7 +4114,7 @@ def maximalSquare(matrix):
             #dp[i][j]==1
         
         #2. it can build onto an existing square:
-            #dp[i][j] must be wrapped from left to top with valid values in dp matrix and will build on the least of the three values
+            #dp[i][j] must be wrapped from left to top with testid testues in dp matrix and will build on the least of the three testues
         
     ans = 0
     dp = [[(1 if matrix[r][c]=='1' and (r==0 or c==0) else 0) for c in range(len(matrix[0]))] for r in range(len(matrix))]
@@ -4134,7 +4134,7 @@ def maximalSquare(matrix):
 from collections import Counter
 def waysToPartition(nums,k_):
         
-        #An O(n) time solution; keep psa and frequency hashmaps for occurences of psa values on both left and right of partitions. This allows us to check for the maximum partitions both with and without using the k value change.
+        #An O(n) time solution; keep psa and frequency hashmaps for occurences of psa testues on both left and right of partitions. This allows us to check for the maximum partitions both with and without using the k testue change.
         
         #given a psa, number of partitions == freq[psa[-1]//2] if the total sum of the array % 2 == 0 in the first place
         
@@ -4184,7 +4184,7 @@ def wordBreak(s,wordDict):
 
 def subarrayBitwiseORs(arr):
         
-    #An O(n) time set approach; the crux of the solution lies in the set "curr"; as we traverse the array, curr keeps track of all distinct answers if we build on previous contiguous values. Hence, this allows us to constantly update res with new curr values
+    #An O(n) time set approach; the crux of the solution lies in the set "curr"; as we traverse the array, curr keeps track of all distinct answers if we build on previous contiguous testues. Hence, this allows us to constantly update res with new curr testues
     
     curr,res = set(),set()
     for n in arr:
@@ -4197,11 +4197,11 @@ def subarrayBitwiseORs(arr):
 
 def hasCycle(head):
         
-    #O(n) time and O(1) space solution; flag the value of each node we visited with 'N'. If we see 'N' twice before finishing the list traversal, there is a cycle
+    #O(n) time and O(1) space solution; flag the testue of each node we visited with 'N'. If we see 'N' twice before finishing the list traversal, there is a cycle
     
     while head:
-        if head.val=='N': return True
-        head.val = 'N'
+        if head.test=='N': return True
+        head.test = 'N'
         head = head.next
     return False
 
@@ -4227,14 +4227,14 @@ def longestIncreasingPath(matrix):
         
     #dfs + memoization. The key is to realize that the intuitive dfs holds numerous repeats in calculations. Given that the answer starting from a position i,j has already been calculated, the next time we manage to reach that respective position, we can simply chain onto it.
     
-    def valid(i,j):
+    def testid(i,j):
         if 0<=i<len(matrix) and 0<=j<len(matrix[0]): return True
         return False
     
     @cache
     def dfs(i,j):
         res = 1
-        for I,J in [[r,c] for r,c in [[i+1,j],[i-1,j],[i,j+1],[i,j-1]] if valid(r,c)]:
+        for I,J in [[r,c] for r,c in [[i+1,j],[i-1,j],[i,j+1],[i,j-1]] if testid(r,c)]:
             if matrix[I][J] > matrix[i][j]: res = max(res,1+dfs(I,J))
         return res
     
@@ -4291,7 +4291,7 @@ def getMaxLen(nums):
 
 def maxPoints(points):
         
-    #An O(n^2) math solution; for each point, we take advantage of the small constraints and traverse all other points and group together all points with the same slope through a dictionary; we can then update our local answer to the global answer
+    #An O(n^2) math solution; for each point, we take advantage of the small constestts and traverse all other points and group together all points with the same slope through a dictionary; we can then update our local answer to the global answer
     
     ans = 0 
     for i in points:
@@ -4382,7 +4382,7 @@ def wordBreak(s,wordDict):
 class Solution:
     def pathSum(self, root, targetSum):
         
-        #keep a prefix sum array (stored in hashmap) starting from each node (tip of a path) and dfs to find all paths that branch down from there. If psh[current sem - target] exists, then a valid path has been found.
+        #keep a prefix sum array (stored in hashmap) starting from each node (tip of a path) and dfs to find all paths that branch down from there. If psh[current sem - target] exists, then a testid path has been found.
         
         from collections import defaultdict
         
@@ -4391,7 +4391,7 @@ class Solution:
         
         def dfs(node,curr):
             if not node: return
-            curr += node.val
+            curr += node.test
             self.res += self.psh[curr-targetSum]
             self.psh[curr] += 1
             dfs(node.left,curr)
@@ -4421,14 +4421,14 @@ class LRUCache:
             return self.cache[key]
         return -1
 
-    def put(self, key: int, value: int) -> None: #O(1)
+    def put(self, key: int, testue: int) -> None: #O(1)
         if not self.cap: return
         if key not in self.cache: 
             self.prevs += [key]
         else: 
             self.prevs.remove(key)
             self.prevs += [key]
-        self.cache[key] = value
+        self.cache[key] = testue
         if len(self.cache) > self.cap: self.cache.pop(self.prevs.popleft())
 
 #Date: October 20, 2021
@@ -4454,8 +4454,8 @@ def reverseWords(s):
 
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
+#     def __init__(self, test=0, left=None, right=None):
+#         self.test = test
 #         self.left = left
 #         self.right = right
 
@@ -4465,14 +4465,14 @@ class Solution:
     
     def maxPathSum(self, root) -> int:
         
-        #an O(2^n) dfs + subtree dynammic programming solution. for each sub-root, the answer is equal to the maximum of the node itself, the node+left or right subtree, or the node + both subtrees. However, when passing the value up to calculate the answer for the parent nodes, we only take the max between the node and the node + left or right subtree as we must maintain the definition of a "path"
+        #an O(2^n) dfs + subtree dynammic programming solution. for each sub-root, the answer is equal to the maximum of the node itself, the node+left or right subtree, or the node + both subtrees. However, when passing the testue up to calculate the answer for the parent nodes, we only take the max between the node and the node + left or right subtree as we must maintain the definition of a "path"
         
         def dfs(node):
             if not node: return 0
             l,r = dfs(node.left),dfs(node.right)
-            res = max(node.val,node.val+l,node.val+r,node.val+l+r) 
+            res = max(node.test,node.test+l,node.test+r,node.test+l+r) 
             self.ans = max(self.ans,res)
-            return max(node.val,node.val+l,node.val+r)
+            return max(node.test,node.test+l,node.test+r)
         
         dfs(root)
         return self.ans
@@ -4488,14 +4488,14 @@ class RandomizedSet:
     def __init__(self):
         self.rngs = set()
 
-    def insert(self, val: int) -> bool:
-        if val in self.rngs: return False
-        self.rngs.add(val)
+    def insert(self, test: int) -> bool:
+        if test in self.rngs: return False
+        self.rngs.add(test)
         return True
 
-    def remove(self, val: int) -> bool:
-        if val not in self.rngs: return False
-        self.rngs.remove(val)
+    def remove(self, test: int) -> bool:
+        if test not in self.rngs: return False
+        self.rngs.remove(test)
         return True
 
     def getRandom(self) -> int:
@@ -4504,8 +4504,8 @@ class RandomizedSet:
 
 # Your RandomizedSet object will be instantiated and called as such:
 # obj = RandomizedSet()
-# param_1 = obj.insert(val)
-# param_2 = obj.remove(val)
+# param_1 = obj.insert(test)
+# param_2 = obj.remove(test)
 # param_3 = obj.getRandom()
 
 #Date: October 21, 2021
@@ -4522,7 +4522,7 @@ def sortList(head):
     while curr:
         arr += [curr]
         curr = curr.next
-    arr = sorted(arr, key=lambda x:x.val)
+    arr = sorted(arr, key=lambda x:x.test)
     for i in range(len(arr)):
         arr[i].next = (arr[i+1] if i!=len(arr)-1 else None)
     return arr[0]
@@ -4532,7 +4532,7 @@ def sortList(head):
 
 def findMin(nums):
         
-    #O(logn) intuitive binary search: if m > r --> pull left to mid (minimum value is between m and r), if m < r: pull right to mid (minimum value is between l and m because m to r is strictly increasing)
+    #O(logn) intuitive binary search: if m > r --> pull left to mid (minimum testue is between m and r), if m < r: pull right to mid (minimum testue is between l and m because m to r is strictly increasing)
     
     l,r = 0,len(nums)-1    
     while True:
@@ -4566,11 +4566,11 @@ def findMin(nums):
 class MinStack:
 
     def __init__(self): #O(1)
-        self.stack = [] #each node is (value,minimum up to value)
+        self.stack = [] #each node is (testue,minimum up to testue)
 
-    def push(self, val: int) -> None: #O(1)
-        if not self.stack: self.stack += [(val,val)]
-        else: self.stack += [(val,min(val,self.stack[-1][1]))]
+    def push(self, test: int) -> None: #O(1)
+        if not self.stack: self.stack += [(test,test)]
+        else: self.stack += [(test,min(test,self.stack[-1][1]))]
 
     def pop(self) -> None: #O(1)
         self.stack.pop()
@@ -4584,7 +4584,7 @@ class MinStack:
 
 # Your MinStack object will be instantiated and called as such:
 # obj = MinStack()
-# obj.push(val)
+# obj.push(test)
 # obj.pop()
 # param_3 = obj.top()
 # param_4 = obj.getMin()
@@ -4592,12 +4592,12 @@ class MinStack:
 #Date: October 23, 2021
 #https://leetcode.com/problems/best-sightseeing-pair/submissions/
 
-def maxScoreSightseeingPair(values):
+def maxScoreSightseeingPair(testues):
         
-    #O(n) dp solution; we can manipulate the formula vals[i]+vals[j]+i-j so that we continuously update a local max variable with the most idea vals[i]+i value. We can then use this to influence a global max that will be equal to local_max + vals[j] - j
+    #O(n) dp solution; we can manipulate the formula tests[i]+tests[j]+i-j so that we continuously update a local max variable with the most idea tests[i]+i testue. We can then use this to influence a global max that will be equal to local_max + tests[j] - j
     
     loc,ans = 0,0
-    for i,j in enumerate(values):
+    for i,j in enumerate(testues):
         ans = max(ans,loc+j-i)
         loc = max(loc,i+j)
     return ans
@@ -4680,7 +4680,7 @@ def nextGreaterElement(nums1,nums2):
 
 def maxSlidingWindow(nums,k):
         
-        #An O(n) deque/priority queue solution. We will keep a deque with indices (that is kept in reversed key=their value). On each window position, we will simply return deque[nums[0]]
+        #An O(n) deque/priority queue solution. We will keep a deque with indices (that is kept in reversed key=their testue). On each window position, we will simply return deque[nums[0]]
         
         from collections import deque
         dq = deque([])  
@@ -4778,8 +4778,8 @@ def maxTwoEvents(events):
 #https://leetcode.com/problems/flatten-a-multilevel-doubly-linked-list/submissions/
 
 # class Node:
-#     def __init__(self, val, prev, next, child):
-#         self.val = val
+#     def __init__(self, test, prev, next, child):
+#         self.test = test
 #         self.prev = prev
 #         self.next = next
 #         self.child = child
@@ -4882,8 +4882,8 @@ class Solution:
 
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
+#     def __init__(self, test=0, left=None, right=None):
+#         self.test = test
 #         self.left = left
 #         self.right = right
 class Solution:
@@ -4909,8 +4909,8 @@ class Solution:
 
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
+#     def __init__(self, test=0, left=None, right=None):
+#         self.test = test
 #         self.left = left
 #         self.right = right
 class Solution:
@@ -4923,8 +4923,8 @@ class Solution:
         def dfs(node,left=False):
             if not node: return
             if left and not any([node.left,node.right]):
-                print(node.val)
-                self.ans += node.val
+                print(node.test)
+                self.ans += node.test
                 return
             dfs(node.left,True)
             dfs(node.right)
@@ -4982,24 +4982,24 @@ def getIntersectionNode(headA,headB):
 
 # Definition for singly-linked list.
 # class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
+#     def __init__(self, test=0, next=None):
+#         self.test = test
 #         self.next = next
 
 class Solution:
     def nodesBetweenCriticalPoints(head):
         
-        #O(n) solution; dp is the directional derivative of the linked list's node values. This allows us to determine all the stationary/critical nodes
+        #O(n) solution; dp is the directional derivative of the linked list's node testues. This allows us to determine all the stationary/critical nodes
         
         dp,prev = [], None
         resmax,resmin = -1,-1
         fcrit,rcrit = None,None
         
         while head:
-            if not prev or head.val==prev: dp += [0]
-            elif head.val>prev: dp += [1]
+            if not prev or head.test==prev: dp += [0]
+            elif head.test>prev: dp += [1]
             else: dp += [-1]
-            prev = head.val
+            prev = head.test
             head = head.next
 
         for i in range(1,len(dp)):
@@ -5076,18 +5076,18 @@ class Solution:
 
     #A recursive approach with memoization dp
     #Key point: n=0 or n=1 --> 1 tree (base case)
-    #Key point: given a particular node that we need to fill in (while n=some value):
+    #Key point: given a particular node that we need to fill in (while n=some testue):
 
     #1. the number of nodes that can be filled in = n
     #2. the number of nodes that can be potential left children  = i-1 (while 1<=i<=n)
     #3. the number of nodes that can be potential right children = n-i
 
-    #Therefore, the number of valid BST that we can general from that node is equivalent to the sum of the products of trees we can generate to the left and right respectively for all possible 'i' values
+    #Therefore, the number of testid BST that we can general from that node is equitestent to the sum of the products of trees we can generate to the left and right respectively for all possible 'i' testues
 
     #Date: November 10, 2021
-    #https://leetcode.com/problems/minimum-value-to-get-positive-step-by-step-sum/
+    #https://leetcode.com/problems/minimum-testue-to-get-positive-step-by-step-sum/
 
-    def minStartValue(nums):
+    def minStarttestue(nums):
         
         #basic O(n) arithmetic + intuition solution; keep transient prefix sum as you traverse the array and if the ps ever drops to 0 or below, add the missing amount to ans and reset ps as if ans was updated from the start
         
@@ -5104,17 +5104,17 @@ class Solution:
 
 # Definition for singly-linked list.
 # class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
+#     def __init__(self, test=0, next=None):
+#         self.test = test
 #         self.next = next
 
-def removeElements(head,val):
+def removeElements(head,test):
         
     #Intuitive traversal solution
     
     curr,prev = head,None
     while curr:
-        if curr.val==val:
+        if curr.test==test:
             if not prev: curr,head = [curr.next]*2
             else: 
                 prev.next,curr = [curr.next]*2
@@ -5143,7 +5143,7 @@ def dailyTemperatures(temperatrues):
 
 def maximumBeauty(items,queries):
         
-    #O(n) time and O(1) memory; sort items and queries (while keeping track of indices) by value and prices respectively. Then traverse over items and only increment if the item gets too expensive for its associated value (which should be the most beautiful for tht given price)
+    #O(n) time and O(1) memory; sort items and queries (while keeping track of indices) by testue and prices respectively. Then traverse over items and only increment if the item gets too expensive for its associated testue (which should be the most beautiful for tht given price)
     
     ans = [0]*len(queries)
     queries = sorted([[i,j] for i,j in enumerate(queries)], key=lambda x:x[1], reverse=True)
@@ -5160,9 +5160,9 @@ def maximumBeauty(items,queries):
     return ans
 
 #Date: November 13, 2021
-#https://leetcode.com/problems/check-whether-two-strings-are-almost-equivalent/
+#https://leetcode.com/problems/check-whether-two-strings-are-almost-equitestent/
 
-def checkAlmostEquivalent(word1,word2):
+def checkAlmostEquitestent(word1,word2):
         
     #Intuitive
     
@@ -5221,12 +5221,12 @@ def largestDivisibleSubset(nums):
         return ans
 
 #Date: November 15, 2021
-#https://leetcode.com/problems/valid-number/submissions/
+#https://leetcode.com/problems/testid-number/submissions/
 
 def isNumber(s):
         
     #The question of a million edge cases. 
-    #An O(n) intuitive solution; lay out scneraios of validity for each potentially valid character
+    #An O(n) intuitive solution; lay out scneraios of testidity for each potentially testid character
     
     newint,seenint,dec,e = True,False,False,False
     for i,j in enumerate(s):
@@ -5262,9 +5262,9 @@ def findDisappearedNumbers(nums):
 
 def findKthNumber(m,n,k):
         
-    #An O(min(n,m)lognm) binary search solution. We want to narrow down to a value where it has k values that its greater than in the matrix. 
+    #An O(min(n,m)lognm) binary search solution. We want to narrow down to a testue where it has k testues that its greater than in the matrix. 
     
-    #Something i'm still unsure about tbh: how to we prove that l,r will always narrow down to a value that exists on the matrix?
+    #Something i'm still unsure about tbh: how to we prove that l,r will always narrow down to a testue that exists on the matrix?
     
     l,r = 1,m*n
     if n<m: n,m=m,n
@@ -5302,13 +5302,13 @@ def singleNonDuplicate(nums):
     return nums[l]
 
 #Date: November 20,2021
-#https://leetcode.com/problems/number-of-valid-words-for-each-puzzle/
+#https://leetcode.com/problems/number-of-testid-words-for-each-puzzle/
 
 from collections import Counter
 class Solution:
-    def findNumOfValidWords(self, words,puzzles):
+    def findNumOftestidWords(self, words,puzzles):
         
-        #make bitmask for words (keep freq map of this too) and for puzzles. then, enumerate over each submask of each puzzle mask and see if it exists in the freq map (aka see if matches a word(s)) upon validation of the first condition by left shifting the first puzzle letter
+        #make bitmask for words (keep freq map of this too) and for puzzles. then, enumerate over each submask of each puzzle mask and see if it exists in the freq map (aka see if matches a word(s)) upon testidation of the first condition by left shifting the first puzzle letter
         
         ans = []
         bfrq = Counter(list(map(self.mask,words)))
@@ -5334,8 +5334,8 @@ class Solution:
 
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
+#     def __init__(self, test=0, left=None, right=None):
+#         self.test = test
 #         self.left = left
 #         self.right = right
 class Solution:
@@ -5347,16 +5347,16 @@ class Solution:
         #3. if we have 2 children, take the max of left subtree or min of right subtree nd recurse on min/max node
 
         if not root: return root
-        elif key < root.val: root.left = self.deleteNode(root.left, key)
-        elif key > root.val: root.right = self.deleteNode(root.right, key)
+        elif key < root.test: root.left = self.deleteNode(root.left, key)
+        elif key > root.test: root.right = self.deleteNode(root.right, key)
         else:
             if all([not root.left,not root.right]): root = None
             elif not root.left: root = root.right
             elif not root.right: root = root.left
             else:
                 rep = self.helpmax(root.left)
-                root.val = rep.val
-                root.left = self.deleteNode(root.left, rep.val)
+                root.test = rep.test
+                root.left = self.deleteNode(root.left, rep.test)
         return root
 
     def helpmax(self, root):
@@ -5380,11 +5380,11 @@ def countPrimes(n):
         return sum([1 for i in range(2,n) if dp[i]])
 
 #Date: November 24, 2021
-#https://leetcode.com/problems/interval-list-intersections/
+#https://leetcode.com/problems/intertest-list-intersections/
 
-def intervalIntersection(arr1,arr2):
+def intertestIntersection(arr1,arr2):
         
-        #O(n) time two pointers approach (each pointer traverses arr1 and arr2 respectively). op,ed comparisons are intuitive and pointers are incremented based on which one ends first; since the intervals are disconjunct, if an interval ends, there will be nothing else that will be able to overlap it unless it overlaps the matching interval of the other arr as well (which is invalid)
+        #O(n) time two pointers approach (each pointer traverses arr1 and arr2 respectively). op,ed comparisons are intuitive and pointers are incremented based on which one ends first; since the intertests are disconjunct, if an intertest ends, there will be nothing else that will be able to overlap it unless it overlaps the matching intertest of the other arr as well (which is intestid)
         
         ans = []
         i,j = 0,0
@@ -5443,7 +5443,7 @@ def getAverages(nums,k):
         
     #intuitive prefix sum array O(n) solution
     
-    def valid(i):
+    def testid(i):
         if 0<=i<len(nums): return True
         return False
     
@@ -5452,7 +5452,7 @@ def getAverages(nums,k):
     l,r = -k,k
     ans = []
     for i in range(len(nums)):
-        if all([valid(r),valid(l)]): ans += [(psa[r+1]-psa[l])//(2*k+1)]
+        if all([testid(r),testid(l)]): ans += [(psa[r+1]-psa[l])//(2*k+1)]
         else: ans += [-1]
         l += 1
         r += 1
@@ -5482,10 +5482,10 @@ class Solution:
         self.ans = 1
         facs = defaultdict(list)
         
-        def find(val):
-            if type(self.dsu[val])==list: return val
-            self.dsu[val]=find(self.dsu[val])
-            return self.dsu[val]
+        def find(test):
+            if type(self.dsu[test])==list: return test
+            self.dsu[test]=find(self.dsu[test])
+            return self.dsu[test]
         
         def union(ds1,ds2):
             u1,u2 = find(ds1),find(ds2)
@@ -5634,15 +5634,15 @@ class StreamChecker:
         self.stream += letter
         i,curr = 0,self.trie.children
         while i<len(self.stream):
-            if self.stream[~i] not in curr: return False #no words are valid suffixes rip
+            if self.stream[~i] not in curr: return False #no words are testid suffixes rip
             if curr[self.stream[~i]].children==None: return True #reached end of word
             curr = curr[self.stream[~i]].children
             i+=1
         return False #stream happens to be a suffix of the word instead
             
 class TrieNode:
-    def __init__(self,value=None,):
-        self.val = value
+    def __init__(self,testue=None,):
+        self.test = testue
         self.children = {}
     
 # Your StreamChecker object will be instantiated and called as such:
@@ -5654,8 +5654,8 @@ class TrieNode:
 
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
+#     def __init__(self, test=0, left=None, right=None):
+#         self.test = test
 #         self.left = left
 #         self.right = right
 
@@ -5667,11 +5667,11 @@ class Solution:
         def dfs(node):
             if not node: return (0,0) 
             l,r = dfs(node.left),dfs(node.right)
-            node.val = (node.val+l[1]+r[1],max(l)+max(r))
-            return node.val
+            node.test = (node.test+l[1]+r[1],max(l)+max(r))
+            return node.test
         dfs(root)
         
-        return max(root.val)
+        return max(root.test)
 
 #Date: December 5, 2021
 #https://leetcode.com/problems/minimum-number-of-operations-to-make-array-continuous/
@@ -5718,8 +5718,8 @@ def maxVowels(s,k):
 
 # Definition for a binary tree node.
 # class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
+#     def __init__(self, test=0, left=None, right=None):
+#         self.test = test
 #         self.left = left
 #         self.right = right
 
@@ -5730,12 +5730,12 @@ class Solution:
         
         def dfs1(node):
             if not node: return 0
-            node.val+=dfs1(node.left)+dfs1(node.right)
-            return node.val
+            node.test+=dfs1(node.left)+dfs1(node.right)
+            return node.test
         
         def dfs2(node):
             if not node: return
-            self.ans += abs((node.left.val if node.left else 0)-(node.right.val if node.right else 0))
+            self.ans += abs((node.left.test if node.left else 0)-(node.right.test if node.right else 0))
             dfs2(node.left)
             dfs2(node.right)
         
@@ -5857,8 +5857,8 @@ def numTilings(n):
 
 # Definition for singly-linked list.
 # class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
+#     def __init__(self, test=0, next=None):
+#         self.test = test
 #         self.next = next
 class Solution:
     def insertionSortList(self, head):
@@ -5878,7 +5878,7 @@ class Solution:
             for j in range(i): pprev,curr=curr,curr.next
             while True:
                 if con==curr: break
-                if curr.val>con.val: 
+                if curr.test>con.test: 
                     prev,con = con,con.next
                     continue
                 pprev.next=(curr.next if curr.next else None)
@@ -5954,7 +5954,7 @@ class Solution:
             res1,res2 = find(pos1),find(pos2)
             if res1!=res2: self.dsu[res1],self.dsu[res2]=res2,[self.dsu[res1][0]+self.dsu[res2][0]]
         
-        def valid(i,j):
+        def testid(i,j):
             if all([0<=i<len(grid),0<=j<len(grid[0])]): return True
             return False
         
@@ -5963,15 +5963,15 @@ class Solution:
             for j in range(len(grid[0])):
                 if not grid[i][j]: continue
                 self.dsu[(i,j)]=[1] 
-                if valid(i-1,j) and grid[i-1][j]: union((i,j),(i-1,j))
-                if valid(i,j-1) and grid[i][j-1]: union((i,j),(i,j-1))
+                if testid(i-1,j) and grid[i-1][j]: union((i,j),(i-1,j))
+                if testid(i,j-1) and grid[i][j-1]: union((i,j),(i,j-1))
         
         if not self.dsu: return 1
         ans,curr=max([(self.dsu[x][0] if type(self.dsu[x])==list else 0) for x in self.dsu]),0
         for i in range(len(grid)):
             for j in range(len(grid[0])):
                 if not grid[i][j]:
-                    curr=1+sum([self.dsu[x][0] for x in {find((I,J)) for I,J in [(i-1,j),(i+1,j),(i,j-1),(i,j+1)] if (valid(I,J) and grid[I][J])}])
+                    curr=1+sum([self.dsu[x][0] for x in {find((I,J)) for I,J in [(i-1,j),(i+1,j),(i,j-1),(i,j+1)] if (testid(I,J) and grid[I][J])}])
                     ans = max(curr,ans)
         
         return ans
@@ -6005,11 +6005,11 @@ def decodeString(s):
 
 def numDistinct(self, s: str, t: str) -> int:
         
-        #interval dp (easy implementation but tricky thought process tbh)
+        #intertest dp (easy implementation but tricky thought process tbh)
         
         #each dp[i][j] gotta be at least dp[i-1][j] coz its assuming we cut the current char
         #nd if the chars are the same we also add dp[i-1][j-1] (these are the new possibilities/number of subsequences without this requirement that add on the prexsisting ways of getting 'x' subsequences)
-        #dp[i-1][j] for a case where characters are the same would be equivalent to previous ways of fufilling this requirement
+        #dp[i-1][j] for a case where characters are the same would be equitestent to previous ways of fufilling this requirement
         
         dp = [[1]+[0 for _ in range(len(t))] for __ in range(len(s)+1)]
         for i in range(1,len(dp)):
@@ -6079,7 +6079,7 @@ def findOrder(numCourses, prereq):
     return ans
 
 #Date: December 24, 2021
-#https://leetcode.com/contest/biweekly-contest-48/problems/maximum-number-of-consecutive-values-you-can-make/
+#https://leetcode.com/contest/biweekly-contest-48/problems/maximum-number-of-consecutive-testues-you-can-make/
 
 def getMaximumConsecutive(coins):
         
@@ -6140,7 +6140,7 @@ def calculate(s):
 
 def findAllRecipes(recipes, ingredients, supplies):
         
-        #topological sort the nodes then iterate through everything to check valid meals
+        #topological sort the nodes then iterate through everything to check testid meals
         
         from collections import defaultdict,deque
         supplies = set(supplies)
@@ -6208,13 +6208,13 @@ def findComplement(num):
         return num^sum([2**i for i in range(int(math.log(num,2))+1)])
 
 #Date: December 27, 2021
-#https://leetcode.com/problems/check-if-a-parentheses-string-can-be-valid/submissions/
+#https://leetcode.com/problems/check-if-a-parentheses-string-can-be-testid/submissions/
 
-def canBeValid(s,locked):
+def canBetestid(s,locked):
         
         #O(n) two pass solution (pre slick problem tbh)
         
-        #first u wanna balance the locked ')' by any means possible while making sure its valid lol
+        #first u wanna balance the locked ')' by any means possible while making sure its testid lol
         
         if len(s)%2: return False
         bal, start = 0,None
@@ -6306,8 +6306,8 @@ class Solution:
 def countDigitOne(n):
         
     #O(logn) mathematical solution
-    #intervals of new 1s: 0-9, 10-99, 100-999, 1000,9999... 
-        #each interval yields 1,10,100,etc. new '1's respectively
+    #intertests of new 1s: 0-9, 10-99, 100-999, 1000,9999... 
+        #each intertest yields 1,10,100,etc. new '1's respectively
     #conditions for FULL yield when %upper bound+1: 1 <=, 19 <=, 199 <=...
     #conditions for PARTIAL yielf when %upper bound+1: None, 10 <= < 19,  100 <= < 199, 1000 <= < 1999 ... 
     
@@ -6360,9 +6360,9 @@ def minCostConnectPoints(coords):
 
 def maxCoins(nums):
         
-    #an O(n^3) bottom up approach (focus on which balloon we should burst last) + interval dp 
-    #dp[i][j] = ans for interval of i -> j where i,j are indices
-    #Note: dp[i][j] is evaluated relative to the left and right boundaries (i.e l,r in the code)
+    #an O(n^3) bottom up approach (focus on which balloon we should burst last) + intertest dp 
+    #dp[i][j] = ans for intertest of i -> j where i,j are indices
+    #Note: dp[i][j] is etestuated relative to the left and right boundaries (i.e l,r in the code)
     
     n = len(nums); nums += [1]
     dp = [[0 for _ in range(n)] for __ in range(n)]
@@ -6417,7 +6417,7 @@ def nearestExit(maze,entrance):
     seen,dq = set(), deque([tuple(entrance)])
     ans = 0 
 
-    def valid(i,j):
+    def testid(i,j):
         if 0<=i<len(maze) and 0<=j<len(maze[0]) and maze[i][j]=='.': return True
         return False
     
@@ -6432,7 +6432,7 @@ def nearestExit(maze,entrance):
             i,j = curr[0],curr[1]
             if curr!=tuple(entrance) and end(i,j): return ans
             for I,J in [[i+1,j],[i-1,j],[i,j+1],[i,j-1]]:
-                if valid(I,J) and (I,J) not in seen: seen.add((I,J)); dq += [(I,J)]
+                if testid(I,J) and (I,J) not in seen: seen.add((I,J)); dq += [(I,J)]
         ans += 1
     
     return -1
@@ -6549,13 +6549,13 @@ def cherryPickup(grid):
 
     #typical dfs + memo approach
     
-    def valid(j):
+    def testid(j):
         if 0<=j<len(grid[0]): return True
         return False 
     
     @cache
     def dfs(i,j1,j2):
-        if not valid(j1) or not valid(j2): return 0
+        if not testid(j1) or not testid(j2): return 0
         res = grid[i][j1]+grid[i][j2] // (2 if j1==j2 else 1)
         if i!=len(grid)-1: res += max(dfs(i+1,J,JJ) for J in [j1,j1+1,j1-1] for JJ in [j2,j2+1,j2-1])
         return res
@@ -6584,7 +6584,7 @@ def pairSum(head):
     arr=[]
     ans = float('-inf')
     while curr:
-        arr += [curr.val]
+        arr += [curr.test]
         curr = curr.next
     
     l,r = 0,len(arr)-1
@@ -6639,7 +6639,7 @@ def numDecodings(s):
     #seems like a typical O(N) memo problem, for each s --> however many s[1:] and s[2:] possibilities. Edge cases to be dealt seperately once it becomes len(s) in [1,2]
     
     self.memo={}
-    def valid(s):
+    def testid(s):
         if len(s)==2 and s[0]=='0': return False
         if 0<int(s)<27: return 1
         return 0
@@ -6649,24 +6649,24 @@ def numDecodings(s):
         if len(s)==1:
             if int(s): return 1
             return 0
-        if len(s)==2: return valid(s) + (valid(s[0])&valid(s[1]))
-        self.memo[s] = (solve(s[1:]) if valid(s[0]) else 0) + (solve(s[2:]) if valid(s[:2]) else 0)
+        if len(s)==2: return testid(s) + (testid(s[0])&testid(s[1]))
+        self.memo[s] = (solve(s[1:]) if testid(s[0]) else 0) + (solve(s[2:]) if testid(s[:2]) else 0)
         return self.memo[s]
     
     return solve(s)
 
 #https://leetcode.com/problems/insert-into-a-binary-search-tree/submissions/
 
-def insertIntoBST(root,val):
+def insertIntoBST(root,test):
         
     curr=root
-    if not root: return TreeNode(val)
+    if not root: return TreeNode(test)
     while True:
-        if val<curr.val:
-            if not curr.left: curr.left=TreeNode(val); break
+        if test<curr.test:
+            if not curr.left: curr.left=TreeNode(test); break
             else: curr=curr.left
-        elif val>curr.val:
-            if not curr.right: curr.right=TreeNode(val); break
+        elif test>curr.test:
+            if not curr.right: curr.right=TreeNode(test); break
             else: curr=curr.right
     return root
 
@@ -6711,7 +6711,7 @@ def minJumps(arr):
         conc=defaultdict(list)
         for i,j in enumerate(arr): conc[j] += [i]
         
-        def valid(i):
+        def testid(i):
             if 0<=i<len(arr): return True
             return False
         
@@ -6721,7 +6721,7 @@ def minJumps(arr):
             for i in range(len(dq)):
                 curr=dq.popleft(); seen.add(curr)
                 if curr==len(arr)-1: return ans
-                dq += [x for x in [curr+1 if valid(curr+1) else None,curr-1 if valid(curr-1) else None]+conc[arr[curr]] if x!=None and x not in seen]
+                dq += [x for x in [curr+1 if testid(curr+1) else None,curr-1 if testid(curr-1) else None]+conc[arr[curr]] if x!=None and x not in seen]
                 conc[arr[curr]]=[]
             ans+=1
         return ans
@@ -6889,7 +6889,7 @@ def highestRankedKItems(grid, pricing, start: List[int], k: int):
     seen = {tuple(start)}
     lo,hi = pricing
     
-    def valid(i,j):
+    def testid(i,j):
         if 0<=i<len(grid) and 0<=j<len(grid[0]): return True
         return False
     
@@ -6899,7 +6899,7 @@ def highestRankedKItems(grid, pricing, start: List[int], k: int):
             i,j=dq.popleft()
             if lo<=grid[i][j]<=hi: temp += [[i,j]]
             for I,J in [(i-1,j),(i+1,j),(i,j+1),(i,j-1)]:
-                if valid(I,J) and grid[i][j] and (I,J) not in seen:
+                if testid(I,J) and grid[i][j] and (I,J) not in seen:
                     dq += [(I,J)]; seen.add((I,J))
 
         ans += sorted(temp, key=lambda x:(grid[x[0]][x[1]], x[0],x[1]))
@@ -7000,7 +7000,7 @@ def minSwapsCouples(row):
         #you will have at least 6 people to deal with (this would be 2 swaps), 8 would be 3 ...
         #so building off of this you'll need to swap (numnber of chairs-1 in question) times. 
         
-    #constraints are loose so rebuilding the dsu after each swap is also possible tho its tedious
+    #constestts are loose so rebuilding the dsu after each swap is also possible tho its tedious
     
     
     self.dsu = {n:[1] for n in range(len(row))}
@@ -7055,13 +7055,13 @@ class Solution:
             for i in range(32): 
                 comp = (int(bitn[i])+1)%2
                 curr = curr.next[comp] if curr.next[comp] else curr.next[int(bitn[i])]
-                res += str(curr.val)
+                res += str(curr.test)
             ans = max(ans,n^int(res,2))
         return ans
         
 class node:
-    def __init__(self,val=None):
-        self.val = val
+    def __init__(self,test=None):
+        self.test = test
         self.next = [0,0]
         
         

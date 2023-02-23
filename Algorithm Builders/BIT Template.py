@@ -10,9 +10,9 @@ class BIT:
                 self.bit[j] += self.bit[i]
         return
         
-    def update(self,index,val):
-        i,diff = index+1,val-self.nums[index]
-        self.nums[index] = val
+    def update(self,index,test):
+        i,diff = index+1,test-self.nums[index]
+        self.nums[index] = test
         while i < len(self.bit):
             self.bit[i] += diff
             i += i&-i
@@ -28,4 +28,5 @@ class BIT:
         return prefix_sum(right+1) - prefix_sum(left)
 
 x = BIT([1,2,3,4,5,6,7])
+x.update(1,3)
 print(x.sum(1,2))

@@ -132,7 +132,7 @@ Result.append(Result_input)
 # for each layer(replacement made) all possible replacements are taken down temporarily them stored
 #where each action is taken down as (string before, rule# used, index used + 1, string after)
 
-#number of layers created besides layer of the original value = number of steps given in the input
+#number of layers created besides layer of the original testue = number of steps given in the input
 
 All_Paths = []
 Current_Layer = [['','','',Result[1]]]

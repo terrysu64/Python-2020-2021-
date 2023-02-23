@@ -2,43 +2,43 @@
 #Purpose: quick question I heard about
 
 #Given a single array, determine the distance (in indices)
-#between the value at each index and the closest greater value AHEAD.
+#between the testue at each index and the closest greater testue AHEAD.
 
 #Note: return output for each index of the input array in the format of another array
-#Note: if there is greater no value ahead of the current, then the output for that index is 'impossible'.
+#Note: if there is greater no testue ahead of the current, then the output for that index is 'impossible'.
 
-def GreaterValues(arr):
-    #use stack, always keep smallest value in front (will be automatically done)
-    #if a value is larger than smallest value, compare then repeat if necesarry
+def Greatertestues(arr):
+    #use stack, always keep smallest testue in front (will be automatically done)
+    #if a testue is larger than smallest testue, compare then repeat if necesarry
 
     ans = arr
     stack = []
     
-    for index, value in enumerate(arr):
+    for index, testue in enumerate(arr):
 
         #initialize the stack when its first index
         if index == 0:
-            stack.append((value,index))
+            stack.append((testue,index))
 
         #if less or equal to most recent
-        if value <= stack[-1][0] and index != 0 :
-            stack.append((value,index))
+        if testue <= stack[-1][0] and index != 0 :
+            stack.append((testue,index))
         
 
         #if bigger than most recent/smallest
-        elif value > stack[-1][0]:
+        elif testue > stack[-1][0]:
 
-            while value > stack[-1][0] and len(stack) > 0:
+            while testue > stack[-1][0] and len(stack) > 0:
                 ans[stack[-1][1]] = (index - stack[-1][1], 'possible')
                 stack.pop()
 
-                try: #if it is bigger than every value in the stack, then go onto next round
+                try: #if it is bigger than every testue in the stack, then go onto next round
                     stack[-1][0]
                 
                 except IndexError:
                     break
 
-            stack.append((value,index))
+            stack.append((testue,index))
 
     for index, element in enumerate(ans):
         if type(element) != tuple:

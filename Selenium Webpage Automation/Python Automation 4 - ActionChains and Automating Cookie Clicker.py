@@ -30,11 +30,11 @@ while True:
         text = item.get_attribute('textContent')
 
         if ',' in text:
-            value = int(text[:text.index(',')]+text[text.index(',')+1:])
+            testue = int(text[:text.index(',')]+text[text.index(',')+1:])
         else:
-            value = int(item.get_attribute('textContent'))
+            testue = int(item.get_attribute('textContent'))
 
-        if value <= count:
+        if testue <= count:
             upgrade_actions = ActionChains(driver)
             upgrade_actions.move_to_element(item)
             upgrade_actions.click()

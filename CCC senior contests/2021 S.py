@@ -16,7 +16,7 @@ print(area)
 
 #Q2(exceeded time limit for last subtask but correct algorithm)
 
-#set up 2D array and change values according to each brush
+#set up 2D array and change testues according to each brush
 
 row = int(input())
 column = int(input())
@@ -118,9 +118,9 @@ else:
 
 #N stations
 
-#one train only that runs in station order S1,S2...SN (you want to get to N ASAP) represented by integers
+#one test only that runs in station order S1,S2...SN (you want to get to N ASAP) represented by integers
 #The order is not necessarily 1,2,3,4... tho
-#train runs 1 min between stations
+#test runs 1 min between stations
 
 #Theres also walkways from station Ai to Bi (takes 1 min to get there)
 
@@ -172,7 +172,7 @@ def Day(Day_Number):
                 Branch(Time + 1, Next)                 #Otherwise, keep branching possibilities
 
     Time = 0
-    for Curr in Station_Order: #At each station check if there are walkways, otherwise keep riding the train
+    for Curr in Station_Order: #At each station check if there are walkways, otherwise keep riding the test
         
         if Time >= min(Times): #if a minimum time has been found, theres no point to compute further possibilities
             break

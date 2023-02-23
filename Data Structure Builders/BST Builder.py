@@ -5,8 +5,8 @@
 class Node:
 
     #constructor for each node in the BST
-    def __init__(self, value = None, left=None, right = None): #None is like null
-        self.value = value
+    def __init__(self, testue = None, left=None, right = None): #None is like null
+        self.testue = testue
         self.left = left
         self.right = right
 
@@ -18,17 +18,17 @@ class BST:
     def __init__(self,root = None):
         self.root = root
 
-    def insert(self,value):
+    def insert(self,testue):
         
         spot = self.root
-        new_node = Node(value)
+        new_node = Node(testue)
 
         if self.root == None:
             self.root = new_node
             return
         
         while True: #until according empty spot is found (spot.left or spot.right)
-            if value > spot.value: #going right
+            if testue > spot.testue: #going right
                 
                 if spot.right == None:
                     spot.right = new_node
@@ -37,7 +37,7 @@ class BST:
                 else:
                     spot = spot.right
 
-            elif value < spot.value: #going left
+            elif testue < spot.testue: #going left
 
                 if spot.left == None:
                     spot.left = new_node
@@ -46,31 +46,31 @@ class BST:
                 else:
                     spot = spot.left
 
-            elif value == spot.value: #special case if value inserted already exists
+            elif testue == spot.testue: #special case if testue inserted already exists
                 return 
 
-    def lookup(self,value):
+    def lookup(self,testue):
         
         spot = self.root
         
         while spot != None: #traverse tree according to rules
-            if value > spot.value:
+            if testue > spot.testue:
                 spot = spot.right
 
-            elif value < spot.value:
+            elif testue < spot.testue:
                 spot = spot.left
 
-            elif value == spot.value:
+            elif testue == spot.testue:
                 return spot
 
-        return print(value, 'was not found')
+        return print(testue, 'was not found')
 
 
     def traverse(self,node): #node should start with self.root when called
-                             #prints all values in the BST
+                             #prints all testues in the BST
                              #a pre-order DFS
         if node:
-            print(node.value)
+            print(node.testue)
 
         if node.left:
             self.traverse(node.left)

@@ -14,6 +14,6 @@ def manachers(S):
     return Z
 
 
-res = manachers(s)
+res = manachers('ahfbfbbbbfffj')
 odd = res[2:-2:2]
 even = res[1:-2:2]

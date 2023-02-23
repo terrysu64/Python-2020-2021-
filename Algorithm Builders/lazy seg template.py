@@ -1,9 +1,10 @@
+from math import ceil,log2
 class lazyseg:
     def __init__(self,arr):
-        self.n = len(arr)
+        self.n = len(arr); need = 2**(ceil(log2(self.n))+1)
         self.arr = arr
-        self.tree = [0 for _ in range(self.n*2 + 2)]
-        self.lazy = [0 for _ in range(self.n*2 + 2)]
+        self.tree = [0 for _ in range(need)]
+        self.lazy = [0 for _ in range(need)]
         self.init(0,self.n-1,0)
 
     def init(self,l,r,i):

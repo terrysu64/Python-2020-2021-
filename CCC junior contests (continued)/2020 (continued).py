@@ -6,17 +6,17 @@
 print('Q1')
 small = int(input('enter the number of SMALL treats Barley received: '))
 while small < 0 or small >= 10:
-    print('your input was not valid, try again.')
+    print('your input was not testid, try again.')
     small = int(input('enter the number of SMALL treats Barley received: '))
     
 medium = int(input('enter the number of MEDIUM treats Barley received: '))
 while medium < 0 or medium >= 10:
-    print('your input was not valid, try again.')
+    print('your input was not testid, try again.')
     medium = int(input('enter the number of MEDIUM treats Barley received: '))
     
 large = int(input('enter the number of LARGE treats Barley received: '))
 while large < 0 or large >= 10:
-    print('your input was not valid, try again.')
+    print('your input was not testid, try again.')
     large = int(input('enter the number of LARGE treats Barley received: '))
 
 print()
